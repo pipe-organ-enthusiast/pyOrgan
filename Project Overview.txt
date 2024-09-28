@@ -1,0 +1,22 @@
+pyOrgan
+Virtual Pipe Organ
+
+Organ
+    Divisions
+        Stops
+            Ranks
+                Pipes
+                    Harmonics
+                    ADSR
+        Enclosure
+        Tremulant
+        Divisionals
+    Divisional Couplers (Couplers)
+    Crescendo Pedal
+    Generals
+
+GUI (Graphical User Interface): tkinter
+
+MIDI Interface: mido / *py-midi
+
+Audio Interface: pyaudio / *sounddevice
