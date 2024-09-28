@@ -5,7 +5,7 @@ Sine Wave Equation:
 Waveform = Amplitude * Sin(2 * Pi * Frequency * NSamples / Samplerate)
 """
 
-from numpy import pi, sin
+from math import pi, sin
 from typing import Self
 
 
@@ -68,3 +68,16 @@ class Harmonic:
     @samplerate.setter
     def samplerate(self, s: int) -> None:
         self.__samplerate: int = abs(s)
+
+
+if __name__ == "__main__":
+    harmonic: Harmonic = Harmonic(
+        frequency=440.0,
+        amplitude=0.5,
+        samplerate=44100
+    )
+    iter(harmonic)
+    wave: list[float] = [
+        next(harmonic) for _ in range(10)
+    ]
+    print(wave)
