@@ -2,7 +2,7 @@
 Harmonic: Sine Wave
 
 Sine Wave Equation:
-Wave = Amplitude * Sin(2 * Pi * Frequency * NSamples / Samplerate)
+Waveform = Amplitude * Sin(2 * Pi * Frequency * NSamples / Samplerate)
 """
 
 from numpy import pi, sin
@@ -25,7 +25,7 @@ class Harmonic:
         return self
 
     def __next__(self) -> float:
-        sample = self.__calc_sample()
+        sample: float = self.__calc_sample()
         self.__value += self.__value_increment
         return sample
 
