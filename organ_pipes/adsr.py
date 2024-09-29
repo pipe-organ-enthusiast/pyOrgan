@@ -1,6 +1,6 @@
 """adsr.py
 ADSR - Attack, Decay, Release, Sustain
-Attack - Starts when air enters the pipe, ends when peak sound reahed
+Attack - Starts when air enters the pipe, ends when peak sound reached
 Decay - Starts when pipe reaches peak sound, ends when sound has "settled"
 Sustain - Level at which sound settles in the pipe
 Release - Starts when air stops flowing through the pipe
@@ -70,7 +70,7 @@ class ADSR:
     @property
     def __attack_modifier(self) -> float:
         attack_samples: float = self.attack * self.samplerate
-        return self.attack / attack_samples
+        return self.MAX_LEVEL / attack_samples
 
     @property
     def __decay_modifier(self) -> float:
@@ -84,7 +84,6 @@ class ADSR:
         release_rate: float = self.release * self.samplerate
         return int(level_ratio * release_rate)
         
-
     @property
     def __release_modifier(self) -> float:
         return self.__reached_level / self.num_release_samples
@@ -145,7 +144,7 @@ if __name__ == "__main__":
         decay_time=0.1,
         sustain_level=0.95,
         release_time=0.8,
-        samplerate=10
+        samplerate=48000
     )
     iter(adsr)
     wave_mod: list[float] = [
@@ -153,7 +152,7 @@ if __name__ == "__main__":
     ]
     adsr.start_release()
     release: list[float] = [
-        next(adsr) for _ in range(adsr.num_release_samples)
+        next(adsr) for _ in range(adsr.num_release_samples+1)
     ]
     wave_mod += release
     print(wave_mod)

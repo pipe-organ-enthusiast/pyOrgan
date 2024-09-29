@@ -21,7 +21,7 @@ class Harmonic:
         self.samplerate = samplerate
 
     def __iter__(self) -> Self:
-        self.__value: float = 0.0
+        self.__value: float = self.MIN_AMPLITUDE
         return self
 
     def __next__(self) -> float:
@@ -85,6 +85,6 @@ if __name__ == "__main__":
     )
     iter(harmonic)
     wave: list[float] = [
-        next(harmonic) for _ in range(10)
+        next(harmonic) for _ in range(1000)
     ]
     print(wave)
