@@ -32,6 +32,15 @@ class Harmonic:
     def __calc_sample(self) -> float:
         return self.amplitude * sin(self.__value)
 
+    ###########################################################################
+    @property
+    def MIN_AMPLITUDE(self) -> float:
+        return 0.0
+
+    @property
+    def MAX_AMPLITUDE(self) -> float:
+        return 1.0
+
     @property
     def __value_increment(self) -> float:
         return 2 * pi * self.frequency / self.samplerate
@@ -52,12 +61,10 @@ class Harmonic:
 
     @amplitude.setter
     def amplitude(self, a: float) -> None:
-        min: float = 0.0
-        max: float = 1.0
-        if a < min:
-            a = min
-        elif a > max:
-            a = max
+        if a < self.MIN_AMPLITUDE:
+            a = self.MIN_AMPLITUDE
+        elif a > self.MAX_AMPLITUDE:
+            a = self.MAX_AMPLITUDE
         self.__amplitude: float = a
 
     #--------------------------------------------------------------------------
