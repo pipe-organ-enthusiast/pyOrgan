@@ -48,9 +48,7 @@ class DigitalPipe:
 
     def __next__(self) -> float:
         harmonics_sample: float = self.__harmonics_value
-        print(harmonics_sample)
         adsr_modifier: float = self.__adsr_value
-        print(adsr_modifier)
         self.__harmonics_value = sum(
         [next(harmonic) for harmonic in self.__harmonics]
         ) / self.nharmonics
