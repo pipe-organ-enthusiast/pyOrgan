@@ -1,4 +1,4 @@
-"""digital_pipe.py
+"""pipe_generator.py
 
 Combination of mulitple harmonics and adsr to create a digital representation
 of an organ pipe
@@ -8,12 +8,12 @@ Pipe Attributes:
     Type: Open vs Closed
     Number of Harmonics
 """
-from harmonic import Harmonic
-from adsr import ADSR
+from .harmonic import Harmonic
+from .adsr import ADSR
 from typing import Self, Literal
 
 
-class DigitalPipe:
+class PipeGenerator:
     def __init__(
             self,
             frequency: float,
@@ -157,7 +157,7 @@ class DigitalPipe:
 
 
 if __name__ == "__main__":
-    pipe: DigitalPipe = DigitalPipe(
+    pipe: PipeGenerator = PipeGenerator(
         frequency=440.0,
         pipe_type="OPEN",
         number_harmonics=4,
