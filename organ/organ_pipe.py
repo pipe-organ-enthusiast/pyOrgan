@@ -177,9 +177,7 @@ if __name__ == "__main__":
         samplerate=48000
     )
     pipe.start()
-    waveform = [pipe.get_sample() for _ in range(2*pipe.samplerate)]
+    waveform = [pipe.get_sample() for _ in range(14)]
     pipe.stop()
     tail = [pipe.get_sample() for _ in range(pipe.num_release_samples)]
-    #print(pipe.num_release_samples)
-    #print(len(tail))
     print(tail)
