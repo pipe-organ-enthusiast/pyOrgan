@@ -82,11 +82,11 @@ class ADSR:
     def num_release_samples(self) -> int:
         level_ratio: float = self.__reached_level / self.sustain
         release_rate: float = self.release * self.samplerate
-        return int(level_ratio * release_rate)
-        
+        return level_ratio * release_rate
+
     @property
     def __release_modifier(self) -> float:
-        return self.__reached_level / self.num_release_samples
+        return self.__reached_level / int(self.num_release_samples)
 
     #**************************************************************************
     @property
@@ -152,7 +152,8 @@ if __name__ == "__main__":
     ]
     adsr.start_release()
     release: list[float] = [
-        next(adsr) for _ in range(adsr.num_release_samples+1)
+        next(adsr) for _ in range(int(adsr.num_release_samples)+1)
     ]
+    print(adsr.num_release_samples)
     wave_mod += release
-    print(wave_mod)
+    #print(wave_mod)

@@ -97,12 +97,11 @@ class PipeGenerator:
         self.amplitudes = amplitudes
         self.__harmonics = self.__init_harmonics()
 
-    def adjust_amplitude(
+    def adjust_amplitudes(
             self,
-            harmonic: int,
-            amplitude: float
+            amplitudes: list[float]
     ) -> None:
-        self.amplitudes[harmonic] = amplitude
+        self.amplitudes = amplitudes
         self.__harmonics = self.__init_harmonics()
 
     def adjust_attack(self, attack_time: float) -> None:
@@ -129,9 +128,26 @@ class PipeGenerator:
     ###########################################################################
     @property
     def num_adsr_release_samples(self) -> None:
-        return self.__adsr.num_release_samples
+        num_samples: float = self.__adsr.num_release_samples
+        print(num_samples)
+        if not num_samples % 1 == 0:
+            num_samples += 2
+        else:
+            num_samples += 1
+        return int(num_samples)
 
     #**************************************************************************
+    @property
+    def pipetype(self) -> Literal["OPEN", "CLOSED"]:
+        return self.__pipetype
+
+    @pipetype.setter
+    def pipetype(self, pipe_type: Literal["OPEN", "CLOSED"]) -> None:
+        if not pipe_type == "OPEN" or pipe_type == "CLOSED":
+            pipe_type = "OPEN"
+        self.__pipetype: Literal["OPEN", "CLOSED"] = pipe_type
+
+    #--------------------------------------------------------------------------
     @property
     def nharmonics(self) -> int:
         return self.__nharmonics
@@ -154,27 +170,3 @@ class PipeGenerator:
             while True:
                 a.append(0.0)
         self.__amplitudes: list[float] = a
-
-
-if __name__ == "__main__":
-    pipe: PipeGenerator = PipeGenerator(
-        frequency=440.0,
-        pipe_type="OPEN",
-        number_harmonics=4,
-        amplitudes=[0.4, 0.1, 0.05, 0.009],
-        attack_time=0.2,
-        decay_time=0.15,
-        sustain_level=0.95,
-        release_time=0.8,
-        samplerate=48000
-    )
-    iter(pipe)
-    waveform: list[float] = [
-        next(pipe) for _ in range(2 * pipe.samplerate)
-    ]
-    pipe.start_adsr_release()
-    tail: list[float] = [
-        next(pipe) for _ in range(pipe.num_adsr_release_samples + 2)
-    ]
-    waveform += tail
-    print(waveform)
