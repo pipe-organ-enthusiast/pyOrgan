@@ -132,7 +132,7 @@ RANK_MIDI_OFFSET: dict = {
 ###############################################################################
 # Functions
 ###############################################################################
-def calc_frequency(note: str, rank: str) -> float:
+def calc_frequency_equal_temperment(note: str, rank: str) -> float:
     midi_note: int = NOTE_TO_MIDI[note]
     midi_adjust: int = RANK_MIDI_OFFSET[rank]
     midi_num: int = midi_note + midi_adjust - NOTE_TO_MIDI["A4"]
@@ -140,5 +140,5 @@ def calc_frequency(note: str, rank: str) -> float:
 
 
 if __name__ == "__main__":
-    frequency: float = calc_frequency("C7", "1/16'")
+    frequency: float = calc_frequency_equal_temperment("A4", "8'")
     print(frequency)

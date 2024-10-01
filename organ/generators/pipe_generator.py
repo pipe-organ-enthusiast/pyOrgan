@@ -129,11 +129,10 @@ class PipeGenerator:
     @property
     def num_adsr_release_samples(self) -> None:
         num_samples: float = self.__adsr.num_release_samples
-        print(num_samples)
         if not num_samples % 1 == 0:
-            num_samples += 2
+            num_samples += 3
         else:
-            num_samples += 1
+            num_samples += 2
         return int(num_samples)
 
     #**************************************************************************

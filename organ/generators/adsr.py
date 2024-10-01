@@ -79,7 +79,7 @@ class ADSR:
         return decay_level / decay_samples
 
     @property
-    def num_release_samples(self) -> int:
+    def num_release_samples(self) -> float:
         level_ratio: float = self.__reached_level / self.sustain
         release_rate: float = self.release * self.samplerate
         return level_ratio * release_rate

@@ -37,19 +37,19 @@ class OrganPipe:
             samplerate=samplerate
         )
 
-    def start_pipe(self) -> None:
+    def start(self) -> None:
         iter(self.__pipegenerator)
 
     def get_sample(self) -> float:
         return next(self.__pipegenerator)
 
-    def stop_pipe(self) -> None:
+    def stop(self) -> None:
         self.__pipegenerator.start_adsr_release()
 
     ###########################################################################
     @property
     def __frequency(self) -> float:
-        return organlib.calc_frequency(
+        return organlib.calc_frequency_equal_temperment(
             note=self.realnote,
             rank=self.ranksize
         )
@@ -176,10 +176,10 @@ if __name__ == "__main__":
         release_time=0.8,
         samplerate=48000
     )
-    pipe.start_pipe()
+    pipe.start()
     waveform = [pipe.get_sample() for _ in range(2*pipe.samplerate)]
-    pipe.stop_pipe()
+    pipe.stop()
     tail = [pipe.get_sample() for _ in range(pipe.num_release_samples)]
-    print(pipe.num_release_samples)
-    print(len(tail))
-    #print(tail)
+    #print(pipe.num_release_samples)
+    #print(len(tail))
+    print(tail)
