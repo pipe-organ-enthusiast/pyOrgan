@@ -75,16 +75,3 @@ class Harmonic:
     @samplerate.setter
     def samplerate(self, s: int) -> None:
         self.__samplerate: int = abs(s)
-
-
-if __name__ == "__main__":
-    harmonic: Harmonic = Harmonic(
-        frequency=440.0,
-        amplitude=0.5,
-        samplerate=44100
-    )
-    iter(harmonic)
-    wave: list[float] = [
-        next(harmonic) for _ in range(1000)
-    ]
-    print(wave)

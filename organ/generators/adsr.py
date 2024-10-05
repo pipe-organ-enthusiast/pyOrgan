@@ -136,24 +136,3 @@ class ADSR:
     @samplerate.setter
     def samplerate(self, sr: int) -> None:
         self.__samplerate: int = abs(sr)
-
-
-if __name__ == "__main__":
-    adsr: ADSR = ADSR(
-        attack_time=0.5,
-        decay_time=0.1,
-        sustain_level=0.95,
-        release_time=0.8,
-        samplerate=48000
-    )
-    iter(adsr)
-    wave_mod: list[float] = [
-        next(adsr) for _ in range(2*adsr.samplerate)
-    ]
-    adsr.start_release()
-    release: list[float] = [
-        next(adsr) for _ in range(int(adsr.num_release_samples)+1)
-    ]
-    print(adsr.num_release_samples)
-    wave_mod += release
-    #print(wave_mod)
