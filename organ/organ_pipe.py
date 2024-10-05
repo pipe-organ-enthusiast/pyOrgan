@@ -33,15 +33,7 @@ class OrganPipe:
         self.samplerate: int = samplerate
 
     def start(self) -> None:
-        self.__pipe: PipeGenerator = self.__pipegenerator
-
-    def stop(self) -> None:
-        self.__pipe.start_adsr_release()
-
-    ###########################################################################
-    @property
-    def __pipegenerator(self) -> PipeGenerator:
-        return PipeGenerator(
+        self.__pipegenerator: PipeGenerator = PipeGenerator(
             frequency=self.__frequency,
             pipe_type=self.pipetype,
             amplitudes=self.amplitudes,
@@ -52,6 +44,10 @@ class OrganPipe:
             samplerate=self.samplerate
         )
 
+    def stop(self) -> None:
+        self.__pipe.start_adsr_release()
+
+    ###########################################################################
     @property
     def __frequency(self) -> float:
         return organlib.calc_frequency_equal_temperment(

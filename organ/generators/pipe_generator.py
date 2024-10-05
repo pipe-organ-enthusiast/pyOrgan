@@ -56,10 +56,13 @@ class PipeGenerator:
     def __next__(self) -> float:
         harmonics_sample: float = self.__harmonics_value
         adsr_modifier: float = self.__adsr_value
+        
         self.__harmonics_value = sum(
         [next(harmonic) for harmonic in self.__harmonics]
         ) / self.__nharmonics
+        
         self.__adsr_value = next(self.__adsr)
+        
         return adsr_modifier * harmonics_sample
 
     def __calc_harmonic_frequencies(
