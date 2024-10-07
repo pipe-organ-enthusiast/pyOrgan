@@ -25,12 +25,13 @@ class Harmonic:
         return self
 
     def __next__(self) -> float:
-        sample: float = self.__calc_sample()
-        self.__value += self.__value_increment
+        # calculates current sine wave sample
+        sample: float = self.amplitude * sin(self.__value)
+        
+        # applies calculation for the next sin wave sample
+        self.__value += 2 * pi * self.frequency / self.samplerate
+        
         return sample
-
-    def __calc_sample(self) -> float:
-        return self.amplitude * sin(self.__value)
 
     ###########################################################################
     @property
@@ -40,10 +41,6 @@ class Harmonic:
     @property
     def MAX_AMPLITUDE(self) -> float:
         return 1.0
-
-    @property
-    def __value_increment(self) -> float:
-        return 2 * pi * self.frequency / self.samplerate
 
     #**************************************************************************
     @property

@@ -57,9 +57,10 @@ class PipeGenerator:
         harmonics_sample: float = self.__harmonics_value
         adsr_modifier: float = self.__adsr_value
         
+        # Calculates the average of all the harmonic samples.
         self.__harmonics_value = sum(
-        [next(harmonic) for harmonic in self.__harmonics]
-        ) / self.__nharmonics
+            [next(harmonic) for harmonic in self.__harmonics]
+        ) / len(self.__harmonics)
         
         self.__adsr_value = next(self.__adsr)
         
@@ -79,8 +80,3 @@ class PipeGenerator:
 
     def start_adsr_release(self) -> None:
         self.__adsr.start_release()
-
-    #**************************************************************************
-    @property
-    def __nharmonics(self) -> int:
-        return len(self.__harmonics)
