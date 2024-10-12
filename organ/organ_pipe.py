@@ -3,7 +3,12 @@
 Higher Level Organ Pipe Class used to create a Pipe Generator.
 """
 from generators import PipeGenerator
-import organlib
+from ..organlib import (
+    calc_frequency_equal_temperment,
+    NOTES,
+    RANK_SIZES,
+
+)
 from typing import Literal
 
 
@@ -50,7 +55,7 @@ class OrganPipe:
     ###########################################################################
     @property
     def __frequency(self) -> float:
-        return organlib.calc_frequency_equal_temperment(
+        return calc_frequency_equal_temperment(
             note=self.realnote,
             rank=self.ranksize
         )
@@ -63,7 +68,7 @@ class OrganPipe:
     @keyboardnote.setter
     def keyboardnote(self, note: str) -> None:
         key_note: str = "C2"
-        if not note in organlib.NOTES:
+        if not note in NOTES:
             note = key_note
         self.__keyboardnote: str = note
 
@@ -75,7 +80,7 @@ class OrganPipe:
     @realnote.setter
     def realnote(self, note: str) -> None:
         real_note: str = "C2"
-        if not note in organlib.NOTES:
+        if not note in NOTES:
             note = real_note
         self.__realnote = note
 
@@ -86,9 +91,9 @@ class OrganPipe:
 
     @ranksize.setter
     def ranksize(self, rank_size: str) -> None:
-        rank_size_: str = "8'"
-        if not rank_size in organlib.RANK_SIZES:
-            rank_size = rank_size_
+        _rank_size: str = "8'"
+        if not rank_size in RANK_SIZES:
+            rank_size = _rank_size
         self.__ranksize: str = rank_size
 
     #--------------------------------------------------------------------------
