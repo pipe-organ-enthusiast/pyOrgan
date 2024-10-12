@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pyorgan"
+version = "0.1.0"
+description = "Virtual Pipe Organ"
+authors = ["David Poole"]
+license = "None"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+sounddevice = "^0.5.1"
+numpy = "^2.1.2"
+py-midi = "^2.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
