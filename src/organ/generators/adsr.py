@@ -85,6 +85,14 @@ class ADSR:
         release_samples: float = level_ratio * release_rate
         return self.__reached_level / release_samples
 
+    @property
+    def value(self) -> float:
+        return self.__value
+
+    @property
+    def phase(self) -> Literal["ATTACK", "DECAY", "SUSTAIN", "RELEASE"]:
+        return self.__phase
+
     #**************************************************************************
     @property
     def attack(self) -> float:
