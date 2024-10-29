@@ -14,10 +14,14 @@ class Harmonic:
             self,
             frequency: float,
             amplitude: float,
+            amplitude_modifier: float,
+            amplitude_scaler: float,
             samplerate: int
     ) -> None:
         self.frequency = frequency
         self.amplitude = amplitude
+        self.ampmod = amplitude_modifier
+        self.ampscale = amplitude_scaler
         self.samplerate = samplerate
 
     def __iter__(self) -> Self:
@@ -63,6 +67,28 @@ class Harmonic:
         elif a > self.MAX_AMPLITUDE:
             a = self.MAX_AMPLITUDE
         self.__amplitude: float = a
+
+    #--------------------------------------------------------------------------
+    @property
+    def ampmod(self) -> float:
+        return self.__ampmod
+
+    @ampmod.setter
+    def ampmod(self, a: float) -> None:
+        if a > self.MAX_AMPLITUDE:
+            a = self.MAX_AMPLITUDE
+        elif a < self.MIN_AMPLITUDE:
+            a = self.MIN_AMPLITUDE
+        self.__ampmod: float = a
+
+    #--------------------------------------------------------------------------
+    @property
+    def ampscale(self) -> float:
+        return self.__ampscale
+
+    @ampscale.setter
+    def ampscale(self, a: float) -> None:
+        self.__ampscale: float = abs(a)
 
     #--------------------------------------------------------------------------
     @property
