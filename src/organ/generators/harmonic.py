@@ -71,10 +71,20 @@ class Harmonic:
     #--------------------------------------------------------------------------
     @property
     def ampmod(self) -> float:
+        """Returns the value of the amplitude modifier.
+        
+        This value is used in the ATTACK phase of an ADSR Envelope as a
+        means of altering the rate at which the harmonic reaches peek value.
+        """
         return self.__ampmod
 
     @ampmod.setter
     def ampmod(self, a: float) -> None:
+        """Sets the value for the Amplitude Modifier.
+
+        This value is used in the ATTACK phase of an ADSR Envelope as a
+        means of altering the rate at which the harmonic reaches peek value.
+        """
         if a > self.MAX_AMPLITUDE:
             a = self.MAX_AMPLITUDE
         elif a < self.MIN_AMPLITUDE:
@@ -84,10 +94,20 @@ class Harmonic:
     #--------------------------------------------------------------------------
     @property
     def ampscale(self) -> float:
+        """Returns the value of the Amplitude Scaler.
+        
+        The Amplitude Scaler determines the rate at which the amplitude
+        of the harmonic spikes to it's peek.
+        """
         return self.__ampscale
 
     @ampscale.setter
     def ampscale(self, a: float) -> None:
+        """Sets the value of the Amplitude Scaler.
+        
+        The Amplitude Scaler determines the rate at which the amplitude
+        of the harmonic spikes to it's peek.
+        """
         self.__ampscale: float = abs(a)
 
     #--------------------------------------------------------------------------

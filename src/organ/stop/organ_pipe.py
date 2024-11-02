@@ -20,6 +20,8 @@ class OrganPipe:
             rank_size: str,
             pipe_type: Literal["OPEN", "CLOSED"],
             amplitudes: list[float],
+            amplitude_modifiers: list[float],
+            amplitude_scalers: list[float],
             attack_time: float,
             decay_time: float,
             sustain_level: float,
@@ -31,6 +33,8 @@ class OrganPipe:
         self.ranksize = rank_size
         self.pipetype = pipe_type
         self.amplitudes: list[float] = amplitudes
+        self.ampmods: list[float] = amplitude_modifiers
+        self.ampscales: list[float] = amplitude_scalers
         self.attack: float = attack_time
         self.decay: float = decay_time
         self.sustain: float = sustain_level
@@ -42,6 +46,8 @@ class OrganPipe:
             frequency=self.__frequency,
             pipe_type=self.pipetype,
             amplitudes=self.amplitudes,
+            amplitude_modifiers=self.ampmods,
+            amplitude_scalers=self.ampscales,
             attack_time=self.attack,
             decay_time=self.decay,
             sustain_level=self.sustain,

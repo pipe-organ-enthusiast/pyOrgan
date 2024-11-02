@@ -7,6 +7,8 @@ Pipe Attributes:
     Fundimental Frequency
     Type: Open vs Closed
     Harmonic Amplitudes
+    Amplitude Modifiers - Modifies the amplitude in ADSR
+    Amplitude Scalers - Determines rate of change of amplitude in ADSR
     ADSR Parameters
 """
 from .harmonic import Harmonic
