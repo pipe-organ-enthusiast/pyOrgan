@@ -1,0 +1,12 @@
+[project]
+name = "pyorgan"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.1.3",
+    "py-midi>=2.0.1",
+    "pyside6>=6.8.0.2",
+    "sounddevice>=0.5.1",
+]
