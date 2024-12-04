@@ -20,12 +20,12 @@ General Stop Editor - Frame * generalstopeditor.py
         Harmonics Information * See Below
         ADSR Information * See Below
 
-Harmonics Information - Group Box * harmonicsinfo.py
+  Harmonics Information - Group Box * harmonicsinfo.py
     Harmonic #
     Amplitude
     ADSR Information * See Below
 
-ADSR Information - Group Box * adsrinfo.py
+  ADSR Information - Group Box * adsrinfo.py
     Attack Time
     Decay Time
     Sustain Level

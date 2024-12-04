@@ -2,9 +2,13 @@
 
 
 from PySide6.QtWidgets import (
-    QGroupBox
+    QGroupBox,
+    QLabel,
+    QSpinBox,
 )
 from PySide6.QtGui import Qt
+#------------------------------------------------------------------------------
+from adsrinfo import ADSRInfo
 
 
 class HarmonicsInfo(QGroupBox):
@@ -15,7 +19,14 @@ class HarmonicsInfo(QGroupBox):
         self.__ui_layout()
 
     def __init_ui(self):
-        ...
+        # Harmonic #
+        self.harmonicnum_label = QLabel("Harmonic #:")
+        self.harmonicnum_spin = QSpinBox()
+        # Amplitude
+        self.amplitude_label = QLabel("Amplitude (%):")
+        self.amplitude_spin = QSpinBox()
+        # ADSR Information
+        self.adsr_info = ADSRInfo()
 
     def __ui_settings(self):
         ...
