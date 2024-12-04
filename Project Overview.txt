@@ -15,7 +15,8 @@ Organ
     Crescendo Pedal
     Generals
 
-GUI (Graphical User Interface): tkinter
+GUI (Graphical User Interface): pyside6
+    Stop Editor
 
 MIDI Interface: mido / *py-midi
 
