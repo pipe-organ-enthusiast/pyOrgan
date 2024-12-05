@@ -1,24 +1,35 @@
 Stop Editor * stopeditor.py
 
-General Stop Editor - Frame * generalstopeditor.py
-    Stop Information - Group Box * stopinfo.py
-        Stop Name
-        Stop Type
-        Stop Family
-        Organ Division
-        Number of Ranks
-        Rank Series
+    Editor Tabs
+        Stop Information - Group Box * stopinfo.py
+            Stop Name
+            Stop Type
+            Stop Family
+            Organ Division
+            Number of Ranks
+            Rank Series
 
-    Rank Information - Group Box * rankinfo.py
-        Rank #
-        Rank Size
-        Number of Pipes
-        Starting Note
-        Pipe Type
-        Frequency Offset
-        Number of Harmonics
+        Rank Information - Group Box * rankinfo.py
+            Rank #
+            Rank Size
+            Number of Pipes
+            Starting Note
+            Pipe Type
+            Frequency Offset
+            Number of Harmonics
+            
         Harmonics Information * See Below
+        
         ADSR Information * See Below
+
+        Pipe Editor - Frame * pipeeditor.py
+            Pipe Information - Group Box * pipeinfo.py
+                Rank #
+                Pipe #
+                Note
+                Relative Note
+            Harmonic Information *See Above
+            ADSR Information * See Above
 
   Harmonics Information - Group Box * harmonicsinfo.py
     Harmonic #
@@ -30,12 +41,3 @@ General Stop Editor - Frame * generalstopeditor.py
     Decay Time
     Sustain Level
     Release Time
-
-Pipe Editor - Frame * pipeeditor.py
-    Pipe Information - Group Box * pipeinfo.py
-        Rank #
-        Pipe #
-        Note
-        Relative Note
-    Harmonic Information *See Above
-    ADSR Information * See Above

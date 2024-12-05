@@ -1,15 +1,17 @@
 """Pipe Editor"""
+
+
 from PySide6.QtWidgets import (
-    QFrame,
-    QVBoxLayout
+    QTabWidget
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
-from forms import PipeInfo
-from pipeeditortabs import PipeEditorTabs
+from forms.pipeinfo import PipeInfo
+from forms.harmonicsinfo import HarmonicsInfo
+from forms.adsrinfo import ADSRInfo
 
 
-class PipeEditor(QFrame):
+class PipeEditorTabs(QTabWidget):
     def __init__(self):
         super().__init__()
         self.__init_ui()
@@ -17,27 +19,21 @@ class PipeEditor(QFrame):
         self.__ui_layout()
 
     def __init_ui(self):
-        self.pipe_info = PipeInfo()
-        self.pipe_editor_tabs = PipeEditorTabs()
+        self.harmonics_info = HarmonicsInfo()
+        self.adsr_info = ADSRInfo()
 
     def __ui_settings(self):
         ...
 
     def __ui_layout(self):
-        widgets = (
-            self.pipe_info,
-            self.pipe_editor_tabs
-        )
-        layout = QVBoxLayout()
-        for widget in widgets:
-            layout.addWidget(widget)
-        self.setLayout(layout)
+        self.addTab(self.harmonics_info, "Harmonics Information")
+        self.addTab(self.adsr_info, "ADSR Information")
 
 
 if __name__ == "__main__":
     from PySide6.QtWidgets import QApplication
 
     app = QApplication([])
-    widget = PipeEditor()
+    widget = PipeEditorTabs()
     widget.show()
     app.exec()

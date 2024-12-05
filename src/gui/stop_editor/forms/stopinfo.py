@@ -5,7 +5,8 @@ from PySide6.QtWidgets import (
     QGroupBox,
     QLabel,
     QComboBox,
-    QSpinBox
+    QSpinBox,
+    QFormLayout
 )
 from PySide6.QtGui import Qt
 
@@ -38,7 +39,28 @@ class StopInfo(QGroupBox):
         self.rankseries_combo = QComboBox()
 
     def __ui_settings(self):
-        ...
+        self.setTitle("Stop Information")
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
-        ...
+        widgets = (
+            (self.stopname_label, self.stopname_combo),
+            (self.stoptype_label, self.stoptype_combo),
+            (self.stopfamily_label, self.stopfamily_combo),
+            (self.organdivision_label, self.organdivision_combo),
+            (self.numranks_label, self.numranks_spin),
+            (self.rankseries_label, self.rankseries_combo)
+        )
+        layout = QFormLayout()
+        for widget in widgets:
+            layout.addRow(widget[0], widget[1])
+        self.setLayout(layout)
+
+
+if __name__ == "__main__":
+    from PySide6.QtWidgets import QApplication
+
+    app = QApplication([])
+    widget = StopInfo()
+    widget.show()
+    app.exec()
