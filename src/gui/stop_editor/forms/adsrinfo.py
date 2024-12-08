@@ -44,12 +44,3 @@ class ADSRInfo(QGroupBox):
         for widget in widgets:
             layout.addRow(widget[0], widget[1])
         self.setLayout(layout)
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-
-    app = QApplication([])
-    widget = ADSRInfo()
-    widget.show()
-    app.exec()

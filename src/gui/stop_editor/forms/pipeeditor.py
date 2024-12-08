@@ -5,8 +5,10 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
-from forms import PipeInfo
-from pipeeditortabs import PipeEditorTabs
+from .pipeinfo import PipeInfo
+from .harmonicsinfo import HarmonicsInfo
+from .adsrinfo import ADSRInfo
+#from pipeeditortabs import PipeEditorTabs
 
 
 class PipeEditor(QFrame):
@@ -18,7 +20,9 @@ class PipeEditor(QFrame):
 
     def __init_ui(self):
         self.pipe_info = PipeInfo()
-        self.pipe_editor_tabs = PipeEditorTabs()
+        #self.pipe_editor_tabs = PipeEditorTabs()
+        self.harmonics_info = HarmonicsInfo()
+        self.adsr_info = ADSRInfo()
 
     def __ui_settings(self):
         ...
@@ -26,18 +30,11 @@ class PipeEditor(QFrame):
     def __ui_layout(self):
         widgets = (
             self.pipe_info,
-            self.pipe_editor_tabs
+            #self.pipe_editor_tabs
+            self.harmonics_info,
+            self.adsr_info
         )
         layout = QVBoxLayout()
         for widget in widgets:
             layout.addWidget(widget)
         self.setLayout(layout)
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-
-    app = QApplication([])
-    widget = PipeEditor()
-    widget.show()
-    app.exec()

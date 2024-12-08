@@ -45,12 +45,3 @@ class HarmonicsInfo(QGroupBox):
         layout.addLayout(form_layout)
         layout.addWidget(self.adsr_info)
         self.setLayout(layout)
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-
-    app = QApplication([])
-    widget = HarmonicsInfo()
-    widget.show()
-    app.exec()

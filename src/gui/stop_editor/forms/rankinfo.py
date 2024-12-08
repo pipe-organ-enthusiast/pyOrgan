@@ -4,9 +4,13 @@ from PySide6.QtWidgets import (
     QLabel,
     QSpinBox,
     QComboBox,
-    QFormLayout
+    QFormLayout,
+    QVBoxLayout
 )
 from PySide6.QtGui import Qt
+#------------------------------------------------------------------------------
+from .harmonicsinfo import HarmonicsInfo
+from .adsrinfo import ADSRInfo
 
 
 class RankInfo(QGroupBox):
@@ -38,6 +42,9 @@ class RankInfo(QGroupBox):
         # Number of Harmonics
         self.numharmonics_label = QLabel("Number of Harmonics")
         self.numharmonics_spin = QSpinBox()
+        # Harmonics Info
+        self.harmonics_info = HarmonicsInfo()
+        self.adsr_info = ADSRInfo()
 
     def __ui_settings(self):
         self.setTitle("Rank Information")
@@ -53,17 +60,11 @@ class RankInfo(QGroupBox):
             (self.freqoffset_label, self.freqoffset_spin),
             (self.numharmonics_label, self.numharmonics_spin),
         )
-        layout = QFormLayout()
+        form_layout = QFormLayout()
         for widget in widgets:
-            layout.addRow(widget[0], widget[1])
-        
+            form_layout.addRow(widget[0], widget[1])
+        layout = QVBoxLayout()
+        layout.addLayout(form_layout)
+        layout.addWidget(self.harmonics_info)
+        layout.addWidget(self.adsr_info)
         self.setLayout(layout)
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-
-    app = QApplication([])
-    widget = RankInfo()
-    widget.show()
-    app.exec()
