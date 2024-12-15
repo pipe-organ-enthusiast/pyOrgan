@@ -55,7 +55,7 @@ class RankInfo(QGroupBox):
             self.pipetype_combo,
         )
         for combo in combos:
-            combo.setFixedWidth(300)
+            combo.setFixedWidth(100)
             combo.setEditable(True)
             edit = combo.lineEdit()
             edit.setAlignment = Qt.AlignmentFlag.AlignCenter
