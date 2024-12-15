@@ -9,7 +9,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
-from forms.stopeditortabs import StopEditorTabs
+from .forms.stopeditortabs import StopEditorTabs
 
 
 class StopEditor(QFrame):
@@ -31,8 +31,12 @@ class StopEditor(QFrame):
         self.save_button = QPushButton("Save Stop")
 
     def __ui_settings(self):
+        self.setWindowTitle("pyOrgan - Stop Editor")
         self.setFixedWidth(560)
+        #----------------------------------------------------------------------
         self.header_edit.setFixedWidth(410)
+        self.header_edit.setReadOnly(True)
+        #----------------------------------------------------------------------
         self.editor.setFixedWidth(445)
 
     def __ui_layout(self):

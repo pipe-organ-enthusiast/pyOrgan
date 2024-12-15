@@ -1,8 +1,12 @@
 """Main Window"""
 from PySide6.QtWidgets import (
-    QMainWindow
+    QMainWindow,
+    QMenu,
 )
-from PySide6.QtGui import Qt
+from PySide6.QtGui import (
+    Qt,
+    QAction
+)
 #------------------------------------------------------------------------------
 from stop_editor import StopEditor
 
@@ -22,23 +26,35 @@ class MainWindow(QMainWindow):
         self.__init_ui_forms()
 
     def __init_ui_menubar(self):
-        menu = self.menuBar()
+        self.menu = self.menuBar()
+        # Settings Menu
+        self.menu_settings = QMenu("&Settings", self)
+        self.stopeditor_action = QAction("Stop Editor", self)
+        self.menu_settings.addAction(self.stopeditor_action)
+        # Add Menus to MenuBar
+        self.menu.addMenu(self.menu_settings)
 
     def __init_ui_forms(self):
         self.stopeditor = StopEditor()
-        #self.setCentralWidget(self.stopeditor)
 
     #--------------------------------------------------------------------------
     # Settings
     #--------------------------------------------------------------------------
     def __ui_settings(self):
         self.setWindowTitle("PyOrgan")
+        self.stopeditor_action.triggered.connect(self.stopeditor_open)
 
     #--------------------------------------------------------------------------
     # Layout
     #--------------------------------------------------------------------------
     def __ui_layout(self):
         self.showMaximized()
+
+    #--------------------------------------------------------------------------
+    # Actions
+    #--------------------------------------------------------------------------
+    def stopeditor_open(self):
+        self.stopeditor.show()
 
 
 if __name__ == "__main__":
