@@ -31,8 +31,27 @@ class PipeInfo(QGroupBox):
         self.relnote_combo = QComboBox()
 
     def __ui_settings(self):
-        self.setTitle("Pipe Information")
-        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setTitle("Pipe Settings")
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        # ComboBoxes
+        combos = (
+            self.note_combo,
+            self.relnote_combo
+        )
+        for combo in combos:
+            combo.setFixedWidth(100)
+            combo.setEditable(True)
+            edit = combo.lineEdit()
+            edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            edit.setReadOnly(True)
+        # SpinBoxes
+        spins = (
+            self.ranknum_spin,
+            self.pipenum_spin
+        )
+        for spin in spins:
+            spin.setFixedWidth(50)
+            spin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (

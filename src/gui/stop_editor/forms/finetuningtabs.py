@@ -2,7 +2,9 @@
 
 
 from PySide6.QtWidgets import (
-    QTabWidget
+    QTabWidget,
+    QWidget,
+    QVBoxLayout
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
@@ -11,7 +13,7 @@ from .harmonicsinfo import HarmonicsInfo
 from .adsrinfo import ADSRInfo
 
 
-class PipeEditorTabs(QTabWidget):
+class FineTuningTabs(QTabWidget):
     def __init__(self):
         super().__init__()
         self.__init_ui()
@@ -26,14 +28,23 @@ class PipeEditorTabs(QTabWidget):
         ...
 
     def __ui_layout(self):
-        self.addTab(self.harmonics_info, "Harmonics Information")
-        self.addTab(self.adsr_info, "ADSR Information")
+        widgets = (
+            (self.harmonics_info, "Harmonics"),
+            (self.adsr_info, "ADSR")
+        )
+        for widget in widgets:
+            w = QWidget()
+            l = QVBoxLayout()
+            l.addSpacing(10)
+            l.addWidget(widget[0])
+            w.setLayout(l)
+            self.addTab(w, widget[1])
 
 
 if __name__ == "__main__":
     from PySide6.QtWidgets import QApplication
 
     app = QApplication([])
-    widget = PipeEditorTabs()
+    widget = FineTuningTabs()
     widget.show()
     app.exec()

@@ -29,8 +29,16 @@ class HarmonicsInfo(QGroupBox):
         self.adsr_info = ADSRInfo()
 
     def __ui_settings(self):
-        self.setTitle("Harmonics Information")
-        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setTitle("Harmonics Settings")
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        # SpinBoxes
+        spins = (
+            self.harmonicnum_spin,
+            self.amplitude_spin
+        )
+        for spin in spins:
+            spin.setFixedWidth(50)
+            spin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (
@@ -40,8 +48,10 @@ class HarmonicsInfo(QGroupBox):
         form_layout = QFormLayout()
         for widget in widgets:
             form_layout.addRow(widget[0], widget[1])
+        #----------------------------------------------------------------------
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout.addLayout(form_layout)
+        layout.addSpacing(20)
         layout.addWidget(self.adsr_info)
         self.setLayout(layout)

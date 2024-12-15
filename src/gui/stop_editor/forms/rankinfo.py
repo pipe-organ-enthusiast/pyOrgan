@@ -1,6 +1,7 @@
 """Rank Info"""
 from PySide6.QtWidgets import (
     QGroupBox,
+    QTabWidget,
     QLabel,
     QSpinBox,
     QComboBox,
@@ -9,8 +10,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
-from .harmonicsinfo import HarmonicsInfo
-from .adsrinfo import ADSRInfo
+from .finetuningtabs import FineTuningTabs
 
 
 class RankInfo(QGroupBox):
@@ -42,13 +42,34 @@ class RankInfo(QGroupBox):
         # Number of Harmonics
         self.numharmonics_label = QLabel("Number of Harmonics")
         self.numharmonics_spin = QSpinBox()
-        # Harmonics Info
-        self.harmonics_info = HarmonicsInfo()
-        self.adsr_info = ADSRInfo()
+        # Fine Tuning
+        self.finetuning = FineTuningTabs()
 
     def __ui_settings(self):
-        self.setTitle("Rank Information")
+        self.setTitle("Rank Settings")
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # ComboBoxes
+        combos = (
+            self.ranksize_combo,
+            self.startnote_combo,
+            self.pipetype_combo,
+        )
+        for combo in combos:
+            combo.setFixedWidth(300)
+            combo.setEditable(True)
+            edit = combo.lineEdit()
+            edit.setAlignment = Qt.AlignmentFlag.AlignCenter
+            edit.setReadOnly(True)
+        # SpinBoxes
+        spins = (
+            self.ranknum_spin,
+            self.numpipes_spin,
+            self.freqoffset_spin,
+            self.numharmonics_spin
+        )
+        for spin in spins:
+            spin.setFixedWidth(50)
+            spin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (
@@ -63,8 +84,9 @@ class RankInfo(QGroupBox):
         form_layout = QFormLayout()
         for widget in widgets:
             form_layout.addRow(widget[0], widget[1])
+        #----------------------------------------------------------------------
         layout = QVBoxLayout()
         layout.addLayout(form_layout)
-        layout.addWidget(self.harmonics_info)
-        layout.addWidget(self.adsr_info)
+        layout.addSpacing(20)
+        layout.addWidget(self.finetuning)
         self.setLayout(layout)

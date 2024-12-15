@@ -1,17 +1,15 @@
 """Pipe Editor"""
 from PySide6.QtWidgets import (
-    QFrame,
+    QGroupBox,
     QVBoxLayout
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
 from .pipeinfo import PipeInfo
-from .harmonicsinfo import HarmonicsInfo
-from .adsrinfo import ADSRInfo
-#from pipeeditortabs import PipeEditorTabs
+from .finetuningtabs import FineTuningTabs
 
 
-class PipeEditor(QFrame):
+class PipeEditor(QGroupBox):
     def __init__(self):
         super().__init__()
         self.__init_ui()
@@ -20,21 +18,19 @@ class PipeEditor(QFrame):
 
     def __init_ui(self):
         self.pipe_info = PipeInfo()
-        #self.pipe_editor_tabs = PipeEditorTabs()
-        self.harmonics_info = HarmonicsInfo()
-        self.adsr_info = ADSRInfo()
+        self.finetuning = FineTuningTabs()
 
     def __ui_settings(self):
-        ...
+        self.setTitle("Pipe Editor")
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (
             self.pipe_info,
-            #self.pipe_editor_tabs
-            self.harmonics_info,
-            self.adsr_info
+            self.finetuning
         )
         layout = QVBoxLayout()
         for widget in widgets:
             layout.addWidget(widget)
+            layout.addSpacing(20)
         self.setLayout(layout)

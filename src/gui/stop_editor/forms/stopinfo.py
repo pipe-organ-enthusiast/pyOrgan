@@ -39,8 +39,25 @@ class StopInfo(QGroupBox):
         self.rankseries_combo = QComboBox()
 
     def __ui_settings(self):
-        self.setTitle("Stop Information")
+        self.setTitle("Stop Settings")
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # ComboBoxes
+        combos = (
+            self.stopname_combo,
+            self.stoptype_combo,
+            self.stopfamily_combo,
+            self.organdivision_combo,
+            self.rankseries_combo
+        )
+        for combo in combos:
+            combo.setFixedWidth(300)
+            combo.setEditable(True)
+            edit = combo.lineEdit()
+            edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            edit.setReadOnly(True)
+        # SpinBox
+        self.numranks_spin.setFixedWidth(50)
+        self.numranks_spin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (

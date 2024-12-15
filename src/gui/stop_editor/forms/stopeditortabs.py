@@ -1,13 +1,15 @@
 """Editor Tabs"""
 from PySide6.QtWidgets import (
-    QTabWidget
+    QTabWidget,
+    QWidget,
+    QPushButton,
+    QVBoxLayout,
+    QHBoxLayout
 )
 from PySide6.QtGui import Qt
 #------------------------------------------------------------------------------
 from .stopinfo import StopInfo
 from .rankinfo import RankInfo
-from .harmonicsinfo import HarmonicsInfo
-from .adsrinfo import ADSRInfo
 from .pipeeditor import PipeEditor
 
 
@@ -22,19 +24,35 @@ class StopEditorTabs(QTabWidget):
         # Editor Forms
         self.stop_info = StopInfo()
         self.rank_info = RankInfo()
-        #self.harmonics_info = HarmonicsInfo()
-        #self.adsr_info = ADSRInfo()
         self.pipe_editor = PipeEditor()
+        self.play_button = QPushButton("Play Pipe")
 
     def __ui_settings(self):
         ...
 
     def __ui_layout(self):
-        self.addTab(self.stop_info, "Stop Information")
-        self.addTab(self.rank_info, "Rank Information")
-        #self.addTab(self.harmonics_info, "Harmonics Information")
-        #self.addTab(self.adsr_info, "ADSR Information")
-        self.addTab(self.pipe_editor, "Pipe Editor")
+        widgets = (
+            (self.stop_info, "Stop Settings"),
+            (self.rank_info, "Rank Settings"),
+        )
+        for widget in widgets:
+            w = QWidget()
+            l = QVBoxLayout()
+            l.addSpacing(5)
+            l.addWidget(widget[0])
+            w.setLayout(l)
+            self.addTab(w, widget[1])
+        #----------------------------------------------------------------------
+        pipe_widget = QWidget()
+        pipe_layout = QHBoxLayout()
+        widgets = (
+            self.pipe_editor,
+            self.play_button
+        )
+        for widget in widgets:
+            pipe_layout.addWidget(widget, 0, Qt.AlignmentFlag.AlignTop)
+        pipe_widget.setLayout(pipe_layout)
+        self.addTab(pipe_widget, "Pipe Settings")
 
 
 if __name__ == "__main__":

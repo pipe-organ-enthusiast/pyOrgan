@@ -30,8 +30,18 @@ class ADSRInfo(QGroupBox):
         self.release_spin = QSpinBox()
 
     def __ui_settings(self):
-        self.setTitle("ADSR Information")
-        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setTitle("ADSR Settings")
+        self.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        # SpinBoxes
+        spins = (
+            self.attack_spin,
+            self.decay_spin,
+            self.sustain_spin,
+            self.release_spin
+        )
+        for spin in spins:
+            spin.setFixedWidth(100)
+            spin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def __ui_layout(self):
         widgets = (
