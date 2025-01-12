@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout
 )
 from PySide6.QtGui import Qt
+from PySide6 import QtCore
 #------------------------------------------------------------------------------
 from .forms.stopeditortabs import StopEditorTabs
 
@@ -29,6 +30,8 @@ class StopEditor(QFrame):
         self.load_button = QPushButton("Load Stop")
         self.clear_button = QPushButton("Clear Changes")
         self.save_button = QPushButton("Save Stop")
+        # Delete on close
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 
     def __ui_settings(self):
         self.setWindowTitle("pyOrgan - Stop Editor")
@@ -36,6 +39,7 @@ class StopEditor(QFrame):
         #----------------------------------------------------------------------
         self.header_edit.setFixedWidth(410)
         self.header_edit.setReadOnly(True)
+        self.header_edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
         #----------------------------------------------------------------------
         self.editor.setFixedWidth(445)
 
@@ -71,13 +75,3 @@ class StopEditor(QFrame):
             main_layout.addLayout(layout)
         #----------------------------------------------------------------------
         self.setLayout(main_layout)
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-
-
-    app = QApplication([])
-    form = StopEditor()
-    form.show()
-    app.exec()

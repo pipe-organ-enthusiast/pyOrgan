@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
     #--------------------------------------------------------------------------
     def __init_ui(self):
         self.__init_ui_menubar()
-        self.__init_ui_forms()
+        #self.__init_ui_forms()
 
     def __init_ui_menubar(self):
         self.menu = self.menuBar()

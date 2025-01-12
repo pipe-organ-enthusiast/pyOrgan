@@ -3,5 +3,6 @@
     "editor.fontFamily": "Fira Code Retina",
     "editor.fontSize": 12,
     "editor.fontLigatures": true,
-    "workbench.colorTheme": "Spacegray Python"
+    "workbench.colorTheme": "Spacegray Python",
+    "editor.selectionClipboard": false
 }

@@ -54,7 +54,10 @@ class StopInfo(QGroupBox):
             combo.setEditable(True)
             edit = combo.lineEdit()
             edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            edit.setReadOnly(True)
+            if combo == self.stopname_combo:
+                edit.setReadOnly(False)
+            else:
+                edit.setReadOnly(True)
         # SpinBox
         self.numranks_spin.setFixedWidth(50)
         self.numranks_spin.setAlignment(Qt.AlignmentFlag.AlignCenter)

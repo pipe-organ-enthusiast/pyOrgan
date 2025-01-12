@@ -1,4 +1,5 @@
 from gui import MainWindow
+from gui.stop_editor import StopEditor
 from organ import organlib
 #------------------------------------------------------------------------------
 from PySide6.QtWidgets import QApplication
@@ -7,20 +8,19 @@ from PySide6.QtWidgets import QApplication
 class UI:
     def __init__(self):
         self.__init_ui()
-        self.__aliases()
         self.__config()
 
     def __init_ui(self):
         self.ui = QApplication([])
         self.mainwindow = MainWindow()
 
-    def __aliases(self):
-        self.__stop_info = self.mainwindow.stopeditor.editor.stop_info
-        self.__rank_info = self.mainwindow.stopeditor.editor.rank_info
+    def __aliases_stopeditor(self):
+        self.__stop_info = self.stopeditor.editor.stop_info
+        self.__rank_info = self.stopeditor.editor.rank_info
         self.__ri_harmonics = self.__rank_info.finetuning.harmonics_info
         self.__ri_h_adsr = self.__ri_harmonics.adsr_info
         self.__ri_adsr = self.__rank_info.finetuning.adsr_info
-        __pipe_editor = self.mainwindow.stopeditor.editor.pipe_editor
+        __pipe_editor = self.stopeditor.editor.pipe_editor
         self.__pipe_info = __pipe_editor.pipe_info
         self.__pipe_harmonics = __pipe_editor.finetuning.harmonics_info
         self.__p_h_adsr = __pipe_editor.finetuning.harmonics_info.adsr_info
@@ -31,7 +31,6 @@ class UI:
     #**************************************************************************
     def __config(self):
         self.__config_mainwindow_menu()
-        self.__config_stopeditor()
     
     def __config_mainwindow_menu(self):
         self.mainwindow.stopeditor_action.triggered.connect(
@@ -58,6 +57,9 @@ class UI:
         # Stop Name
         stop_names = ("",) + organlib.STOP_NAMES
         self.__stop_info.stopname_combo.addItems(stop_names)
+        self.__stop_info.stopname_combo.currentTextChanged.connect(
+            self.__set_stopname
+        )
         #----------------------------------------------------------------------
         # Stop Family
         stop_families = ("",) + organlib.STOP_FAMILIES
@@ -194,7 +196,14 @@ class UI:
     # Actions
     #**************************************************************************
     def __run_stopeditor(self):
-        self.mainwindow.stopeditor.show()
+        self.stopeditor = StopEditor()
+        self.__aliases_stopeditor()
+        self.__config_stopeditor()
+        self.stopeditor.show()
+
+    def __set_stopname(self):
+        stop_name = self.__stop_info.stopname_combo.currentText()
+        self.stopeditor.header_edit.setText(stop_name)
 
     def __set_numranks(self):
         max_ranknum: int = self.__stop_info.numranks_spin.value()
