@@ -8,7 +8,7 @@ from PySide6.QtGui import (
     QAction
 )
 #------------------------------------------------------------------------------
-from stop_editor import StopEditor
+from .stop_editor import StopEditor
 
 
 class MainWindow(QMainWindow):
@@ -42,7 +42,6 @@ class MainWindow(QMainWindow):
     #--------------------------------------------------------------------------
     def __ui_settings(self):
         self.setWindowTitle("PyOrgan")
-        self.stopeditor_action.triggered.connect(self.stopeditor_open)
 
     #--------------------------------------------------------------------------
     # Layout
@@ -50,15 +49,3 @@ class MainWindow(QMainWindow):
     def __ui_layout(self):
         self.showMaximized()
 
-    #--------------------------------------------------------------------------
-    # Actions
-    #--------------------------------------------------------------------------
-    def stopeditor_open(self):
-        self.stopeditor.show()
-
-
-if __name__ == "__main__":
-    from PySide6.QtWidgets import QApplication
-    app = QApplication([])
-    window = MainWindow()
-    app.exec()

@@ -23,8 +23,8 @@ class StopInfo(QGroupBox):
         self.stopname_label = QLabel("Stop Name:")
         self.stopname_combo = QComboBox()
         # Stop Type
-        self.stoptype_label = QLabel("Stop Type:")
-        self.stoptype_combo = QComboBox()
+        #self.stoptype_label = QLabel("Stop Type:")
+        #self.stoptype_combo = QComboBox()
         # Stop Family
         self.stopfamily_label = QLabel("Stop Family:")
         self.stopfamily_combo = QComboBox()
@@ -44,7 +44,7 @@ class StopInfo(QGroupBox):
         # ComboBoxes
         combos = (
             self.stopname_combo,
-            self.stoptype_combo,
+            #self.stoptype_combo,
             self.stopfamily_combo,
             self.organdivision_combo,
             self.rankseries_combo
@@ -62,7 +62,7 @@ class StopInfo(QGroupBox):
     def __ui_layout(self):
         widgets = (
             (self.stopname_label, self.stopname_combo),
-            (self.stoptype_label, self.stoptype_combo),
+            #(self.stoptype_label, self.stoptype_combo),
             (self.stopfamily_label, self.stopfamily_combo),
             (self.organdivision_label, self.organdivision_combo),
             (self.numranks_label, self.numranks_spin),

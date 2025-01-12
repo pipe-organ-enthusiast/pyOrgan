@@ -3,7 +3,7 @@
 Higher Level Organ Pipe Class used to create a Pipe Generator.
 """
 from ..generators import PipeGenerator
-from ...organlib import (
+from ..organlib import (
     calc_frequency_equal_temperment,
     NOTES,
     RANK_SIZES,

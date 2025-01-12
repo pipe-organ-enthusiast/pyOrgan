@@ -61,6 +61,10 @@ RANK_SIZES: tuple[str] = (
     "1/12'", "1/16'"
 )
 
+RANK_SERIES: tuple[str] = (
+    "64' Series", "32' Series", "16' Series", "8' Series", "4' Series"
+)
+
 RANK_SERIES_64: tuple[str] = (
     "64'", "32'", "21 1/3'", "16'", "12 4/5'", "10 2/3'", "9 1/7'", "8'",
     "7 1/9'", "6 2/5'", "5 9/11'", "5 1/3'", "4 12/13'", "4 4/7'", "4 4/15'",
@@ -737,6 +741,13 @@ STOP_NAMES: tuple[str] = (
     "ZIMBELFLÖTE", "*ZIMBELGLOCKLEIN*", "*ZIMBELSTERN*", "ZINCKE", "ZINGHORN",
     "ZINKE", "ZINKEN", "ZÜNK", "ZWECKPFEIFE", "ZWERCK STÄRCKE", "ZWERGPFEIFE",
     "ZYFFLÖT", "ZYMBEL", "ZYMBEL-SCHARF", "*ZYMBELSTERN", "ZYNCK", "ZYNK"
+)
+
+###############################################################################
+# Organ
+###############################################################################
+ORGAN_DIVISIONS: tuple[str] = (
+    "GREAT", "SWELL", "CHOIR", "SOLO", "ECHO", "PEDAL"
 )
 
 ###############################################################################
