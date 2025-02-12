@@ -9,197 +9,177 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QSpinBox,
-    QButtonGroup,
     QPushButton,
     QRadioButton,
+    QLayout,
     QFormLayout,
     QHBoxLayout,
     QVBoxLayout
 )
 from PySide6.QtGui import Qt
-from PySide6 import QtCore
 #------------------------------------------------------------------------------
 
 
 class StopEditor(QFrame):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.__init_ui()
         self.__ui_settings()
         self.__ui_layout()
-        self.harmonic_option_general.toggle()
-        self.adsroption_rank.toggle()
 
     #--------------------------------------------------------------------------
     # Widgets
     #--------------------------------------------------------------------------
-    def __init_ui(self):
-        self.__init_ui_header()
-        self.__init_ui_editor()
-        self.__init_ui_options()
-
-    def __init_ui_header(self):
-        self.header = QHBoxLayout()
-        self.header_label = QLabel("Stop:")
-        self.header_edit = QLineEdit()
-
-    def __init_ui_editor(self):
-        self.editor = QTabWidget()
-        self.__init_ui_editor_stopinfo()
-        self.__init_ui_editor_rankinfo()
-        self.__init_ui_editor_pipeinfo()
-        self.__init_ui_editor_harmonicinfo()
-        self.__init_ui_editor_adsrinfo()
-
-    def __init_ui_editor_stopinfo(self):
-        self.stop_settings = QFormLayout()
+    def __init_ui(self) -> None:
+        #**********************************************************************
+        # Header
+        #**********************************************************************
+        self.header_label: QLabel = QLabel("Stop:")
+        self.header_edit: QLineEdit = QLineEdit()
+        #**********************************************************************
+        # Editor
+        #**********************************************************************
+        self.editor: QTabWidget = QTabWidget()
+        #======================================================================
+        # Stop Settings
+        #======================================================================
         # Stop Name
-        self.stopname_label = QLabel("Stop Name:")
-        self.stopname_combo = QComboBox()
+        self.stopname_label: QLabel = QLabel("Stop Name:")
+        self.stopname_combo: QComboBox = QComboBox()
         # Stop Family
-        self.stopfamily_label = QLabel("Stop Family:")
+        self.stopfamily_label: QLabel = QLabel("Stop Family:")
         self.stopfamily_combo = QComboBox()
         # Organ Division
-        self.organdivision_label = QLabel("Organ Division:")
-        self.organdivision_combo = QComboBox()
+        self.organdivision_label: QLabel = QLabel("Organ Division:")
+        self.organdivision_combo: QComboBox = QComboBox()
         # Number of Ranks
-        self.numranks_label = QLabel("Number of Rank:")
-        self.numranks_spin = QSpinBox()
+        self.numranks_label: QLabel = QLabel("Number of Rank:")
+        self.numranks_spin: QSpinBox = QSpinBox()
         # Rank Series
-        self.rankseries_label = QLabel("Rank Series:")
-        self.rankseries_combo = QComboBox()
-
-    def __init_ui_editor_rankinfo(self):
-        self.rank_settings = QFormLayout()
+        self.rankseries_label: QLabel = QLabel("Rank Series:")
+        self.rankseries_combo: QComboBox = QComboBox()
+        #======================================================================
+        # Rank Settings
+        #======================================================================
         # Rank #
-        self.ranknum_label = QLabel("Rank #:")
-        self.ranknum_spin = QSpinBox()
+        self.ranknum_label: QLabel = QLabel("Rank #:")
+        self.ranknum_spin: QSpinBox = QSpinBox()
         # Rank Size
-        self.ranksize_label = QLabel("Rank Size:")
+        self.ranksize_label: QLabel = QLabel("Rank Size:")
         self.ranksize_combo = QComboBox()
         # Number of Pipes
-        self.numpipes_label = QLabel("Number of Pipes:")
-        self.numpipes_spin = QSpinBox()
+        self.numpipes_label: QLabel = QLabel("Number of Pipes:")
+        self.numpipes_spin: QSpinBox = QSpinBox()
         # Starting Note
-        self.startnote_label = QLabel("Starting Note:")
-        self.startnote_combo = QComboBox()
+        self.startnote_label: QLabel = QLabel("Starting Note:")
+        self.startnote_combo: QComboBox = QComboBox()
         # Pipe Type
-        self.pipetype_label = QLabel("PipeType:")
-        self.pipetype_combo = QComboBox()
+        self.pipetype_label: QLabel = QLabel("PipeType:")
+        self.pipetype_combo: QComboBox = QComboBox()
         # Frequency Offset
-        self.freqoffset_label = QLabel("Frequency Offset (Hz):")
-        self.freqoffset_spin = QSpinBox()
+        self.freqoffset_label: QLabel = QLabel("Frequency Offset (Hz):")
+        self.freqoffset_spin: QSpinBox = QSpinBox()
         # Number of Harmonics
-        self.numharmonics_label = QLabel("Number of Harmonics:")
-        self.numharmonics_spin = QSpinBox()
-
-    def __init_ui_editor_pipeinfo(self):
-        self.pipe_settings = QFormLayout()
+        self.numharmonics_label: QLabel = QLabel("Number of Harmonics:")
+        self.numharmonics_spin: QSpinBox = QSpinBox()
+        #======================================================================
+        # Pipe Settings
+        #======================================================================
         # Rank #
-        self.ranknum_label = QLabel("Rank #:")
-        self.ranknum_spin = QSpinBox()
+        self.ranknum_label: QLabel = QLabel("Rank #:")
+        self.ranknum_spin: QSpinBox = QSpinBox()
         # Pipe #
-        self.pipenum_label = QLabel("Pipe #:")
-        self.pipenum_spin = QSpinBox()        
+        self.pipenum_label: QLabel = QLabel("Pipe #:")
+        self.pipenum_spin: QSpinBox = QSpinBox()        
         # Note
-        self.note_label = QLabel("Note:")
-        self.note_combo = QComboBox()
+        self.note_label: QLabel = QLabel("Note:")
+        self.note_combo: QComboBox = QComboBox()
         # Relative Note
-        self.relnote_label = QLabel("Relative Note:")
-        self.relnote_combo = QComboBox()
-
-    def __init_ui_editor_harmonicinfo(self):
-        self.harmonic_settings = QVBoxLayout()
-        self.__init_ui_editor_harmonicinfo_options()
-        self.__init_ui_editor_harmonicinfo_form()
-
-    def __init_ui_editor_harmonicinfo_options(self):
-        self.harmonicoptions = QVBoxLayout()
-        self.harmonic_options = QButtonGroup()
-        self.harmonic_option_general = QRadioButton()
-        self.harmonic_option_specific = QRadioButton()
-
-    def __init_ui_editor_harmonicinfo_form(self):
-        self.harmonicsettings = QGroupBox()
+        self.relnote_label: QLabel = QLabel("Relative Note:")
+        self.relnote_combo: QComboBox = QComboBox()
+        #======================================================================
+        # Harmonic Settings
+        #======================================================================
+        #----------------------------------------------------------------------
+        # Harmonic Settings Options
+        #----------------------------------------------------------------------
+        self.harmonic_option_general: QRadioButton = QRadioButton()
+        self.harmonic_option_specific: QRadioButton = QRadioButton()
+        #----------------------------------------------------------------------
+        # Harmonic Settings Form
+        #----------------------------------------------------------------------
+        self.harmonicsettings: QGroupBox = QGroupBox()
         # Rank #
-        self.harmonic_ranknum_label = QLabel("Rank #:")
-        self.harmonic_ranknum_spin = QSpinBox()
+        self.harmonic_ranknum_label: QLabel = QLabel("Rank #:")
+        self.harmonic_ranknum_spin: QSpinBox = QSpinBox()
         # Pipe #
-        self.harmonic_pipenum_label = QLabel("Pipe #:")
-        self.harmonic_pipenum_spin = QSpinBox()
+        self.harmonic_pipenum_label: QLabel = QLabel("Pipe #:")
+        self.harmonic_pipenum_spin: QSpinBox = QSpinBox()
         # Harmonic #
-        self.harmonicnum_label = QLabel("Harmonic #:")
-        self.harmonicnum_spin = QSpinBox()
+        self.harmonicnum_label: QLabel = QLabel("Harmonic #:")
+        self.harmonicnum_spin: QSpinBox = QSpinBox()
         # Amplitude
-        self.amplitude_label = QLabel("Amplitude (%):")
-        self.amplitude_spin = QSpinBox()
-
-    def __init_ui_editor_adsrinfo(self):
-        self.adsr_settings = QVBoxLayout()
-        self.__init_ui_editor_adsrinfo_options()
-        self.__init_ui_editor_adsrinfo_form()
-
-    def __init_ui_editor_adsrinfo_options(self):
-        self.adsroptions = QVBoxLayout()
-        self.adsroptions_group = QButtonGroup()
-        self.adsroption_rank = QRadioButton()
-        self.adsroption_pipe = QRadioButton()
-        self.adsroption_harmonic = QRadioButton()
-
-    def __init_ui_editor_adsrinfo_form(self):
-        self.adsrsettings = QGroupBox()
+        self.amplitude_label: QLabel = QLabel("Amplitude (%):")
+        self.amplitude_spin: QSpinBox = QSpinBox()
+        #======================================================================
+        # ADSR Settings
+        #======================================================================
+        #----------------------------------------------------------------------
+        # ADSR Settings Options
+        #----------------------------------------------------------------------
+        self.adsroption_rank: QRadioButton = QRadioButton()
+        self.adsroption_pipe: QRadioButton = QRadioButton()
+        self.adsroption_harmonic: QRadioButton = QRadioButton()
+        #----------------------------------------------------------------------
+        # ADSR Settings Form
+        #----------------------------------------------------------------------
+        self.adsrsettings: QGroupBox = QGroupBox()
         # Rank #
-        self.adsr_ranknum_label = QLabel("Rank #:")
-        self.adsr_ranknum_spin = QSpinBox()
+        self.adsr_ranknum_label: QLabel = QLabel("Rank #:")
+        self.adsr_ranknum_spin: QSpinBox = QSpinBox()
         # Pipe #
-        self.adsr_pipenum_label = QLabel("Pipe #:")
-        self.adsr_pipenum_spin = QSpinBox()
+        self.adsr_pipenum_label: QLabel = QLabel("Pipe #:")
+        self.adsr_pipenum_spin: QSpinBox = QSpinBox()
         # Harmonic #
-        self.adsr_harmonicnum_label = QLabel("Harmonic #:")
-        self.adsr_harmonicnum_spin = QSpinBox()
+        self.adsr_harmonicnum_label: QLabel = QLabel("Harmonic #:")
+        self.adsr_harmonicnum_spin: QSpinBox = QSpinBox()
         # Attack
-        self.attack_label = QLabel("Attack Time (ms)")
-        self.attack_spin = QSpinBox()
+        self.attack_label: QLabel = QLabel("Attack Time (ms)")
+        self.attack_spin: QSpinBox = QSpinBox()
         # Decay
-        self.decay_label = QLabel("Decay Time (ms):")
-        self.decay_spin = QSpinBox()
+        self.decay_label: QLabel = QLabel("Decay Time (ms):")
+        self.decay_spin: QSpinBox = QSpinBox()
         # Sustain
-        self.sustain_label = QLabel("Sustain Level (%):")
-        self.sustain_spin = QSpinBox()
+        self.sustain_label: QLabel = QLabel("Sustain Level (%):")
+        self.sustain_spin: QSpinBox = QSpinBox()
         # Release
-        self.release_label = QLabel("Release Time (ms):")
-        self.release_spin = QSpinBox()
-
-    def __init_ui_options(self):
-        self.options = QVBoxLayout()
-        self.load_button = QPushButton("Load Stop")
-        self.clear_button = QPushButton("Clear Changes")
-        self.save_button = QPushButton("Save Stop")
+        self.release_label: QLabel = QLabel("Release Time (ms):")
+        self.release_spin: QSpinBox = QSpinBox()
+        #======================================================================
+        # Options
+        #======================================================================
+        self.load_button: QPushButton = QPushButton("Load Stop")
+        self.clear_button: QPushButton = QPushButton("Clear Changes")
+        self.save_button: QPushButton = QPushButton("Save Stop")
 
     #--------------------------------------------------------------------------
     # Settings
     #--------------------------------------------------------------------------
-    def __ui_settings(self):
+    def __ui_settings(self) -> None:
         self.setWindowTitle("pyOrgan - Stop Editor")
-        #self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.__ui_settings_header()
-        self.__ui_settings_editor()
-        self.__ui_settings_options()
-    
-    def __ui_settings_header(self):
+        #**********************************************************************
+        # Settings - Header
+        #**********************************************************************
         self.header_edit.setReadOnly(True)
         self.header_edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-    def __ui_settings_editor(self):
+        #**********************************************************************
+        # Settings - Editor
+        #**********************************************************************
         self.editor.setFixedWidth(500)
-        self.__ui_settings_editor_labels()
-        self.__ui_settings_editor_groupboxes()
-        self.__ui_settings_editor_comboboxes()
-        self.__ui_settings_editor_spinboxes()
-        self.__ui_settings_editor_radiobuttons()
-
-    def __ui_settings_editor_labels(self):
-        labels = (
+        #======================================================================
+        # Settings - Editor - Labels
+        #======================================================================
+        labels: tuple[QLabel] = (
             self.stopname_label,
             self.stopfamily_label,
             self.organdivision_label,
@@ -231,9 +211,10 @@ class StopEditor(QFrame):
         for label in labels:
             label.setAlignment(Qt.AlignmentFlag.AlignLeft)
             label.setFixedWidth(130)
-
-    def __ui_settings_editor_groupboxes(self):
-        group_boxes =  (
+        #======================================================================
+        # Settings - Editor - GroupBoxes
+        #======================================================================
+        group_boxes: tuple[QGroupBox, str] =  (
             (self.harmonicsettings, "Harmonic Settings"),
             (self.adsrsettings, "ADSR Settings")
         )
@@ -243,9 +224,10 @@ class StopEditor(QFrame):
                 Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
             )
             group_box[0].setFixedWidth(465)
-
-    def __ui_settings_editor_comboboxes(self):
-        widgets = (
+        #======================================================================
+        # Settings - Editor - ComboBoxes
+        #======================================================================
+        comboboxes: tuple[QComboBox] = (
             self.stopname_combo,
             self.stopfamily_combo,
             self.organdivision_combo,
@@ -256,7 +238,7 @@ class StopEditor(QFrame):
             self.note_combo,
             self.relnote_combo,
         )
-        for widget in widgets:
+        for widget in comboboxes:
             widget.setEditable(True)
             edit = widget.lineEdit()
             edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -265,8 +247,9 @@ class StopEditor(QFrame):
                 edit.setReadOnly(False)
             else:
                 edit.setReadOnly(True)
-
-    def __ui_settings_editor_spinboxes(self):
+        #======================================================================
+        # Settings - Editor - SpinBoxes
+        #======================================================================
         spin_boxes: tuple[QSpinBox] = (
             self.numranks_spin,
             self.ranknum_spin,
@@ -290,9 +273,10 @@ class StopEditor(QFrame):
         for spin_box in spin_boxes:
             spin_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
             spin_box.setFixedWidth(300)
-
-    def __ui_settings_editor_radiobuttons(self):
-        radio_buttons = (
+        #======================================================================
+        # Settings - Editor - RadioButtons
+        #======================================================================
+        radio_buttons: tuple[QRadioButton, str] = (
             (
                 self.harmonic_option_general,
                 "Harmonic Settings - Rank Wide"
@@ -317,13 +301,14 @@ class StopEditor(QFrame):
         for radio_button in radio_buttons:
             radio_button[0].setText(radio_button[1])
         #----------------------------------------------------------------------
+        # Settings - Editor - RadioButtons - Actions
+        #----------------------------------------------------------------------
         self.harmonic_option_general.toggled.connect(
             lambda: self.harmonic_pipenum_visibility(False)
         )
         self.harmonic_option_specific.toggled.connect(
             lambda: self.harmonic_pipenum_visibility(True)
         )
-        #----------------------------------------------------------------------
         self.adsroption_rank.toggled.connect(
             self.adsroption_rank_toggled
         )
@@ -333,60 +318,44 @@ class StopEditor(QFrame):
         self.adsroption_harmonic.toggled.connect(
             self.adsroption_harmonic_toggled
         )
-
-    def __ui_settings_options(self):
-        self.options.setAlignment(Qt.AlignmentFlag.AlignTop)
+        #----------------------------------------------------------------------
+        # Settings - Editor - RadioButtons - Default State
+        #----------------------------------------------------------------------
+        self.harmonic_option_general.toggle()
+        self.adsroption_rank.toggle()
 
     #--------------------------------------------------------------------------
     # Layout
     #--------------------------------------------------------------------------
-    def __ui_layout(self):
-        self.__ui_layout_header()
-        self.__ui_layout_editor()
-        self.__ui_layout_options()
-        self.__ui_layout_final()
-
-    def __ui_layout_header(self):
-        widgets = (
+    def __ui_layout(self) -> None:
+        #**********************************************************************
+        # Header Layout
+        #**********************************************************************
+        header_layout: QHBoxLayout = QHBoxLayout()
+        widgets: tuple[QWidget] = (
             self.header_label,
             self.header_edit
         )
         for widget in widgets:
-            self.header.addWidget(widget)
-        #self.header.setLayout(layout)
-
-    def __ui_layout_editor(self):
-        layouts = (
-            (self.stop_settings, "Stop Settings"),
-            (self.rank_settings, "Rank Settings"),
-            (self.pipe_settings, "Pipe Settings"),
-            (self.harmonic_settings, "Harmonic Settings"),
-            (self.adsr_settings, "ADSR Settings")
-        )
-
-        for layout in layouts:
-            tabwidget = QWidget()
-            tabwidget.setLayout(layout[0])
-            self.editor.addTab(tabwidget, layout[1])
-        self.__ui_layout_editor_stopsettings()
-        self.__ui_layout_editor_ranksettings()
-        self.__ui_layout_editor_pipesettings()
-        self.__ui_layout_editor_harmonicsettings()
-        self.__ui_layout_editor_adsrsettings()
-
-    def __ui_layout_editor_stopsettings(self):
-        widgets = (
+            header_layout.addWidget(widget)
+        #**********************************************************************
+        # Stop Settings Layout
+        #**********************************************************************
+        stopsettings_layout: QFormLayout = QFormLayout()
+        stopsettings_widgets: tuple[QLabel, QWidget] = (
             (self.stopname_label, self.stopname_combo),
             (self.stopfamily_label, self.stopfamily_combo),
             (self.organdivision_label, self.organdivision_combo),
             (self.numranks_label, self.numranks_spin),
             (self.rankseries_label, self.rankseries_combo)
         )
-        for widget in widgets:
-            self.stop_settings.addRow(widget[0], widget[1])
-
-    def __ui_layout_editor_ranksettings(self):
-        widgets = (
+        for widget in stopsettings_widgets:
+            stopsettings_layout.addRow(widget[0], widget[1])
+        #**********************************************************************
+        # Rank Settings Layout
+        #**********************************************************************
+        ranksettings_layout: QFormLayout = QFormLayout()
+        ranksettings_widgets: tuple[QLabel, QWidget] = (
             (self.ranknum_label, self.ranknum_spin),
             (self.ranksize_label, self.ranksize_combo),
             (self.numpipes_label, self.numpipes_spin),
@@ -395,51 +364,54 @@ class StopEditor(QFrame):
             (self.freqoffset_label, self.freqoffset_spin),
             (self.numharmonics_label, self.numharmonics_spin)
         )
-        for widget in widgets:
-            self.rank_settings.addRow(widget[0], widget[1])
-
-    def __ui_layout_editor_pipesettings(self):
-        widgets = (
+        for widget in ranksettings_widgets:
+            ranksettings_layout.addRow(widget[0], widget[1])
+        #**********************************************************************
+        # Pipe Settings Layout
+        #**********************************************************************
+        pipesettings_layout: QFormLayout = QFormLayout()
+        pipesettings_widgets: tuple[QLabel, QWidget] = (
             (self.ranknum_label, self.ranknum_spin),
             (self.pipenum_label, self.pipenum_spin),
             (self.note_label, self.note_combo),
             (self.relnote_label, self.relnote_combo)
         )
-        for widget in widgets:
-            self.pipe_settings.addRow(widget[0], widget[1])
-
-    def __ui_layout_editor_harmonicsettings(self):
-        widgets = (
+        for widget in pipesettings_widgets:
+            pipesettings_layout.addRow(widget[0], widget[1])
+        #**********************************************************************
+        # Harmonic Settings Layout
+        #**********************************************************************
+        harmonicsettings_layout: QVBoxLayout = QVBoxLayout()
+        harmonicoptions_widgets: tuple[QRadioButton] = (
             self.harmonic_option_general,
             self.harmonic_option_specific
         )
-        for widget in widgets:
-            self.harmonicoptions.addWidget(widget)
-            self.harmonic_options.addButton(widget)
-        form_layout = QFormLayout()
-        widgets = (
+        for widget in harmonicoptions_widgets:
+            harmonicsettings_layout.addWidget(widget)
+        harmonicform_layout: QFormLayout = QFormLayout()
+        harmonicoptions_widgets: tuple[QLabel, QSpinBox] = (
             (self.harmonic_ranknum_label, self.harmonic_ranknum_spin),
             (self.harmonic_pipenum_label, self.harmonic_pipenum_spin),
             (self.harmonicnum_label, self.harmonicnum_spin),
             (self.amplitude_label, self.amplitude_spin)
         )
-        for widget in widgets:
-            form_layout.addRow(widget[0], widget[1])
-        self.harmonicsettings.setLayout(form_layout)
-        self.harmonic_settings.addLayout(self.harmonicoptions)
-        self.harmonic_settings.addWidget(self.harmonicsettings)
-
-    def __ui_layout_editor_adsrsettings(self):
-        widgets = (
+        for widget in harmonicoptions_widgets:
+            harmonicform_layout.addRow(widget[0], widget[1])
+        harmonicsettings_layout.addSpacing(10)
+        harmonicsettings_layout.addLayout(harmonicform_layout)
+        #**********************************************************************
+        # ADSR Settings Layout
+        #**********************************************************************
+        adsrsettings_layout: QVBoxLayout = QVBoxLayout()
+        adsrsettings_widgets: tuple[QRadioButton] = (
             self.adsroption_rank,
             self.adsroption_pipe,
             self.adsroption_harmonic
         )
-        for widget in widgets:
-            self.adsroptions.addWidget(widget)
-            self.adsroptions_group.addButton(widget)
-        form_layout = QFormLayout()
-        widgets = (
+        for widget in adsrsettings_widgets:
+            adsrsettings_layout.addWidget(widget)
+        adsrform_layout: QFormLayout = QFormLayout()
+        adsrsettings_widgets: tuple[QLabel, QSpinBox] = (
             (self.adsr_ranknum_label, self.adsr_ranknum_spin),
             (self.adsr_pipenum_label, self.adsr_pipenum_spin),
             (self.adsr_harmonicnum_label, self.adsr_harmonicnum_spin),
@@ -448,29 +420,46 @@ class StopEditor(QFrame):
             (self.sustain_label, self.sustain_spin),
             (self.release_label, self.release_spin)
         )
-        for widget in widgets:
-            form_layout.addRow(widget[0], widget[1])
-        self.adsrsettings.setLayout(form_layout)
-        self.adsr_settings.addLayout(self.adsroptions)
-        self.adsr_settings.addWidget(self.adsrsettings)
-
-    def __ui_layout_options(self):
-        widgets = (
+        for widget in adsrsettings_widgets:
+            adsrform_layout.addRow(widget[0], widget[1])
+        adsrsettings_layout.addSpacing(10)
+        adsrsettings_layout.addLayout(adsrform_layout)
+        #**********************************************************************
+        # Editor Layout
+        #**********************************************************************
+        editor_layouts: tuple[QLayout, str] = (
+            (stopsettings_layout, "Stop Settings"),
+            (ranksettings_layout, "Rank Settings"),
+            (pipesettings_layout, "Pipe Settings"),
+            (harmonicsettings_layout, "Harmonic Settings"),
+            (adsrsettings_layout, "ADSR Settings")
+        )
+        for layout in editor_layouts:
+            tabwidget = QWidget()
+            tabwidget.setLayout(layout[0])
+            self.editor.addTab(tabwidget, layout[1])
+        #**********************************************************************
+        # Button Layout
+        #**********************************************************************
+        button_layout: QVBoxLayout = QVBoxLayout()
+        button_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        button_widgets: tuple[QPushButton] = (
             self.load_button,
             self.clear_button,
             self.save_button
         )
-        for widget in widgets:
-            self.options.addWidget(widget)
-
-    def __ui_layout_final(self):
-        layout_body = QHBoxLayout()
+        for widget in button_widgets:
+            button_layout.addWidget(widget)
+        #**********************************************************************
+        # Main Layout
+        #**********************************************************************
+        layout_body: QHBoxLayout = QHBoxLayout()
         layout_body.addWidget(self.editor)
-        layout_body.addLayout(self.options)
-        main_layout = QVBoxLayout()
+        layout_body.addLayout(button_layout)
+        main_layout: QVBoxLayout = QVBoxLayout()
         main_layout.addSpacing(10)
-        layouts = (
-            self.header,
+        layouts: tuple[QLayout] = (
+            header_layout,
             layout_body
         )
         for layout in layouts:
@@ -481,8 +470,8 @@ class StopEditor(QFrame):
     #--------------------------------------------------------------------------
     # Actions
     #--------------------------------------------------------------------------
-    def harmonic_pipenum_visibility(self, visible: bool):
-        widgets = (
+    def harmonic_pipenum_visibility(self, visible: bool) -> None:
+        widgets: tuple[QWidget] = (
             self.harmonic_pipenum_label,
             self.harmonic_pipenum_spin
         )
@@ -494,15 +483,15 @@ class StopEditor(QFrame):
                 for widget in widgets:
                     widget.hide()
 
-    def adsroption_rank_toggled(self):
-        shown_widgets = (
+    def adsroption_rank_toggled(self) -> None:
+        shown_widgets: tuple[QWidget] = (
             self.adsr_ranknum_label,
             self.adsr_ranknum_spin
         )
         for widget in shown_widgets:
             widget.show()
         #----------------------------------------------------------------------
-        hidden_widgets = (
+        hidden_widgets: tuple[QWidget] = (
             self.adsr_pipenum_label,
             self.adsr_pipenum_spin,
             self.adsr_harmonicnum_label,
@@ -511,8 +500,8 @@ class StopEditor(QFrame):
         for widget in hidden_widgets:
             widget.hide()
 
-    def adsroption_pipe_toggled(self):
-        shown_widgets = (
+    def adsroption_pipe_toggled(self) -> None:
+        shown_widgets: tuple[QWidget] = (
             self.adsr_ranknum_label,
             self.adsr_ranknum_spin,
             self.adsr_pipenum_label,
@@ -521,15 +510,15 @@ class StopEditor(QFrame):
         for widget in shown_widgets:
             widget.show()
         #----------------------------------------------------------------------
-        hidden_widgets = (
+        hidden_widgets: tuple[QWidget] = (
             self.adsr_harmonicnum_label,
             self.adsr_harmonicnum_spin
         )
         for widget in hidden_widgets:
             widget.hide()
 
-    def adsroption_harmonic_toggled(self):
-        widgets = (
+    def adsroption_harmonic_toggled(self) -> None:
+        widgets: tuple[QWidget] = (
             self.adsr_ranknum_label,
             self.adsr_ranknum_spin,
             self.adsr_pipenum_label,
@@ -541,9 +530,9 @@ class StopEditor(QFrame):
             widget.show()
 
 
-def main():
-    app = QApplication([])
-    window = StopEditor()
+def main() -> None:
+    app: QApplication = QApplication([])
+    window: StopEditor = StopEditor()
     window.show()
     app.exec()
 

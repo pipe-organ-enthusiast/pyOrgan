@@ -10,7 +10,7 @@ from PySide6.QtGui import (
 )
 from PySide6 import QtCore
 #------------------------------------------------------------------------------
-from stopeditor import StopEditor
+from .stopeditor import StopEditor
 
 
 class MainWindow(QMainWindow):
