@@ -1,27 +1,32 @@
-from gui import MainWindow
-#from gui.stop_editor import StopEditor
+from gui import MainWindow, StopEditor
 from organ import organlib
 #------------------------------------------------------------------------------
 from PySide6.QtWidgets import QApplication
 
 
-class UI:
+class StopEditorUI(StopEditor):
     def __init__(self):
-        self.__init_ui()
-        #self.__config()
+        super().__init__()
+        self.__ui_settings()
 
-    def __init_ui(self):
-        self.ui = QApplication([])
-        self.mainwindow = MainWindow()
-
-    def __config(self):
-        ...
+    def __ui_settings(self):
+        # Stop Name
+        stop_names: tuple[str] = ("",) + organlib.STOP_NAMES
+        self.stopname_combo_populate(stop_names)
+        self.stopname_combo_action(self.update_stopname)
+        # Stop Family
+        stop_families: tuple[str] = ("",) + organlib.STOP_FAMILIES
+        self.__stopfamily_combo.addItems(stop_families)
 
     #**************************************************************************
-    def run(self):
-        self.ui.exec()
+    # Actions
+    #**************************************************************************
+    def update_stopname(self):
+        ...
 
 
 if __name__ == "__main__":
-    ui = UI()
-    ui.run()
+    app = QApplication([])
+    window = StopEditorUI()
+    window.show()
+    app.exec()

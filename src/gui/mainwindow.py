@@ -5,12 +5,12 @@ from PySide6.QtWidgets import (
     QMenu,
 )
 from PySide6.QtGui import (
-    Qt,
+    #Qt,
     QAction
 )
 from PySide6 import QtCore
 #------------------------------------------------------------------------------
-from .stopeditor import StopEditor
+#from .stopeditor import StopEditor
 
 
 class MainWindow(QMainWindow):
@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
     #--------------------------------------------------------------------------
     def __init_ui(self):
         self.__init_ui_menubar()
-        self.__init_ui_forms()
+        #self.__init_ui_forms()
 
     def __init_ui_menubar(self):
         self.menu = self.menuBar()
@@ -36,15 +36,16 @@ class MainWindow(QMainWindow):
         # Add Menus to MenuBar
         self.menu.addMenu(self.menu_settings)
 
-    def __init_ui_forms(self):
-        self.stopeditor = StopEditor()
+    #def __init_ui_forms(self):
+    #    #self.stopeditor = StopEditor()
+    #    ...
 
     #--------------------------------------------------------------------------
     # Settings
     #--------------------------------------------------------------------------
     def __ui_settings(self):
         self.setWindowTitle("PyOrgan")
-        self.stopeditor_action.triggered.connect(self.stopeditor_show)
+        #self.stopeditor_action.triggered.connect(self.stopeditor_show)
 
     #--------------------------------------------------------------------------
     # Layout
@@ -55,8 +56,9 @@ class MainWindow(QMainWindow):
     #--------------------------------------------------------------------------
     # Actions
     #--------------------------------------------------------------------------
-    def stopeditor_show(self):
-        self.stopeditor.show()
+    #def stopeditor_show(self):
+    #    #self.stopeditor.show()
+    #    ...
 
     def closeEvent(self, event):
         QApplication.closeAllWindows()
