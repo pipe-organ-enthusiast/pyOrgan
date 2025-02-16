@@ -73,12 +73,12 @@ class StopEditor(QFrame):
         # Number of Pipes
         self.__numpipes_label: QLabel = QLabel("Number of Pipes:")
         self.__numpipes_spin: QSpinBox = QSpinBox()
-        # Starting Note
-        self.__startnote_label: QLabel = QLabel("Starting Note:")
-        self.__startnote_combo: QComboBox = QComboBox()
         # Pipe Type
         self.__pipetype_label: QLabel = QLabel("PipeType:")
         self.__pipetype_combo: QComboBox = QComboBox()
+        # Starting Note
+        self.__startnote_label: QLabel = QLabel("Starting Note:")
+        self.__startnote_combo: QComboBox = QComboBox()
         # Frequency Offset
         self.__freqoffset_label: QLabel = QLabel("Frequency Offset (Hz):")
         self.__freqoffset_spin: QSpinBox = QSpinBox()
@@ -87,7 +87,7 @@ class StopEditor(QFrame):
         self.__numharmonics_spin: QSpinBox = QSpinBox()
         #----------------------------------------------------------------------
         # Rank Harmonic Settings
-        #-----------------------------------------------------------------------
+        #----------------------------------------------------------------------
         # Edit Harmonics Option
         self.__rank_harmonics_button: QCheckBox = QCheckBox()
         # Harmonic Group
@@ -437,8 +437,8 @@ class StopEditor(QFrame):
             (self.__ranknum_label, self.__ranknum_spin),
             (self.__ranksize_label, self.__ranksize_combo),
             (self.__numpipes_label, self.__numpipes_spin),
-            (self.__startnote_label, self.__startnote_combo),
             (self.__pipetype_label, self.__pipetype_combo),
+            (self.__startnote_label, self.__startnote_combo),
             (self.__freqoffset_label, self.__freqoffset_spin),
             (self.__numharmonics_label, self.__numharmonics_spin)
         )
@@ -648,6 +648,9 @@ class StopEditor(QFrame):
     #**************************************************************************
     # Actions
     #**************************************************************************
+    #==========================================================================
+    # Widget Manipulation
+    #==========================================================================
     def __rank_harmonics_checked(self) -> None:
         widgets: tuple[QWidget] = (
             self.__rank_harmonic,
@@ -765,6 +768,733 @@ class StopEditor(QFrame):
             case False:
                 for spin in spins:
                     spin.setEnabled(False)
+
+    #==========================================================================
+    # Widget Data
+    #==========================================================================
+    def stop_names_populate(self, stop_names: tuple[str]) -> None:
+        self.__stopname_combo.addItems(stop_names)
+
+    def stop_families_populate(self, stop_families: tuple[str]) -> None:
+        self.__stopfamily_combo.addItems(stop_families)
+
+    def organ_divisions_populate(self, divisions: tuple[str]) -> None:
+        self.__organdivision_combo.addItems(divisions)
+
+    def number_ranks_set_minimum(self, min: int) -> None:
+        self.__numranks_spin.setMinimum(min)
+
+    def number_ranks_set_maximum(self, max: int) -> None:
+        self.__numranks_spin.setMaximum(max)
+
+    def rank_series_populate(self, rank_series: tuple[str]) -> None:
+        self.__rankseries_combo.addItems(rank_series)
+
+    def rank_number_set_minimum(self, min: int) -> None:
+        self.__ranknum_spin.setMinimum(min)
+
+    def rank_number_set_maximum(self, max: int) -> None:
+        self.__ranknum_spin.setMaximum(max)
+
+    def rank_size_populate(self, rank_sizes: tuple[str]) -> None:
+        self.__ranksize_combo.addItems(rank_sizes)
+
+    def number_pipes_set_minimum(self, min: int) -> None:
+        self.__numpipes_spin.setMinimum(min)
+
+    def number_pipes_set_maximum(self, max: int) -> None:
+        self.__numpipes_spin.setMaximum(max)
+
+    def pipe_types_populate(self, pipe_types: tuple[str]) -> None:
+        self.__pipetype_combo.addItems(pipe_types)
+
+    def starting_note_populate(self, starting_notes: tuple[str]) -> None:
+        self.__startnote_combo.addItems(starting_notes)
+
+    def frequency_offset_set_minimum(self, min: int) -> None:
+        self.__freqoffset_spin.setMinimum(min)
+
+    def frequency_offset_set_maximum(self, max: int) -> None:
+        self.__freqoffset_spin.setMaximum(max)
+
+    def number_harmonics_set_minimum(self, min: int) -> None:
+        self.__numharmonics_spin.setMinimum(min)
+
+    def number_harmonics_set_maximum(self, max: int) -> None:
+        self.__numharmonics_spin.setMaximum(max)
+
+    def harmonic_number_rank_set_minimum(self, min: int) -> None:
+        self.__rank_harmonicnum_spin.setMinimum(min)
+
+    def harmonic_number_rank_set_maximum(self, max: int) -> None:
+        self.__rank_harmonicnum_spin.setMaximum(max)
+
+    def amplitude_rank_set_minimum(self, min: int) -> None:
+        self.__rank_amplitude_spin.setMinimum(min)
+
+    def amplitude_rank_set_maximum(self, max: int) -> None:
+        self.__rank_amplitude_spin.setMaximum(max)
+
+    def attack_time_rank_harmonic_set_minimum(self, min: int) -> None:
+        self.__rankharm_attack_spin.setMinimum(min)
+
+    def attack_time_rank_harmonic_set_maximum(self, max: int) -> None:
+        self.__rankharm_attack_spin.setMaximum(max)
+
+    def decay_time_rank_harmonic_set_minimum(self, min: int) -> None:
+        self.__rankharm_decay_spin.setMinimum(min)
+
+    def decay_time_rank_harmonic_set_maximum(self, max: int) -> None:
+        self.__rankharm_decay_spin.setMaximum(max)
+
+    def sustain_level_rank_harmonic_set_minimum(self, min: int) -> None:
+        self.__rankharm_sustain_spin.setMinimum(min)
+
+    def sustain_level_rank_harmonic_set_maximum(self, max: int) -> None:
+        self.__rankharm_sustain_spin.setMaximum(max)
+
+    def release_time_rank_harmonic_set_minimum(self, min: int) -> None:
+        self.__rankharm_release_spin.setMinimum(min)
+
+    def release_time_rank_harmonic_set_maximum(self, max: int) -> None:
+        self.__rankharm_release_spin.setMaximum(max)
+
+    def attack_time_rank_set_minimum(self, min: int) -> None:
+        self.__rank_attack_spin.setMinimum(min)
+
+    def attack_time_rank_set_maximum(self, max: int) -> None:
+        self.__rank_attack_spin.setMaximum(max)
+
+    def decay_time_rank_set_minimum(self, min: int) -> None:
+        self.__rank_decay_spin.setMinimum(min)
+
+    def decay_time_rank_set_maximum(self, max: int) -> None:
+        self.__rank_decay_spin.setMaximum(max)
+
+    def sustain_level_rank_set_minimum(self, min: int) -> None:
+        self.__rank_sustain_spin.setMinimum(min)
+
+    def sustain_level_rank_set_maximum(self, max: int) -> None:
+        self.__rank_sustain_spin.setMaximum(max)
+
+    def release_time_rank_set_minimum(self, min: int) -> None:
+        self.__rank_release_spin.setMinimum(min)
+
+    def release_time_rank_set_maximum(self, max: int) -> None:
+        self.__rank_release_spin.setMaximum(max)
+
+    def rank_number_pipe_set_minimum(self, min: int) -> None:
+        self.__ranknum_pipe_spin.setMinimum(min)
+
+    def rank_number_pipe_set_maximum(self, max: int) -> None:
+        self.__ranknum_pipe_spin.setMaximum(max)
+
+    def pipe_number_set_minimum(self, min: int) -> None:
+        self.__pipenum_spin.setMinimum(min)
+
+    def pipe_number_set_maximum(self, max: int) -> None:
+        self.__pipenum_spin.setMaximum(max)
+
+    def note_populate(self, notes: tuple[str]) -> None:
+        self.__note_combo.addItems(notes)
+
+    def relative_note_populate(self, notes: tuple[str]) -> None:
+        self.__relnote_combo.addItems(notes)
+
+    def harmonic_number_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_harmonicnum_spin.setMinimum(min)
+
+    def harmonic_number_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_harmonicnum_spin.setMaximum(max)
+
+    def amplitude_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_amplitude_spin.setMinimum(min)
+
+    def amplitude_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_amplitude_spin.setMaximum(max)
+
+    def attack_time_pipe_harmonic_set_minimum(self, min: int) -> None:
+        self.__pipeharm_attack_spin.setMinimum(min)
+
+    def attack_time_pipe_harmonic_set_maximum(self, max: int) -> None:
+        self.__pipeharm_attack_spin.setMaximum(max)
+
+    def decay_time_pipe_harmonic_set_minimum(self, min: int) -> None:
+        self.__pipeharm_decay_spin.setMinimum(min)
+
+    def decay_time_pipe_harmonic_set_maximum(self, max: int) -> None:
+        self.__pipeharm_decay_spin.setMaximum(max)
+
+    def sustain_level_pipe_harmonic_set_minimum(self, min: int) -> None:
+        self.__pipeharm_sustain_spin.setMinimum(min)
+
+    def sustain_level_pipe_harmonic_set_maximum(self, max: int) -> None:
+        self.__pipeharm_sustain_spin.setMaximum(max)
+
+    def release_time_pipe_harmonic_set_minimum(self, min: int) -> None:
+        self.__pipeharm_release_spin.setMinimum(min)
+
+    def release_time_pipe_harmonic_set_maximum(self, max: int) -> None:
+        self.__pipeharm_release_spin.setMaximum(max)
+
+    def attack_time_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_attack_spin.setMinimum(min)
+
+    def attack_time_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_attack_spin.setMaximum(max)
+
+    def decay_time_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_decay_spin.setMinimum(min)
+
+    def decay_time_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_decay_spin.setMaximum(max)
+
+    def sustain_level_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_sustain_spin.setMinimum(min)
+
+    def sustain_level_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_sustain_spin.setMaximum(max)
+
+    def release_time_pipe_set_minimum(self, min: int) -> None:
+        self.__pipe_release_spin.setMinimum(min)
+
+    def release_time_pipe_set_maximum(self, max: int) -> None:
+        self.__pipe_release_spin.setMaximum(max)
+
+    #==========================================================================
+    # Data Manipulation
+    #==========================================================================
+    def update_stop_header(self) -> None:
+        match self.number_ranks:
+            case 1:
+                stop_name = f"{self.stop_name} {self.rank_size}"
+            case 2:
+                stop_name = f"{self.stop_name} II"
+            case 3:
+                stop_name = f"{self.stop_name} III"
+            case 4:
+                stop_name = f"{self.stop_name} IV"
+            case 5:
+                stop_name = f"{self.stop_name} V"
+            case 6:
+                stop_name = f"{self.stop_name} VI"
+            case 7:
+                stop_name = f"{self.stop_name} VII"
+            case 8:
+                stop_name = f"{self.stop_name} VIII"
+            case 9:
+                stop_name = f"{self.stop_name} IX"
+            case 10:
+                stop_name = f"{self.stop_name} X"
+        self.__header_edit.setText(stop_name)
+
+    def stop_name_change(self, action: Callable) -> None:
+        self.__stopname_combo.currentTextChanged.connect(action)
+
+    def stop_family_change(self, action: Callable) -> None:
+        self.__stopfamily_combo.currentTextChanged.connect(action)
+
+    def organ_division_change(self, action: Callable) -> None:
+        self.__organdivision_combo.currentTextChanged.connect(action)
+
+    def number_ranks_change(self, action: Callable) -> None:
+        self.__numranks_spin.valueChanged.connect(action)
+
+    def rank_series_change(self, action: Callable) -> None:
+        self.__rankseries_combo.currentTextChanged.connect(action)
+
+    def rank_number_change(self, action: Callable) -> None:
+        self.__ranknum_spin.valueChanged.connect(action)
+
+    def rank_size_change(self, action: Callable) -> None:
+        self.__ranksize_combo.currentTextChanged.connect(action)
+
+    def number_pipes_change(self, action: Callable) -> None:
+        self.__numpipes_spin.valueChanged.connect(action)
+
+    def pipe_type_change(self, action: Callable) -> None:
+        self.__pipetype_combo.currentTextChanged.connect(action)
+
+    def starting_note_change(self, action: Callable) -> None:
+        self.__startnote_combo.currentTextChanged.connect(action)
+
+    def frequency_offset_change(self, action: Callable) -> None:
+        self.__freqoffset_spin.valueChanged.connect(action)
+
+    def number_harmonics_change(self, action: Callable) -> None:
+        self.__numharmonics_spin.valueChanged.connect(action)
+
+    def harmonic_number_rank_change(self, action: Callable) -> None:
+        self.__rank_harmonicnum_spin.valueChanged.connect(action)
+
+    def amplitude_rank_change(self, action: Callable) -> None:
+        self.__rank_amplitude_spin.valueChanged.connect(action)
+
+    def attack_time_rank_harmonic_change(self, action: Callable) -> None:
+        self.__rankharm_attack_spin.valueChanged.connect(action)
+
+    def decay_time_rank_harmonic_change(self, action: Callable) -> None:
+        self.__rankharm_decay_spin.valueChanged.connect(action)
+
+    def sustain_level_rank_harmonic_change(self, action: Callable) -> None:
+        self.__rankharm_sustain_spin.valueChanged.connect(action)
+
+    def release_time_rank_harmonic_change(self, action: Callable) -> None:
+        self.__rankharm_release_spin.valueChanged.connect(action)
+
+    def attack_time_rank_change(self, action: Callable) -> None:
+        self.__rank_attack_spin.valueChanged.connect(action)
+
+    def decay_time_rank_change(self, action: Callable) -> None:
+        self.__rank_decay_spin.valueChanged.connect(action)
+
+    def sustain_level_rank_change(self, action: Callable) -> None:
+        self.__rank_sustain_spin.valueChanged.connect(action)
+
+    def release_time_rank_change(self, action: Callable) -> None:
+        self.__rank_release_spin.valueChanged.connect(action)
+
+    def rank_number_pipe_change(self, action: Callable) -> None:
+        self.__ranknum_pipe_spin.valueChanged.connect(action)
+
+    def pipe_number_change(self, action: Callable) -> None:
+        self.__pipenum_spin.valueChanged.connect(action)
+
+    def note_change(self, action: Callable) -> None:
+        self.__note_combo.currentTextChanged.connect(action)
+
+    def relative_note_change(self, action: Callable) -> None:
+        self.__relnote_combo.currentTextChanged.connect(action)
+
+    def harmonic_number_pipe_change(self, action: Callable) -> None:
+        self.__pipe_harmonicnum_spin.valueChanged.connect(action)
+
+    def amplitude_pipe_change(self, action: Callable) -> None:
+        self.__pipe_amplitude_spin.valueChanged.connect(action)
+
+    def attack_time_pipe_harmonic_change(self, action: Callable) -> None:
+        self.__pipeharm_attack_spin.valueChanged.connect(action)
+
+    def decay_time_pipe_harmonic_change(self, action: Callable) -> None:
+        self.__pipeharm_decay_spin.valueChanged.connect(action)
+
+    def sustain_level_pipe_harmonic_change(self, action: Callable) -> None:
+        self.__pipeharm_sustain_spin.valueChanged.connect(action)
+
+    def release_time_pipe_harmonic_change(self, action: Callable) -> None:
+        self.__pipeharm_release_spin.valueChanged.connect(action)
+
+    def attack_time_pipe_change(self, action: Callable) -> None:
+        self.__pipe_attack_spin.valueChanged.connect(action)
+
+    def decay_time_pipe_change(self, action: Callable) -> None:
+        self.__pipe_decay_spin.valueChanged.connect(action)
+
+    def sustain_level_pipe_change(self, action: Callable) -> None:
+        self.__pipe_sustain_spin.valueChanged.connect(action)
+
+    def release_time_pipe_change(self, action: Callable) -> None:
+        self.__pipe_release_spin.valueChanged.connect(action)
+
+    #**************************************************************************
+    # Properties
+    #**************************************************************************
+    #==========================================================================
+    # Stop Name
+    #==========================================================================
+    @property
+    def stop_name(self) -> str:
+        return self.__stopname_combo.currentText()
+
+    @stop_name.setter
+    def stop_name(self, n: str) -> None:
+        self.__stopname_combo.setCurrentText(n)
+
+    #==========================================================================
+    # Stop Family
+    #==========================================================================
+    @property
+    def stop_family(self) -> str:
+        return self.__stopfamily_combo.currentText()
+
+    @stop_family.setter
+    def stop_family(self, f: str) -> None:
+        self.__stopfamily_combo.setCurrentText(f)
+
+    #==========================================================================
+    # Organ Division
+    #==========================================================================
+    @property
+    def organ_division(self) -> str:
+        return self.__organdivision_combo.currentText()
+
+    @organ_division.setter
+    def organ_division(self, d: str) -> None:
+        self.__organdivision_combo.setCurrentText(d)
+
+    #==========================================================================
+    # Number of Ranks
+    #==========================================================================
+    @property
+    def number_ranks(self) -> int:
+        return self.__numranks_spin.value()
+
+    @number_ranks.setter
+    def number_ranks(self, n: int) -> None:
+        self.__numranks_spin.setValue(n)
+
+    #==========================================================================
+    # Rank Series
+    #==========================================================================
+    @property
+    def rank_series(self) -> str:
+        return self.__rankseries_combo.currentText()
+
+    @rank_series.setter
+    def rank_series(self, r: str) -> None:
+        self.__rankseries_combo.setCurrentText(r)
+
+    #==========================================================================
+    # Rank Number
+    #==========================================================================
+    @property
+    def rank_number(self) -> int:
+        return self.__ranknum_spin.value()
+
+    @rank_number.setter
+    def rank_number(self, n: int) -> None:
+        self.__ranknum_spin.setValue(n)
+
+    #==========================================================================
+    # Rank Size
+    #==========================================================================
+    @property
+    def rank_size(self) -> str:
+        return self.__ranksize_combo.currentText()
+
+    @rank_size.setter
+    def rank_size(self, s: str) -> None:
+        self.__ranksize_combo.setCurrentText(s)
+
+    #==========================================================================
+    # Number of Pipes
+    #==========================================================================
+    @property
+    def number_pipes(self) -> int:
+        return self.__numpipes_spin.value()
+
+    @number_pipes.setter
+    def number_pipes(self, n: int) -> None:
+        self.__numpipes_spin.setValue(n)
+
+    #==========================================================================
+    # Pipe Type
+    #==========================================================================
+    @property
+    def pipe_type(self) -> str:
+        return self.__pipetype_combo.currentText()
+
+    @pipe_type.setter
+    def pipe_type(self, t: str) -> None:
+        self.__pipetype_combo.setCurrentText(t)
+
+    #==========================================================================
+    # Starting Note
+    #==========================================================================
+    @property
+    def starting_note(self) -> str:
+        return self.__startnote_combo.currentText()
+
+    @starting_note.setter
+    def starting_note(self, n: str) -> None:
+        self.__startnote_combo.setCurrentText(n)
+
+    #==========================================================================
+    # Frequency Offset
+    #==========================================================================
+    @property
+    def frequency_offset(self) -> int:
+        self.__freqoffset_spin.value()
+
+    @frequency_offset.setter
+    def frequency_offset(self, f: int) -> None:
+        self.__freqoffset_spin.setValue(f)
+
+    #==========================================================================
+    # Number of Harmonics
+    #==========================================================================
+    @property
+    def number_harmonics(self) -> int:
+        return self.__numharmonics_spin.value()
+
+    @number_harmonics.setter
+    def number_harmonics(self, n: int) -> None:
+        self.__numharmonics_spin.setValue(n)
+
+    #==========================================================================
+    # Harmonic Number - Rank
+    #==========================================================================
+    @property
+    def harmonic_number_rank(self) -> int:
+        return self.__rank_harmonicnum_spin.value()
+
+    @harmonic_number_rank.setter
+    def harmonic_number_rank(self, n: int) -> None:
+        self.__rank_harmonicnum_spin.setValue(n)
+
+    #==========================================================================
+    # Amplitude - Rank
+    #==========================================================================
+    @property
+    def amplitude_rank(self) -> int:
+        return self.__rank_amplitude_spin.value()
+
+    @amplitude_rank.setter
+    def amplitude_rank(self, a: int) -> None:
+        self.__rank_amplitude_spin.setValue(a)
+
+    #==========================================================================
+    # Attack Time - Harmonic - Rank
+    #==========================================================================
+    @property
+    def attack_time_harmonic_rank(self) -> int:
+        return self.__rankharm_attack_spin.value()
+
+    @attack_time_harmonic_rank.setter
+    def attack_time_harmonic_rank(self, a: int) -> None:
+        self.__rankharm_attack_spin.setValue(a)
+
+    #==========================================================================
+    # Decay Time - Harmonic - Rank
+    #==========================================================================
+    @property
+    def decay_time_harmonic_rank(self) -> int:
+        return self.__rankharm_decay_spin.value()
+
+    @decay_time_harmonic_rank.setter
+    def decay_time_harmonic_rank(self, d: int) -> None:
+        self.__rankharm_decay_spin.setValue(d)
+
+    #==========================================================================
+    # Sustain Level - Harmonic - Rank
+    #==========================================================================
+    @property
+    def sustain_level_harmonic_rank(self) -> int:
+        return self.__rankharm_sustain_spin.value()
+
+    @sustain_level_harmonic_rank.setter
+    def sustain_level_harmonic_rank(self, s: int) -> None:
+        self.__rankharm_sustain_spin.setValue(s)
+
+    #==========================================================================
+    # Release Time - Harmonic - Rank
+    #==========================================================================
+    @property
+    def release_time_harmonic_rank(self) -> int:
+        return self.__rankharm_release_spin.value()
+
+    @release_time_harmonic_rank.setter
+    def release_time_harmonic_rank(self, r: int) -> None:
+        self.__rankharm_release_spin.setValue(r)
+
+    #==========================================================================
+    # Attack Time - Rank
+    #==========================================================================
+    @property
+    def attack_time_rank(self) -> int:
+        return self.__rank_attack_spin.value()
+
+    @attack_time_rank.setter
+    def attack_time_rank(self, a: int) -> None:
+        self.__rank_attack_spin.setValue(a)
+
+    #==========================================================================
+    # Decay Time - Rank
+    #==========================================================================
+    @property
+    def decay_time_rank(self) -> int:
+        return self.__rank_decay_spin.value()
+
+    @decay_time_rank.setter
+    def decay_time_rank(self, d: int) -> None:
+        self.__rank_decay_spin.setValue(d)
+
+    #==========================================================================
+    # Sustain Level - Rank
+    #==========================================================================
+    @property
+    def sustain_level_rank(self) -> int:
+        return self.__rank_sustain_spin.value()
+
+    @sustain_level_rank.setter
+    def sustain_level_rank(self, s: int) -> None:
+        self.__rank_sustain_spin.setValue(s)
+
+    #==========================================================================
+    # Release Time - Rank
+    #==========================================================================
+    @property
+    def release_time_rank(self) -> int:
+        return self.__rank_release_spin.value()
+
+    @release_time_rank.setter
+    def release_time_rank(self, r: int) -> None:
+        self.__rank_release_spin.setValue(r)
+
+    #==========================================================================
+    # Rank Number - Pipe
+    #==========================================================================
+    @property
+    def rank_number_pipe(self) -> int:
+        return self.__ranknum_pipe_spin.value()
+
+    @rank_number_pipe.setter
+    def rank_number_pipe(self, n: int) -> None:
+        self.__ranknum_pipe_spin.setValue(n)
+
+    #==========================================================================
+    # Pipe Number
+    #==========================================================================
+    @property
+    def pipe_number(self) -> int:
+        return self.__pipenum_spin.value()
+
+    @pipe_number.setter
+    def pipe_number(self, n: int) -> None:
+        self.__pipenum_spin.setValue(n)
+
+    #==========================================================================
+    # Note
+    #==========================================================================
+    @property
+    def note(self) -> str:
+        return self.__note_combo.currentText()
+
+    @note.setter
+    def note(self, n: str) -> None:
+        self.__note_combo.setCurrentText(n)
+
+    #==========================================================================
+    # Relative Note
+    #==========================================================================
+    @property
+    def relative_note(self) -> str:
+        return self.__relnote_combo.currentText()
+
+    @relative_note.setter
+    def relative_note(self, n: str) -> None:
+        self.__relnote_combo.setCurrentText(n)
+
+    #==========================================================================
+    # Harmonic Number - Pipe
+    #==========================================================================
+    @property
+    def harmonic_number_pipe(self) -> int:
+        return self.__pipe_harmonicnum_spin.value()
+
+    @harmonic_number_pipe.setter
+    def harmonic_number_pipe(self, n: int) -> None:
+        self.__pipe_harmonicnum_spin.setValue(n)
+
+    #==========================================================================
+    # Amplitude - Pipe
+    #==========================================================================
+    @property
+    def amplitude_pipe(self) -> int:
+        return self.__pipe_amplitude_spin.value()
+
+    @amplitude_pipe.setter
+    def amplitude_pipe(self, a: int) -> None:
+        self.__pipe_amplitude_spin.setValue(a)
+
+    #==========================================================================
+    # Attack Time - Harmonic - Pipe
+    #==========================================================================
+    @property
+    def attack_time_harmonic_pipe(self) -> int:
+        return self.__pipeharm_attack_spin.value()
+
+    @attack_time_harmonic_pipe.setter
+    def attack_time_harmonic_pipe(self, a: int) -> None:
+        self.__pipeharm_attack_spin.setValue(a)
+
+    #==========================================================================
+    # Decay Time - Harmonic - Pipe
+    #==========================================================================
+    @property
+    def decay_time_harmonic_pipe(self) -> int:
+        return self.__pipeharm_decay_spin.value()
+
+    @decay_time_harmonic_pipe.setter
+    def decay_time_harmonic_pipe(self, d: int) -> None:
+        self.__pipeharm_decay_spin.setValue(d)
+
+    #==========================================================================
+    # Sustain Level - Harmonic - Pipe
+    #==========================================================================
+    @property
+    def sustain_level_harmonic_pipe(self) -> int:
+        return self.__pipeharm_sustain_spin.value()
+
+    @sustain_level_harmonic_pipe.setter
+    def sustain_level_harmonic_pipe(self, s: int) -> None:
+        self.__pipeharm_sustain_spin.setValue(s)
+
+    #==========================================================================
+    # Release Time - Harmonic - Pipe
+    #==========================================================================
+    @property
+    def release_time_harmonic_pipe(self) -> int:
+        return self.__pipeharm_release_spin.value()
+
+    @release_time_harmonic_pipe.setter
+    def release_time_harmonic_pipe(self, r: int) -> None:
+        self.__pipeharm_release_spin.setValue(r)
+
+    #==========================================================================
+    # Attack Time - Pipe
+    #==========================================================================
+    @property
+    def attack_time_pipe(self) -> int:
+        return self.__pipe_attack_spin.value()
+
+    @attack_time_pipe.setter
+    def attack_time_pipe(self, a: int) -> None:
+        self.__pipe_attack_spin.setValue(a)
+
+    #==========================================================================
+    # Decay Time - Pipe
+    #==========================================================================
+    @property
+    def decay_time_pipe(self) -> int:
+        return self.__pipe_decay_spin.value()
+
+    @decay_time_pipe.setter
+    def decay_time_pipe(self, d: int) -> None:
+        self.__pipe_decay_spin.setValue(d)
+
+    #==========================================================================
+    # Sustain Level - Pipe
+    #==========================================================================
+    @property
+    def sustain_level_pipe(self) -> int:
+        return self.__pipe_sustain_spin.value()
+
+    @sustain_level_pipe.setter
+    def sustain_level_pipe(self, s: int) -> None:
+        self.__pipe_sustain_spin.setValue(s)
+
+    #==========================================================================
+    # Release Time - Pipe
+    #==========================================================================
+    @property
+    def release_time_pipe(self) -> int:
+        return self.__pipe_release_spin.value()
+
+    @release_time_pipe.setter
+    def release_time_pipe(self, r: int) -> None:
+        self.__pipe_release_spin.setValue(r)
+
 
 def main() -> None:
     app: QApplication = QApplication([])
