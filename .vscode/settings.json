@@ -4,5 +4,26 @@
     "editor.fontSize": 12,
     "editor.fontLigatures": true,
     "workbench.colorTheme": "Spacegray Python",
-    "editor.selectionClipboard": false
+    "editor.selectionClipboard": false,
+    "separators.classes.borderStyle": "double",
+    "separators.classes.borderWidth": 2,
+    "separators.methods.borderStyle": "dashed",
+    "separators.functions.borderStyle": "solid",
+    "separators.enabledSymbols": [
+        "Classes",
+        "Constructors",
+        "Enums",
+        "Functions",
+        "Interfaces",
+        "Methods",
+        "Namespaces",
+        "Structs"
+    ],
+    "separators.maxDepth": 0,
+    "indentRainbowBlocks.colors": [
+        "rgba(0, 0, 255, 0.15)",
+        "rgba(0, 255, 255, 0.15)",
+        "rgba(55, 115, 255, 0.15)",
+        "rgba(255, 0, 255, 0.15)"
+    ]
 }
