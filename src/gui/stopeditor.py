@@ -652,8 +652,8 @@ class StopEditor(QFrame):
             pipeadsr_form_layout.addRow(label, widget)
         self.__pipe_adsr.setLayout(pipeadsr_form_layout)
         widgets: tuple[QWidget] = (
-            self.__rank_adsr_button,
-            self.__rank_adsr
+            self.__pipe_adsr_button,
+            self.__pipe_adsr
         )
         for widget in widgets:
             pipeadsr_layout.addWidget(widget)
