@@ -431,6 +431,7 @@ class StopEditor(QFrame):
     def __ui_layout_editor(self) -> None:
         self.__ui_layout_stop_settings()
         self.__ui_layout_rank_settings()
+        self.__ui_layout_pipe_settings()
 
     #--------------------------------------------------------------------------
     # Stop Settings
@@ -452,7 +453,18 @@ class StopEditor(QFrame):
     # Rank Settings
     #======================================================================
     def __ui_layout_rank_settings(self) -> None:
+        self.__ui_layout_rank_harmonic()
+        self.__ui_layout_rank_harmonics_adsr()
         ranksettings_layout: QVBoxLayout = QVBoxLayout()
+        ranksettings_widgets: tuple[QWidget] = (
+            self.__ui_layout_rank_header(),
+            self.__ui_layout_rank_harmonic_settings(),
+            self.__ui_layout_rank_adsr()
+        )
+        for widget in ranksettings_widgets:
+            ranksettings_layout.addWidget(widget)
+            ranksettings_layout.addSpacing(10)
+        self.__rank_settings.setLayout(ranksettings_layout)
 
     #----------------------------------------------------------------------
     # Rank Header
@@ -473,13 +485,19 @@ class StopEditor(QFrame):
             rankheader_layout.addRow(label, widget)
         rankheader_widget.setLayout(rankheader_layout)
         return rankheader_widget
+
     #----------------------------------------------------------------------
     # Rank Harmonics Settings
     #----------------------------------------------------------------------
     def __ui_layout_rank_harmonic_settings(self) -> QWidget:
         rankharmonicsettings_widget: QWidget = QWidget()
         rankharmonicsettings_layout: QVBoxLayout = QVBoxLayout()
-        rankharmonic_layout: QVBoxLayout = QVBoxLayout()
+        rankharmonicsettings_layout.addWidget(self.__rank_harmonics_button)
+        rankharmonicsettings_layout.addWidget(self.__rank_harmonic)
+        rankharmonicsettings_widget.setLayout(rankharmonicsettings_layout)
+        return rankharmonicsettings_widget
+
+    def __ui_layout_rank_harmonics_widget(self) -> QWidget:
         rankharmonics_widget: QWidget = QWidget()
         rankharmonics_layout: QFormLayout = QFormLayout()
         rankharmonics_widgets: tuple[QLabel, QWidget] = (
@@ -489,6 +507,9 @@ class StopEditor(QFrame):
         for label, widget in rankharmonics_widgets:
             rankharmonics_layout.addRow(label, widget)
         rankharmonics_widget.setLayout(rankharmonics_layout)
+        return rankharmonics_widget
+
+    def __ui_layout_rank_harmonics_adsr(self) -> None:
         rankharmonicsadsr_layout: QFormLayout = QFormLayout()
         rankharmonicsadsr_widgets: tuple[QLabel, QWidget] = (
             (self.__rankharm_attack_label, self.__rankharm_attack_spin),
@@ -499,19 +520,21 @@ class StopEditor(QFrame):
         for label, widget in rankharmonicsadsr_widgets:
             rankharmonicsadsr_layout.addRow(label, widget)
         self.__rankharm_adsr.setLayout(rankharmonicsadsr_layout)
+
+    def __ui_layout_rank_harmonic(self) -> None:
+        rankharmonic_layout: QVBoxLayout = QVBoxLayout()
         rankharmonic_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        rankharmonic_layout.addWidget(rankharmonics_widget)
+        rankharmonic_layout.addWidget(self.__ui_layout_rank_harmonics_widget())
         rankharmonic_layout.addSpacing(10)
         rankharmonic_layout.addWidget(self.__rankharm_adsr_button)
         rankharmonic_layout.addWidget(self.__rankharm_adsr)
         self.__rank_harmonic.setLayout(rankharmonic_layout)
-        rankharmonicsettings_layout.addWidget(self.__rank_harmonics_button)
-        rankharmonicsettings_layout.addWidget(self.__rank_harmonic)
-        rankharmonicsettings_widget.setLayout(rankharmonicsettings_layout)
-        return rankharmonicsettings_widget
         #----------------------------------------------------------------------
-        # Rank ADSR Widget
-        #----------------------------------------------------------------------
+
+    #--------------------------------------------------------------------------
+    # Rank ADSR Settings
+    #--------------------------------------------------------------------------
+    def __ui_layout_rank_adsr(self) -> QWidget:
         rankadsr_widget: QWidget = QWidget()
         rankadsr_layout: QVBoxLayout = QVBoxLayout()
         rankadsr_form_layout: QFormLayout = QFormLayout()
@@ -527,21 +550,12 @@ class StopEditor(QFrame):
         rankadsr_layout.addWidget(self.__rank_adsr_button)
         rankadsr_layout.addWidget(self.__rank_adsr)
         rankadsr_widget.setLayout(rankadsr_layout)
-        #----------------------------------------------------------------------
-        # Rank Settings Layout
-        #----------------------------------------------------------------------
-        ranksettings_widgets: tuple[QWidget] = (
-            rankheader_widget,
-            rankharmonicsettings_widget,
-            rankadsr_widget
-        )
-        for widget in ranksettings_widgets:
-            ranksettings_layout.addWidget(widget)
-            ranksettings_layout.addSpacing(10)
-        self.__rank_settings.setLayout(ranksettings_layout)
-        #======================================================================
-        # Pipe Settings Widget
-        #======================================================================
+        return rankadsr_widget
+
+    #==========================================================================
+    # Pipe Settings
+    #==========================================================================
+    def __ui_layout_pipe_settings(self) -> None:
         pipesettings_layout: QVBoxLayout = QVBoxLayout()
         #----------------------------------------------------------------------
         # Pipe Header Widget
