@@ -239,7 +239,7 @@ class StopEditor(QFrame):
     def __init_ui_options(self) -> None:
         self.__options: QWidget = QWidget()
         self.__load_button: QPushButton = QPushButton("Load Stop")
-        self.__clear_button: QPushButton = QPushButton("Clear Changes")
+        self.__cancel_button: QPushButton = QPushButton("Cancel Changes")
         self.__save_button: QPushButton = QPushButton("Save Stop")
 
     #**************************************************************************
@@ -688,7 +688,7 @@ class StopEditor(QFrame):
         options_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
         buttons: tuple[QPushButton] = (
             self.__load_button,
-            self.__clear_button,
+            self.__cancel_button,
             self.__save_button
         )
         for button in buttons:

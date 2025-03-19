@@ -44,8 +44,21 @@ class StopConfig:
             "pipe type": "",
             "starting note": "",
             "frequency offset": "",
-            "number of harmonics": ""
+            "number of harmonics": "1"
         }
+        number_pipes: str = self.parser[section]["number of pipes"]
+        number_harmonics: str = self.parser[section]["number of harmonics"]
+        for harmonic in range(1, int(number_harmonics)):
+            self.init_rank_harmonic_settings(
+                rank_number=rank_number,
+                harmonic_number=harmonic
+            )
+        self.init_rank_adsr_settings(rank_number=rank_number)
+        for pipe in range(1, int(number_pipes)):
+            self.init_pipe_settings(
+                rank_number=rank_number,
+                pipe_number=pipe
+            )
 
     def init_rank_harmonic_settings(
             self, 
@@ -57,6 +70,10 @@ class StopConfig:
         self.parser[section] = {
             "amplitude": "0"
         }
+        self.init_rank_harmonic_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
 
     def init_rank_harmonic_adsr_settings(
             self,
@@ -94,6 +111,19 @@ class StopConfig:
             "note": "",
             "relative note": ""
         }
+        number_harmonics: str = self.parser[f"Rank {rank_number} Settings"][
+            "number of harmonics"
+        ]
+        for harmonic in range(1, int(number_harmonics)):
+            self.init_pipe_harmonic_settings(
+                rank_number=rank_number,
+                pipe_number=pipe_number,
+                harmonic_number=harmonic
+            )
+        self.init_pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
 
     def init_pipe_harmonic_settings(
             self,
@@ -106,6 +136,11 @@ class StopConfig:
         self.parser[section] = {
             "amplitude": "0"
         }
+        self.init_pipe_harmonic_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
 
     def init_pipe_harmonic_adsr_settings(
             self,
@@ -171,9 +206,47 @@ class StopConfig:
                 sections.append(
                     f"Rank {rank_number} - Pipe {pipe} - ADSR Settings"
                 )
+        self.__del_sections(sections)
+
+    def del_pipe_settings(
+            self,
+            rank_number: int,
+            pipe_number: int
+    ) -> None:
+        number_harmonics: int = int(
+            self.parser[f"Rank {rank_number} Settings"]["number of harmonics"]
+        )
+        sections: list[str] = [
+            f"Rank {rank_number} - Pipe {pipe_number} Settings",
+            f"Rank {rank_number} - Pipe {pipe_number} - ADSR Settings"
+        ]
+        for harmonic in range(1, number_harmonics):
+            sections.append(
+                f"Rank {rank_number} - Pipe {pipe_number} \
+                    - Harmonic {harmonic} Settings"
+            )
+        self.__del_sections(sections)
+
+    def del_harmonic_settings(
+            self,
+            rank_number: int,
+            harmonic_number: int
+    ) -> None:
+        sections: list[str] = [
+            f"Rank {rank_number} - Harmonic {harmonic_number} Settings",
+            f"Rank {rank_number} - Harmonic {harmonic_number} - ADSR Settings"
+        ]
+        for pipe in range(1, 61):
+            sections.append(
+                f"Rank {rank_number} - Pipe {pipe} \
+                    - Harmonic {harmonic_number} Settings"
+            )
+        self.__del_sections(sections)
+
+    def __del_sections(self, sections: list[str]) -> None:
         for section in sections:
             if self.parser.has_section(section):
-                self.parser.remove_section(section)
+                self.parser.remove_section
 
     #**************************************************************************
     # Field Operations

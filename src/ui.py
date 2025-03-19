@@ -15,6 +15,8 @@ class StopEditorUI:
         super().__init__()
         self.stop_editor: StopEditor = StopEditor()
         self.old_number_ranks: int = self.stop_editor.number_ranks
+        self.old_number_pipes: int = self.stop_editor.number_pipes
+        self.old_number_harmonics: int = self.stop_editor.number_harmonics
         self.config_editor: StopConfig = StopConfig()
         self.__init_properties()
         self.__config_ui()
@@ -375,30 +377,30 @@ class StopEditorUI:
     def __update_organ_division(self) -> None:
         self.config_editor.organ_division_set(self.organ_division)
 
+    #--------------------------------------------------------------------------
     def __update_number_ranks(self) -> None:
-        number_ranks: int = self.number_ranks
-        self.__set_maximum_rank_number(number_ranks)
-        self.__update_number_ranks_config_editor(number_ranks)
-        self.old_number_ranks = number_ranks
+        self.__set_maximum_rank_number()
+        self.__update_number_ranks_config_editor()
+        self.old_number_ranks = self.number_ranks
 
-    def __set_maximum_rank_number(self, number_ranks: int) -> None:
-        stop_editor: StopEditor = self.stop_editor
+    def __set_maximum_rank_number(self) -> None:
         methods: tuple[Callable] = (
-            stop_editor.rank_number_set_maximum,
-            stop_editor.rank_number_pipe_set_maximum
+            self.stop_editor.rank_number_set_maximum,
+            self.stop_editor.rank_number_pipe_set_maximum
         )
         for method in methods:
-            method(number_ranks)
+            method(self.number_ranks)
 
-    def __update_number_ranks_config_editor(self, number_ranks):
-        self.config_editor.number_ranks_set(number_ranks)
-        if number_ranks < self.old_number_ranks:
-            for rank in range(number_ranks, self.old_number_ranks):
+    def __update_number_ranks_config_editor(self) -> None:
+        self.config_editor.number_ranks_set(self.number_ranks)
+        if self.number_ranks < self.old_number_ranks:
+            for rank in range(self.number_ranks, self.old_number_ranks):
                 self.config_editor.del_rank_settings(rank)
         else:
-            for rank in range(self.old_number_ranks, number_ranks):
+            for rank in range(self.old_number_ranks, self.number_ranks):
                 self.config_editor.init_rank_settings(rank)
 
+    #--------------------------------------------------------------------------
     def __update_rank_series(self) -> None:
         self.rank_series = self.stop_editor.rank_series
         match self.rank_series:
@@ -418,28 +420,21 @@ class StopEditorUI:
         self.config_editor.rank_series_set(self.rank_series)
 
     def __update_rank_number(self) -> None:
-        stop_editor = self.stop_editor
-        config_editor = self.config_editor
-        rank_number = stop_editor.rank_number
-        stop_editor.rank_size = config_editor.rank_size_get(rank_number)
-        stop_editor.number_pipes = config_editor.number_pipes_get(rank_number)
-        stop_editor.pipe_type = config_editor.pipe_type_get(rank_number)
-        stop_editor.starting_note = config_editor.starting_note_get(
-            rank_number
-        )
-        stop_editor.frequency_offset = config_editor.frequency_offset_get(
-            rank_number
-        )
-        stop_editor.number_harmonics = config_editor.number_harmonics_get(
-            rank_number
-        )
+        ce: StopConfig = self.config_editor
+        self.rank_size = ce.rank_size_get(self.rank_number)
+        self.number_pipes = ce.number_pipes_get(self.rank_number)
+        self.pipe_type = ce.pipe_type_get(self.rank_number)
+        self.starting_note = ce.starting_note_get(self.rank_number)
+        self.frequency_offset = ce.frequency_offset_get(self.rank_number)
+        self.number_harmonics = ce.number_harmonics_get(self.rank_number)
+        self.harmonic_number_rank = 1
+        self.__update_harmonic_number_rank()
 
     def __update_rank_size(self) -> None:
         self.rank_size = self.stop_editor.rank_size
         self.config_editor.rank_size_set(self.rank_number, self.rank_size)
 
     def __update_number_pipes(self) -> None:
-        self.number_pipes = self.stop_editor.number_pipes
         self.stop_editor.pipe_number_set_maximum(self.number_pipes)
         self.config_editor.number_pipes_set(
             rank_number=self.rank_number,
@@ -462,112 +457,273 @@ class StopEditorUI:
 
     def __update_frequency_offset(self) -> None:
         self.frequency_offset = self.stop_editor.frequency_offset
+        self.config_editor.frequency_offset_set(
+            rank_number=self.rank_number,
+            frequency_offset=self.frequency_offset
+        )
 
+    #--------------------------------------------------------------------------
     def __update_number_harmonics(self) -> None:
-        editor: StopEditor = self.stop_editor
+        self.__set_maximum_harmonic_number()
+        self.__update_number_harmonics_config_editor()
+        self.old_number_harmonics = self.number_harmonics
+    
+    def __set_maximum_harmonic_number(self) -> None:
         methods: tuple[Callable] = (
-            editor.harmonic_number_rank_set_maximum,
-            editor.harmonic_number_pipe_set_maximum
+            self.stop_editor.harmonic_number_rank_set_maximum,
+            self.stop_editor.harmonic_number_pipe_set_maximum
         )
         for method in methods:
             method(self.number_harmonics)
-        #TODO: add functionality for use with config files
+    
+    def __update_number_harmonics_config_editor(self) -> None:
+        self.config_editor.number_harmonics_set(
+            rank_number=self.rank_number,
+            number_harmonics=self.number_harmonics
+        )
+        if self.number_harmonics < self.old_number_harmonics:
+            for harmonic in range(
+                self.number_harmonics,
+                self.old_number_harmonics
+            ):
+                self.config_editor.del_harmonic_settings(
+                    rank_number=self.rank_number,
+                    harmonic_number=harmonic
+                )
+        else:
+            for harmonic in range(
+                self.old_number_harmonics,
+                self.number_harmonics
+            ):
+                self.config_editor.init_harmonic_settings(
+                    rank_number=self.rank_number,
+                    harmonic_number=harmonic
+                )
 
+    #--------------------------------------------------------------------------
     def __update_harmonic_number_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        ce: StopConfig = self.config_editor
+        self.amplitude_rank = ce.amplitude_rank_get(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank
+        )
+        self.attack_harmonic_rank = ce.attack_time_rank_harmonic_get(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank
+        )
+        self.decay_harmonic_rank = ce.decay_time_rank_harmonic_get(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank
+        )
+        self.sustain_harmonic_rank = ce.sustain_level_rank_harmonic_get(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank
+        )
+        self.release_harmonic_rank = ce.release_time_rank_harmonic_get(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank
+        )
 
     def __update_amplitude_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.amplitude_rank_set(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank,
+            amplitude=self.amplitude_rank
+        )
 
     def __update_attack_time_rank_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.attack_time_rank_harmonic_set(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank,
+            attack_time=self.attack_harmonic_rank
+        )
 
     def __update_decay_time_rank_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.decay_time_rank_harmonic_set(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank,
+            decay_time=self.decay_harmonic_rank
+        )
 
     def __update_sustain_level_rank_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.sustain_level_rank_harmonic_set(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank,
+            sustain_level=self.sustain_harmonic_rank
+        )
 
     def __update_release_time_rank_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.release_time_rank_harmonic_set(
+            rank_number=self.rank_number,
+            harmonic_number=self.harmonic_number_rank,
+            release_time=self.release_harmonic_rank
+        )
 
     def __update_attack_time_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.attack_time_rank_set(
+            rank_number=self.rank_number,
+            attack_time=self.attack_rank
+        )
 
     def __update_decay_time_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.decay_time_rank_set(
+            rank_number=self.rank_number,
+            decay_time=self.decay_rank
+        )
 
     def __update_sustain_level_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.sustain_level_rank_set(
+            rank_number=self.rank_number,
+            sustain_level=self.sustain_rank
+        )
 
     def __update_release_time_rank(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.release_time_rank_set(
+            rank_number=self.rank_number,
+            release_time=self.release_rank
+        )
 
     def __update_rank_number_pipe(self) -> None:
-        ...
-        #TODO: Add functionality for use with config files
+        self.pipe_number = 1
+        self.__update_pipe_number()
 
     def __update_pipe_number(self) -> None:
-        ...
-        #TODO: Add functionality for use with config files
+        self.note = self.config_editor.note_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
+        self.relative_note = self.config_editor.relative_note_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
+        self.harmonic_number_pipe = 1
+        self.__update_harmonic_number_pipe()
+        self.attack_pipe = self.config_editor.attack_time_pipe_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
+        self.decay_pipe = self.config_editor.decay_time_pipe_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
+        self.sustain_pipe = self.config_editor.sustain_level_pipe_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
+        self.release_pipe = self.config_editor.release_time_pipe_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number
+        )
 
     def __update_note(self) -> None:
-        ...
-        #TODO: Add functionality for use with config files
+        self.config_editor.note_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            note=self.note
+        )
 
     def __update_relative_note(self) -> None:
-        ...
-        #TODO: Add functionality for use with config files
+        self.config_editor.relative_note_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            relative_note=self.relative_note
+        )
 
     def __update_harmonic_number_pipe(self) -> None:
-        ...
-        #TODO: Add functionality for use with config files
+        ce: StopConfig = self.config_editor
+        self.amplitude_pipe = ce.amplitude_pipe_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe
+        )
+        self.attack_harmonic_pipe = ce.attack_time_pipe_harmonic_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe
+        )
+        self.decay_harmonic_pipe = ce.decay_time_pipe_harmonic_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe
+        )
+        self.sustain_harmonic_pipe = ce.sustain_level_pipe_harmonic_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe
+        )
+        self.release_harmonic_pipe = ce.release_time_pipe_harmonic_get(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe
+        )
 
     def __update_amplitude_pipe(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.amplitude_pipe_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe,
+            amplitude=self.amplitude_pipe
+        )
 
     def __update_attack_time_pipe_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.attack_time_pipe_harmonic_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe,
+            attack_time=self.attack_harmonic_pipe
+        )
 
     def __update_decay_time_pipe_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.decay_time_pipe_harmonic_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe,
+            decay_time=self.decay_harmonic_pipe
+        )
 
     def __update_sustain_level_pipe_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.sustain_level_pipe_harmonic_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe,
+            sustain_level=self.sustain_harmonic_pipe
+        )
 
     def __update_release_time_pipe_harmonic(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.release_time_pipe_harmonic_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            harmonic_number=self.harmonic_number_pipe,
+            release_time=self.release_harmonic_pipe
+        )
 
     def __update_attack_time_pipe(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.attack_time_pipe_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            attack_time=self.attack_pipe
+        )
 
     def __update_decay_time_pipe(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.decay_time_pipe_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            decay_time=self.decay_pipe
+        )
 
     def __update_sustain_level_pipe(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.sustain_level_pipe_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            sustain_level=self.sustain_pipe
+        )
 
     def __update_release_time_pipe(self) -> None:
-        ...
-        #TODO: add functionality for use with config files
+        self.config_editor.release_time_pipe_set(
+            rank_number=self.rank_number_pipe,
+            pipe_number=self.pipe_number,
+            release_time=self.release_pipe
+        )
 
     #**************************************************************************
     # Properties
@@ -619,6 +775,354 @@ class StopEditorUI:
     #==========================================================================
     # Rank Series
     #==========================================================================
+    @property
+    def rank_series(self) -> str:
+        return self.stop_editor.rank_series
+
+    @rank_series.setter
+    def rank_series(self, rank_series: str) -> None:
+        self.stop_editor.rank_series = rank_series
+
+    #==========================================================================
+    # Rank Number
+    #==========================================================================
+    @property
+    def rank_number(self) -> int:
+        return self.stop_editor.rank_number
+
+    @rank_number.setter
+    def rank_number(self, rank_number: int) -> None:
+        self.stop_editor.rank_number = rank_number
+
+    #==========================================================================
+    # Rank Size
+    #==========================================================================
+    @property
+    def rank_size(self) -> str:
+        return self.stop_editor.rank_size
+
+    @rank_size.setter
+    def rank_size(self, rank_size: str) -> None:
+        self.stop_editor.rank_size = rank_size
+
+    #==========================================================================
+    # Number of Pipes
+    #==========================================================================
+    @property
+    def number_pipes(self) -> int:
+        return self.stop_editor.number_pipes
+
+    @number_pipes.setter
+    def number_pipes(self, number_pipes: int) -> None:
+        self.stop_editor.number_pipes = number_pipes
+
+    #==========================================================================
+    # Pipe Type
+    #==========================================================================
+    @property
+    def pipe_type(self) -> str:
+        return self.stop_editor.pipe_type
+
+    @pipe_type.setter
+    def pipe_type(self, pipe_type: str) -> None:
+        self.stop_editor.pipe_type = pipe_type
+
+    #==========================================================================
+    # Starting Note
+    #==========================================================================
+    @property
+    def starting_note(self) -> str:
+        return self.stop_editor.starting_note
+
+    @starting_note.setter
+    def starting_note(self, starting_note: str) -> None:
+        self.stop_editor.starting_note = starting_note
+
+    #==========================================================================
+    # Frequency Offset
+    #==========================================================================
+    @property
+    def frequency_offset(self) -> int:
+        return self.stop_editor.frequency_offset
+
+    @frequency_offset.setter
+    def frequency_offset(self, frequency_offset: int) -> None:
+        self.stop_editor.frequency_offset = frequency_offset
+
+    #==========================================================================
+    # Number of Harmonics
+    #==========================================================================
+    @property
+    def number_harmonics(self) -> int:
+        return self.stop_editor.number_harmonics
+
+    @number_harmonics.setter
+    def number_harmonics(self, number_harmonics: int) -> None:
+        self.stop_editor.number_harmonics = number_harmonics
+
+    #==========================================================================
+    # Harmonic Number - Rank
+    #==========================================================================
+    @property
+    def harmonic_number_rank(self) -> int:
+        return self.stop_editor.harmonic_number_rank
+
+    @harmonic_number_rank.setter
+    def harmonic_number_rank(self, harmonic_number_rank: int) -> None:
+        self.stop_editor.harmonic_number_rank = harmonic_number_rank
+
+    #==========================================================================
+    # Amplitude - Rank
+    #==========================================================================
+    @property
+    def amplitude_rank(self) -> int:
+        return self.stop_editor.amplitude_rank
+
+    @amplitude_rank.setter
+    def amplitude_rank(self, amplitude_rank: int) -> None:
+        self.stop_editor.amplitude_rank = amplitude_rank
+
+    #==========================================================================
+    # Attack Time - Rank Harmonic
+    #==========================================================================
+    @property
+    def attack_harmonic_rank(self) -> int:
+        return self.stop_editor.attack_time_harmonic_rank
+
+    @attack_harmonic_rank.setter
+    def attack_harmonic_rank(self, attack_harmonic_rank: int) -> None:
+        self.stop_editor.attack_time_harmonic_rank = attack_harmonic_rank
+
+    #==========================================================================
+    # Decay Time - Rank Harmonic
+    #==========================================================================
+    @property
+    def decay_harmonic_rank(self) -> int:
+        return self.stop_editor.decay_time_harmonic_rank
+
+    @decay_harmonic_rank.setter
+    def decay_harmonic_rank(self, decay_harmonic_rank: int) -> None:
+        self.stop_editor.decay_time_harmonic_rank = decay_harmonic_rank
+
+    #==========================================================================
+    # Sustain Level - Rank Harmonic
+    #==========================================================================
+    @property
+    def sustain_harmonic_rank(self) -> int:
+        return self.stop_editor.sustain_level_harmonic_rank
+
+    @sustain_harmonic_rank.setter
+    def sustain_harmonic_rank(self, sustain_harmonic_rank: int) -> None:
+        self.stop_editor.sustain_level_harmonic_rank = sustain_harmonic_rank
+
+    #==========================================================================
+    # Release Time - Rank Harmonic
+    #==========================================================================
+    @property
+    def release_harmonic_rank(self) -> int:
+        return self.stop_editor.release_time_harmonic_rank
+
+    @release_harmonic_rank.setter
+    def release_harmonic_rank(self, release_harmonic_rank: int) -> None:
+        self.stop_editor.release_time_harmonic_rank = release_harmonic_rank
+
+    #==========================================================================
+    # Attack Time - Rank
+    #==========================================================================
+    @property
+    def attack_rank(self) -> int:
+        return self.stop_editor.attack_time_rank
+
+    @attack_rank.setter
+    def attack_rank(self, attack_rank: int) -> None:
+        self.stop_editor.attack_time_rank = attack_rank
+
+    #==========================================================================
+    # Decay Time - Rank
+    #==========================================================================
+    @property
+    def decay_rank(self) -> int:
+        return self.stop_editor.decay_time_rank
+
+    @decay_rank.setter
+    def decay_rank(self, decay_rank: int) -> None:
+        self.stop_editor.decay_time_rank = decay_rank
+
+    #==========================================================================
+    # Sustain Level - Rank
+    #==========================================================================
+    @property
+    def sustain_rank(self) -> int:
+        return self.stop_editor.sustain_level_rank
+
+    @sustain_rank.setter
+    def sustain_rank(self, sustain_rank: int) -> None:
+        self.stop_editor.sustain_level_rank = sustain_rank
+
+    #==========================================================================
+    # Release Time - Rank
+    #==========================================================================
+    @property
+    def release_rank(self) -> int:
+        return self.stop_editor.release_time_rank
+
+    @release_rank.setter
+    def release_rank(self, release_rank: int) -> None:
+        self.stop_editor.release_time_rank = release_rank
+
+    #==========================================================================
+    # Rank Number - Pipe
+    #==========================================================================
+    @property
+    def rank_number_pipe(self) -> int:
+        return self.stop_editor.rank_number_pipe
+
+    @rank_number_pipe.setter
+    def rank_number_pipe(self, rank_number_pipe: int) -> None:
+        self.stop_editor.rank_number_pipe = rank_number_pipe
+
+    #==========================================================================
+    # Pipe Number
+    #==========================================================================
+    @property
+    def pipe_number(self) -> int:
+        return self.stop_editor.pipe_number
+
+    @pipe_number.setter
+    def pipe_number(self, pipe_number: int) -> None:
+        self.stop_editor.pipe_number = pipe_number
+
+    #==========================================================================
+    # Note
+    #==========================================================================
+    @property
+    def note(self) -> str:
+        return self.stop_editor.note
+
+    @note.setter
+    def note(self, note: str) -> None:
+        self.stop_editor.note = note
+
+    #==========================================================================
+    # Relative Note
+    #==========================================================================
+    @property
+    def relative_note(self) -> str:
+        return self.stop_editor.relative_note
+
+    @relative_note.setter
+    def relative_note(self, relative_note: str) -> None:
+        self.stop_editor.relative_note = relative_note
+
+    #==========================================================================
+    # Harmonic Number - Pipe
+    #==========================================================================
+    @property
+    def harmonic_number_pipe(self) -> int:
+        return self.stop_editor.harmonic_number_pipe
+
+    @harmonic_number_pipe.setter
+    def harmonic_number_pipe(self, harmonic_number_pipe: int) -> None:
+        self.stop_editor.harmonic_number_pipe = harmonic_number_pipe
+
+    #==========================================================================
+    # Amplitude - Pipe
+    #==========================================================================
+    @property
+    def amplitude_pipe(self) -> int:
+        return self.stop_editor.amplitude_pipe
+
+    @amplitude_pipe.setter
+    def amplitude_pipe(self, amplitude_pipe: int) -> None:
+        self.stop_editor.amplitude_pipe = amplitude_pipe
+
+    #==========================================================================
+    # Attack Time - Pipe Harmonic
+    #==========================================================================
+    @property
+    def attack_harmonic_pipe(self) -> int:
+        return self.stop_editor.attack_time_harmonic_pipe
+
+    @attack_harmonic_pipe.setter
+    def attack_harmonic_pipe(self, attack_harmonic_pipe: int) -> None:
+        self.stop_editor.attack_time_harmonic_pipe = attack_harmonic_pipe
+
+    #==========================================================================
+    # Decay Time - Pipe Harmonic
+    #==========================================================================
+    @property
+    def decay_harmonic_pipe(self) -> int:
+        return self.stop_editor.decay_time_harmonic_pipe
+
+    @decay_harmonic_pipe.setter
+    def decay_harmonic_pipe(self, decay_harmonic_pipe: int) -> None:
+        self.stop_editor.decay_time_harmonic_pipe = decay_harmonic_pipe
+
+    #==========================================================================
+    # Sustain Level - Pipe Harmonic
+    #==========================================================================
+    @property
+    def sustain_harmonic_pipe(self) -> int:
+        return self.stop_editor.sustain_level_harmonic_pipe
+
+    @sustain_harmonic_pipe.setter
+    def sustain_harmonic_pipe(self, sustain_harmonic_pipe: int) -> None:
+        self.stop_editor.sustain_level_harmonic_pipe = sustain_harmonic_pipe
+
+    #==========================================================================
+    # Release Time - Pipe Harmonic
+    #==========================================================================
+    @property
+    def release_harmonic_pipe(self) -> int:
+        return self.stop_editor.release_time_harmonic_pipe
+
+    @release_harmonic_pipe.setter
+    def release_harmonic_pipe(self, release_harmonic_pipe: int) -> None:
+        self.stop_editor.release_time_harmonic_pipe = release_harmonic_pipe
+
+    #==========================================================================
+    # Attack Time - Pipe
+    #==========================================================================
+    @property
+    def attack_pipe(self) -> int:
+        return self.stop_editor.attack_time_pipe
+
+    @attack_pipe.setter
+    def attack_pipe(self, attack_pipe: int) -> None:
+        self.stop_editor.attack_time_pipe = attack_pipe
+
+    #==========================================================================
+    # Decay Time - Pipe
+    #==========================================================================
+    @property
+    def decay_pipe(self) -> int:
+        return self.stop_editor.decay_time_pipe
+
+    @decay_pipe.setter
+    def decay_pipe(self, decay_pipe: int) -> None:
+        self.stop_editor.decay_time_pipe = decay_pipe
+
+    #==========================================================================
+    # Sustain Level - Pipe
+    #==========================================================================
+    @property
+    def sustain_pipe(self) -> int:
+        return self.stop_editor.sustain_level_pipe
+
+    @sustain_pipe.setter
+    def sustain_pipe(self, sustain_pipe: int) -> None:
+        self.stop_editor.sustain_level_pipe = sustain_pipe
+
+    #==========================================================================
+    # Release Time - Pipe
+    #==========================================================================
+    @property
+    def release_pipe(self) -> int:
+        return self.stop_editor.release_time_pipe
+
+    @release_pipe.setter
+    def release_pipe(self, release_pipe: int) -> None:
+        self.stop_editor.release_time_pipe = release_pipe
 
 
 def test_stop_editor():
