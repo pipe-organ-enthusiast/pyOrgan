@@ -1,9 +1,10 @@
 from configparser import ConfigParser
+import json
 
 
 class StopConfig:
     def __init__(self) -> None:
-        self.parser: ConfigParser = ConfigParser()
+        self.config: dict = {}
 
     #**************************************************************************
     # File Operations
@@ -12,11 +13,12 @@ class StopConfig:
             self,
             file: str
     ) -> None:
-        self.parser.read(file)
+        with open(file, "r") as config_file:
+            self.config = json.load(config_file)
 
     def save_file(self, file) -> None:
         with open(file, "w") as config_file:
-            self.parser.write(config_file)
+            json.dump(self.config, config_file, indent=4)
 
     #**************************************************************************
     # Section Creation
@@ -24,78 +26,65 @@ class StopConfig:
     #==========================================================================
     # Stop Settings
     #==========================================================================
-    def init_stopsettings(self) -> None: 
-        self.parser["Stop Settings"] = {
-            "stop name": "",
-            "stop family": "",
-            "organ division": "",
-            "number of ranks": "1",
-            "rank series": ""
+    def init_stop_settings(self) -> None: 
+        self.config[self.stop_settings] = {
+            "Stop Name": "",
+            "Stop Family": "",
+            "Organ Division": "",
+            "Number of Ranks": 1,
+            "Rank Series": ""
         }
 
     #==========================================================================
     # Rank Settings
     #==========================================================================
     def init_rank_settings(self, rank_number: int) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        self.parser[section] = {
-            "rank size": "",
-            "number of pipes": "1",
-            "pipe type": "",
-            "starting note": "",
-            "frequency offset": "",
-            "number of harmonics": "1"
+        self.config[self.rank_settings(rank_number)] = {
+            "Rank Size": "",
+            "Number of Pipes": 1,
+            "Pipe Type": "",
+            "Starting Note": "",
+            "Frequency Offset": 0,
+            "Number of Harmonics": 1
         }
-        number_pipes: str = self.parser[section]["number of pipes"]
-        number_harmonics: str = self.parser[section]["number of harmonics"]
-        for harmonic in range(1, int(number_harmonics)):
-            self.init_rank_harmonic_settings(
-                rank_number=rank_number,
-                harmonic_number=harmonic
-            )
-        self.init_rank_adsr_settings(rank_number=rank_number)
-        for pipe in range(1, int(number_pipes)):
-            self.init_pipe_settings(
-                rank_number=rank_number,
-                pipe_number=pipe
-            )
 
     def init_rank_harmonic_settings(
             self, 
             rank_number: int, 
             harmonic_number: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            Settings"
-        self.parser[section] = {
-            "amplitude": "0"
+        self.config[
+            self.rank_harmonics_settings(
+                rank_number = rank_number, 
+                harmonic_number = harmonic_number
+            )
+        ] = {
+            "Amplitude": 0
         }
-        self.init_rank_harmonic_adsr_settings(
-            rank_number=rank_number,
-            harmonic_number=harmonic_number
-        )
 
     def init_rank_harmonic_adsr_settings(
             self,
-            rank_number: int,  # Rank Number
-            harmonic_number: int   # Harmonic Number
+            rank_number: int,
+            harmonic_number: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} - \
-            ADSR Settings"
-        self.parser[section] = {
-            "attack time": "0",
-            "decay time": "0",
-            "sustain level": "0",
-            "release time": "0"
+        self.config[
+            self.rank_harmonics_adsr_settings(
+                rank_number = rank_number,
+                harmonic_number = harmonic_number
+            )
+        ] = {
+            "Attack Time": 0,
+            "Decay Time": 0,
+            "Sustain Level": 0,
+            "Release Time": 0
         }
 
     def init_rank_adsr_settings(self, rank_number: int) -> None:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        self.parser[section] = {
-            "attack time": "0",
-            "decay time": "0",
-            "sustain level": "0",
-            "release time": "0"
+        self.config[self.rank_adsr_settings(rank_number=rank_number)] = {
+            "Attack Time": 0,
+            "Decay Time": 0,
+            "Sustain Level": 0,
+            "Release Time": 0
         }
 
     #==========================================================================
@@ -106,24 +95,15 @@ class StopConfig:
             rank_number: int,
             pipe_number: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} Settings"
-        self.parser[section] = {
-            "note": "",
-            "relative note": ""
-        }
-        number_harmonics: str = self.parser[f"Rank {rank_number} Settings"][
-            "number of harmonics"
-        ]
-        for harmonic in range(1, int(number_harmonics)):
-            self.init_pipe_harmonic_settings(
+        self.config[
+            self.pipe_settings(
                 rank_number=rank_number,
-                pipe_number=pipe_number,
-                harmonic_number=harmonic
+                pipe_number=pipe_number
             )
-        self.init_pipe_adsr_settings(
-            rank_number=rank_number,
-            pipe_number=pipe_number
-        )
+        ] = {
+            "Note": "",
+            "Relative Note": ""
+        }
 
     def init_pipe_harmonic_settings(
             self,
@@ -131,16 +111,15 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} Settings"
-        self.parser[section] = {
-            "amplitude": "0"
+        self.config[
+            self.pipe_harmonics_settings(
+                rank_number=rank_number,
+                pipe_number=pipe_number,
+                harmonic_number=harmonic_number
+            )
+        ] = {
+            "Amplitude": 0
         }
-        self.init_pipe_harmonic_adsr_settings(
-            rank_number=rank_number,
-            pipe_number=pipe_number,
-            harmonic_number=harmonic_number
-        )
 
     def init_pipe_harmonic_adsr_settings(
             self,
@@ -148,13 +127,17 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
-        self.parser[section] = {
-            "Attack Time": "0",
-            "Decay Time": "0",
-            "Sustain Level": "0",
-            "Release Time": "0"
+        self.config[
+            self.pipe_harmonics_adsr_settings(
+                rank_number=rank_number,
+                pipe_number=pipe_number,
+                harmonic_number=harmonic_number
+            )
+        ] = {
+            "Attack Time": 0,
+            "Decay Time": 0,
+            "Sustain Level": 0,
+            "Release Time": 0
         }
 
     def init_pipe_adsr_settings(
@@ -162,49 +145,75 @@ class StopConfig:
             rank_number: int,
             pipe_number: int,
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
-        self.parser[section] = {
-            "Attack Time": "0",
-            "Decay Time": "0",
-            "Sustain Level": "0",
-            "Release Time": "0"
+        self.config[
+            self.pipe_adsr_settings(
+                rank_number=rank_number,
+                pipe_number=pipe_number
+            )
+        ] = {
+            "Attack Time": 0,
+            "Decay Time": 0,
+            "Sustain Level": 0,
+            "Release Time": 0
         }
 
     #**************************************************************************
     # Section Deletion
     #**************************************************************************
+    def clear_config(self) -> None:
+        for key in self.config.keys():
+            del self.config[key]
+
+    def del_stop_settings(self) -> None:
+        sections: list[str] = [
+            self.stop_settings,
+        ]
+        self.__del_sections(sections)
+
     def del_rank_settings(
             self,
             rank_number: int
     ) -> None:
         sections: list[str] = [
-            f"Rank {rank_number} Settings",
+            self.rank_settings(rank_number=rank_number),
+            self.rank_adsr_settings(rank_number=rank_number)
         ]
         for harmonic in range(1, 20):
             sections.append(
-                f"Rank {rank_number} - Harmonic {harmonic} Settings"
+                self.rank_harmonics_settings(
+                    rank_number=rank_number,
+                    harmonic_number=harmonic)
             )
             sections.append(
-                f"Rank {rank_number} - Harmonic {harmonic} - ADSR Settings"
+                self.rank_harmonics_adsr_settings(
+                    rank_number=rank_number,
+                    harmonic_number=harmonic)
+            )
+        for pipe in range(1, 61):
+            sections.append(
+                self.pipe_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe)
             )
             sections.append(
-                f"Rank {rank_number} - ADSR Settings"
+                self.pipe_adsr_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe)
             )
-            for pipe in range(1, 61):
+            for harmonic in range(1, 20):
                 sections.append(
-                    f"Rank {rank_number} - Pipe {pipe} Settings"
+                    self.pipe_harmonics_settings(
+                        rank_number=rank_number,
+                        pipe_number=pipe,
+                        harmonic_number=harmonic
+                    )
                 )
                 sections.append(
-                    f"Rank {rank_number} - Pipe {pipe} - Harmonic {harmonic} \
-                        Settings"
-                )
-                sections.append(
-                    f"Rank {rank_number} - Pipe {pipe} - Harmonic {harmonic} \
-                        - ADSR Settings"
-                )
-                sections.append(
-                    f"Rank {rank_number} - Pipe {pipe} - ADSR Settings"
+                    self.pipe_harmonics_adsr_settings(
+                        rank_number=rank_number,
+                        pipe_number=pipe,
+                        harmonic_number=harmonic
+                    )
                 )
         self.__del_sections(sections)
 
@@ -214,16 +223,24 @@ class StopConfig:
             pipe_number: int
     ) -> None:
         number_harmonics: int = int(
-            self.parser[f"Rank {rank_number} Settings"]["number of harmonics"]
+            self.config[self.rank_settings(rank_number)]["number of harmonics"]
         )
         sections: list[str] = [
-            f"Rank {rank_number} - Pipe {pipe_number} Settings",
-            f"Rank {rank_number} - Pipe {pipe_number} - ADSR Settings"
+            self.pipe_settings(rank_number, pipe_number),
+            self.pipe_adsr_settings(rank_number, pipe_number)
         ]
         for harmonic in range(1, number_harmonics):
             sections.append(
-                f"Rank {rank_number} - Pipe {pipe_number} \
-                    - Harmonic {harmonic} Settings"
+                self.pipe_harmonics_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe_number,
+                    harmonic_number=harmonic)
+            )
+            sections.append(
+                self.pipe_harmonics_adsr_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe_number,
+                    harmonic_number=harmonic)
             )
         self.__del_sections(sections)
 
@@ -233,23 +250,38 @@ class StopConfig:
             harmonic_number: int
     ) -> None:
         sections: list[str] = [
-            f"Rank {rank_number} - Harmonic {harmonic_number} Settings",
-            f"Rank {rank_number} - Harmonic {harmonic_number} - ADSR Settings"
+            self.rank_harmonics_settings(
+                rank_number=rank_number,
+                harmonic_number=harmonic_number
+            ),
+            self.rank_harmonics_adsr_settings(
+                rank_number=rank_number,
+                harmonic_number=harmonic_number
+            )
         ]
         for pipe in range(1, 61):
             sections.append(
-                f"Rank {rank_number} - Pipe {pipe} \
-                    - Harmonic {harmonic_number} Settings"
+                self.pipe_harmonics_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe,
+                    harmonic_number=harmonic_number
+                )
+            )
+            sections.append(
+                self.pipe_harmonics_adsr_settings(
+                    rank_number=rank_number,
+                    pipe_number=pipe,
+                    harmonic_number=harmonic_number
+                )
             )
         self.__del_sections(sections)
 
     def __del_sections(self, sections: list[str]) -> None:
         for section in sections:
-            if self.parser.has_section(section):
-                self.parser.remove_section
+            self.config.pop(section, None)
 
     #**************************************************************************
-    # Field Operations
+    # Getter and Setter Methods
     #**************************************************************************
     #==========================================================================
     # Stop Settings
@@ -258,81 +290,81 @@ class StopConfig:
     # Stop Name
     #--------------------------------------------------------------------------
     def stop_name_get(self) -> str:
-        section: str = "Stop Settings"
-        field: str = "stop name"
-        return self.parser[section][field]
+        section: str = self.stop_settings
+        field: str = "Stop Name"
+        return self.config[section][field]
 
     def stop_name_set(
             self, 
             stop_name: str
     ) -> None:
-        section: str = "Stop Settings"
-        field: str = "stop name"
-        self.parser[section][field] = stop_name
+        section: str = self.stop_settings
+        field: str = "Stop Name"
+        self.config[section][field] = stop_name
 
     #--------------------------------------------------------------------------
     # Stop Family
     #--------------------------------------------------------------------------
     def stop_family_get(self) -> str:
-        section: str = "Stop Settings"
-        field: str = "stop family"
-        return self.parser[section][field]
+        section: str = self.stop_settings
+        field: str = "Stop Family"
+        return self.config[section][field]
 
     def stop_family_set(
             self,
             stop_family: str
     ) -> None:
-        section: str = "Stop Settings"
-        field: str = "stop family"
-        self.parser[section][field] = stop_family
+        section: str = self.stop_settings
+        field: str = "Stop Family"
+        self.config[section][field] = stop_family
 
     #--------------------------------------------------------------------------
     # Organ Division
     #--------------------------------------------------------------------------
     def organ_division_get(self) -> str:
-        section: str = "Stop Settings"
-        field: str = "organ division"
-        return self.parser[section][field]
+        section: str = self.stop_settings
+        field: str = "Organ Division"
+        return self.config[section][field]
 
     def organ_division_set(
             self,
             organ_division: str
     ) -> None:
-        section: str = "Stop Settings"
-        field: str = "organ division"
-        self.parser[section][field] = organ_division
+        section: str = self.stop_settings
+        field: str = "Organ Division"
+        self.config[section][field] = organ_division
 
     #--------------------------------------------------------------------------
     # Number of Ranks
     #--------------------------------------------------------------------------
     def number_ranks_get(self) -> int:
-        section: str = "Stop Settings"
-        field: str = "number of ranks"
-        return int(self.parser[section][field])
+        section: str = self.stop_settings
+        field: str = "Number of Ranks"
+        return self.config[section][field]
 
     def number_ranks_set(
             self,
             number_ranks: int
     ) -> None:
-        section: str = "Stop Settings"
-        field: str = "number of ranks"
-        self.parser[section][field] = str(number_ranks)
+        section: str = self.stop_settings
+        field: str = "Number of Ranks"
+        self.config[section][field] = number_ranks
 
     #--------------------------------------------------------------------------
     # Rank Series
     #--------------------------------------------------------------------------
     def rank_series_get(self) -> str:
-        section: str = "Stop Settings"
-        field: str = "rank series"
-        return self.parser[section][field]
+        section: str = self.stop_settings
+        field: str = "Rank Series"
+        return self.config[section][field]
 
     def rank_series_set(
             self,
             rank_series: str
     ) -> None:
-        section: str = "Stop Settings"
-        field: str = "rank series"
-        self.parser[section][field] = rank_series
+        section: str = self.stop_settings
+        field: str = "Rank Series"
+        self.config[section][field] = rank_series
 
     #==========================================================================
     # Rank Settings
@@ -345,8 +377,8 @@ class StopConfig:
             rank_number: int
     ) -> str:
         section: str = f"Rank {rank_number} Settings"
-        field: str = "rank size"
-        return self.parser[section][field]
+        field: str = "Rank Size"
+        return self.config[section][field]
 
     def rank_size_set(
             self,
@@ -354,8 +386,8 @@ class StopConfig:
             rank_size: str
     ) -> None:
         section: str = f"Rank {rank_number} Settings"
-        field: str = "rank size"
-        self.parser[section][field] = rank_size
+        field: str = "Rank Size"
+        self.config[section][field] = rank_size
 
     #--------------------------------------------------------------------------
     # Number of Pipes
@@ -364,18 +396,18 @@ class StopConfig:
             self,
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "number of pipes"
-        return int(self.parser[section][field])
+        section: str = self.rank_settings(rank_number)
+        field: str = "Number of Pipes"
+        return self.config[section][field]
 
     def number_pipes_set(
             self, 
             rank_number: int, 
             number_pipes: int
     ) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "number of pipes"
-        self.parser[section][field] = str(number_pipes)
+        section: str = self.rank_settings(rank_number)
+        field: str = "Number of Pipes"
+        self.config[section][field] = number_pipes
 
     #--------------------------------------------------------------------------
     # Pipe Type
@@ -384,18 +416,18 @@ class StopConfig:
             self, 
             rank_number: int
     ) -> str:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "pipe type"
-        return self.parser[section][field]
+        section: str = self.rank_settings(rank_number)
+        field: str = "Pipe Type"
+        return self.config[section][field]
 
     def pipe_type_set(
             self, 
             rank_number: int, 
             pipe_type: str
     ) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "pipe type"
-        self.parser[section][field] = pipe_type
+        section: str = self.rank_settings(rank_number)
+        field: str = "Pipe Type"
+        self.config[section][field] = pipe_type
 
     #--------------------------------------------------------------------------
     # Starting Note
@@ -404,18 +436,18 @@ class StopConfig:
             self, 
             rank_number: int
     ) -> str:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "starting note"
-        return self.parser[section][field]
+        section: str = self.rank_settings(rank_number)
+        field: str = "Starting Note"
+        return self.config[section][field]
 
     def starting_note_set(
             self, 
             rank_number: int, 
             starting_note: str
     ) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "starting note"
-        self.parser[section][field] = starting_note
+        section: str = self.rank_settings(rank_number)
+        field: str = "Starting Note"
+        self.config[section][field] = starting_note
 
     #--------------------------------------------------------------------------
     # Frequency Offset
@@ -424,18 +456,18 @@ class StopConfig:
             self, 
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "frequency offset"
-        return int(self.parser[section][field])
+        section: str = self.rank_settings(rank_number)
+        field: str = "Frequency Offset"
+        return self.config[section][field]
 
     def frequency_offset_set(
             self, 
             rank_number: int, 
             frequency_offset: int
     ) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "frequency offset"
-        self.parser[section][field] = str(frequency_offset)
+        section: str = self.rank_settings(rank_number)
+        field: str = "Frequency Offset"
+        self.config[section][field] = frequency_offset
 
     #--------------------------------------------------------------------------
     # Number of Harmonics
@@ -444,18 +476,18 @@ class StopConfig:
             self, 
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "number of harmonics"
-        return int(self.parser[section][field])
+        section: str = self.rank_settings(rank_number)
+        field: str = "Number of Harmonics"
+        return self.config[section][field]
 
     def number_harmonics_set(
             self, 
             rank_number: int, 
             number_harmonics: int
     ) -> None:
-        section: str = f"Rank {rank_number} Settings"
-        field: str = "number of harmonics"
-        self.parser[section][field] = str(number_harmonics)
+        section: str = self.rank_settings(rank_number)
+        field: str = "Number of Harmonics"
+        self.config[section][field] = number_harmonics
 
     #==========================================================================
     # Rank Harmonic Settings
@@ -468,10 +500,12 @@ class StopConfig:
             rank_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            Settings"
-        field: str = "amplitude"
-        return int(self.parser[section][field])
+        section: str = self.rank_harmonics_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Amplitude"
+        return self.config[section][field]
 
     def rank_harmonic_amplitude_set(
             self,
@@ -479,10 +513,12 @@ class StopConfig:
             harmonic_number: int,
             amplitude: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            Settings"
-        field: str = "amplitude"
-        self.parser[section][field] = str(amplitude)
+        section: str = self.rank_harmonics_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Amplitude"
+        self.config[section][field] = amplitude
 
     #--------------------------------------------------------------------------
     # ADSR Settings
@@ -490,98 +526,114 @@ class StopConfig:
     #--------------------------------------------------------------------------
     # Attack Time
     #--------------------------------------------------------------------------
-    def rank_harmonic_adsr_attack_time_get(
+    def rank_harmonic_attack_time_get(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "attack time"
-        return int(self.parser[section][field])
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Attack Time"
+        return self.config[section][field]
 
-    def rank_harmonic_adsr_attack_time_set(
+    def rank_harmonic_attack_time_set(
             self,
             rank_number: int,
             harmonic_number: int,
             attack_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "attack time"
-        self.parser[section][field] = str(attack_time)
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Attack Time"
+        self.config[section][field] = attack_time
 
     #--------------------------------------------------------------------------
     # Decay Time
     #--------------------------------------------------------------------------
-    def rank_harmonic_adsr_decay_time_get(
+    def rank_harmonic_decay_time_get(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "decay time"
-        return int(self.parser[section][field])
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Decay Time"
+        return self.config[section][field]
 
-    def rank_harmonic_adsr_decay_time_set(
+    def rank_harmonic_decay_time_set(
             self,
             rank_number: int,
             harmonic_number: int,
             decay_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "decay time"
-        self.parser[section][field] = str(decay_time)
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Decay Time"
+        self.config[section][field] = decay_time
 
     #--------------------------------------------------------------------------
     # Sustain Level
     #--------------------------------------------------------------------------
-    def rank_harmonic_adsr_sustain_level_get(
+    def rank_harmonic_sustain_level_get(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "sustain level"
-        return int(self.parser[section][field])
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Sustain Level"
+        return self.config[section][field]
 
-    def rank_harmonic_adsr_sustain_level_set(
+    def rank_harmonic_sustain_level_set(
             self,
             rank_number: int,
             harmonic_number: int,
             sustain_level: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "sustain level"
-        self.parser[section][field] = str(sustain_level)
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Sustain Level"
+        self.config[section][field] = sustain_level
 
     #--------------------------------------------------------------------------
     # Release Time
     #--------------------------------------------------------------------------
-    def rank_harmonic_adsr_release_time_get(
+    def rank_harmonic_release_time_get(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "release time"
-        return int(self.parser[section][field])
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Release Time"
+        return self.config[section][field]
 
-    def rank_harmonic_adsr_release_time_set(
+    def rank_harmonic_release_time_set(
             self,
             rank_number: int,
             harmonic_number: int,
             release_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Harmonic {harmonic_number} \
-            - ADSR Settings"
-        field: str = "release time"
-        self.parser[section][field] = str(release_time)
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Release Time"
+        self.config[section][field] = release_time
 
     #==========================================================================
     # Rank ADSR Settings
@@ -589,82 +641,82 @@ class StopConfig:
     #--------------------------------------------------------------------------
     # Attack Time
     #--------------------------------------------------------------------------
-    def rank_adsr_attack_time_get(
+    def rank_attack_time_get(
             self,
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "attack time"
-        return int(self.parser[section][field])
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Attack Time"
+        return self.config[section][field]
 
-    def rank_adsr_attack_time_set(
+    def rank_attack_time_set(
             self,
             rank_number: int,
             attack_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "attack time"
-        self.parser[section][field] = str(attack_time)
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Attack Time"
+        self.config[section][field] = attack_time
 
     #--------------------------------------------------------------------------
     # Decay Time
     #--------------------------------------------------------------------------
-    def rank_adsr_decay_time_get(
+    def rank_decay_time_get(
             self,
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "decay time"
-        return int(self.parser[section][field])
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Decay Time"
+        return self.config[section][field]
 
-    def rank_adsr_decay_time_set(
+    def rank_decay_time_set(
             self,
             rank_number: int,
             decay_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "decay time"
-        self.parser[section][field] = str(decay_time)
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Decay Time"
+        self.config[section][field] = decay_time
 
     #--------------------------------------------------------------------------
     # Sustain Level
     #--------------------------------------------------------------------------
-    def rank_adsr_sustain_level_get(
+    def rank_sustain_level_get(
             self,
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "sustain level"
-        return int(self.parser[section][field])
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Sustain Level"
+        return self.config[section][field]
 
-    def rank_adsr_sustain_level_set(
+    def rank_sustain_level_set(
             self,
             rank_number: int,
             sustain_level: int
     ) -> None:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "sustain level"
-        self.parser[section][field] = str(sustain_level)
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Sustain Level"
+        self.config[section][field] = sustain_level
 
     #--------------------------------------------------------------------------
     # Release Time
     #--------------------------------------------------------------------------
-    def rank_adsr_release_time_get(
+    def rank_release_time_get(
             self,
             rank_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "release time"
-        return int(self.parser[section][field])
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Release Time"
+        return self.config[section][field]
 
-    def rank_adsr_release_time_set(
+    def rank_release_time_set(
             self,
             rank_number: int,
             release_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - ADSR Settings"
-        field: str = "release time"
-        self.parser[section][field] = str(release_time)
+        section: str = self.rank_adsr_settings(rank_number)
+        field: str = "Release Time"
+        self.config[section][field] = release_time
 
     #==========================================================================
     # Pipe Settings
@@ -672,46 +724,58 @@ class StopConfig:
     #--------------------------------------------------------------------------
     # Note
     #--------------------------------------------------------------------------
-    def pipe_note_get(
+    def note_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> str:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} Settings"
-        field: str = "note"
-        return self.parser[section][field]
+        section: str = self.pipe_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+            )
+        field: str = "Note"
+        return self.config[section][field]
 
-    def pipe_note_set(
+    def note_set(
             self,
             rank_number: int,
             pipe_number: int,
             note: str
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} Settings"
-        field: str = "note"
-        self.parser[section][field] = note
+        section: str = self.pipe_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+            )
+        field: str = "Note"
+        self.config[section][field] = note
 
     #--------------------------------------------------------------------------
     # Relative Note
     #--------------------------------------------------------------------------
-    def pipe_relative_note_get(
+    def relative_note_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> str:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} Settings"
-        field: str = "relative note"
-        return self.parser[section][field]
+        section: str = self.pipe_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+            )
+        field: str = "Relative Note"
+        return self.config[section][field]
 
-    def pipe_relative_note_set(
+    def relative_note_set(
             self,
             rank_number: int,
             pipe_number: int,
             relative_note: str
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} Settings"
-        field: str = "relative note"
-        self.parser[section][field] = relative_note
+        section: str = self.pipe_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+            )
+        field: str = "Relative Note"
+        self.config[section][field] = relative_note
 
     #==========================================================================
     # Pipe Harmonic Settings
@@ -725,10 +789,13 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} Settings"
-        field: str = "amplitude"
-        return int(self.parser[section][field])
+        section: str = self.pipe_harmonics_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Amplitude"
+        return self.config[section][field]
 
     def pipe_harmonic_amplitude_set(
             self,
@@ -737,10 +804,13 @@ class StopConfig:
             harmonic_number: int,
             amplitude: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} Settings"
-        field: str = "amplitude"
-        self.parser[section][field] = str(amplitude)
+        section: str = self.pipe_harmonics_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
+        field: str = "Amplitude"
+        self.config[section][field] = amplitude
 
     #--------------------------------------------------------------------------
     # ADSR Settings
@@ -748,106 +818,130 @@ class StopConfig:
     #--------------------------------------------------------------------------
     # Attack Time
     #--------------------------------------------------------------------------
-    def pipe_harmonic_adsr_attack_time_get(
+    def pipe_harmonic_attack_time_get(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Attack Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_harmonic_adsr_attack_time_set(
+    def pipe_harmonic_attack_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int,
             attack_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Attack Time"
-        self.parser[section][field] = str(attack_time)
+        self.config[section][field] = attack_time
 
     #--------------------------------------------------------------------------
     # Decay Time
     #--------------------------------------------------------------------------
-    def pipe_harmonic_adsr_decay_time_get(
+    def pipe_harmonic_decay_time_get(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Decay Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_harmonic_adsr_decay_time_set(
+    def pipe_harmonic_decay_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int,
             decay_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Decay Time"
-        self.parser[section][field] = str(decay_time)
+        self.config[section][field] = decay_time
 
     #--------------------------------------------------------------------------
     # Sustain Level
     #--------------------------------------------------------------------------
-    def pipe_harmonic_adsr_sustain_level_get(
+    def pipe_harmonic_sustain_level_get(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Sustain Level"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_harmonic_adsr_sustain_level_set(
+    def pipe_harmonic_sustain_level_set(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int,
             sustain_level: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Sustain Level"
-        self.parser[section][field] = str(sustain_level)
+        self.config[section][field] = sustain_level
 
     #--------------------------------------------------------------------------
     # Release Time
     #--------------------------------------------------------------------------
-    def pipe_harmonic_adsr_release_time_get(
+    def pipe_harmonic_release_time_get(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Release Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_harmonic_adsr_release_time_set(
+    def pipe_harmonic_release_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             harmonic_number: int,
             release_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} - Harmonic \
-            {harmonic_number} - ADSR Settings"
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
         field: str = "Release Time"
-        self.parser[section][field] = str(release_time)
+        self.config[section][field] = release_time
 
     #==========================================================================
     # Pipe ADSR Settings
@@ -855,95 +949,180 @@ class StopConfig:
     #--------------------------------------------------------------------------
     # Attack Time
     #--------------------------------------------------------------------------
-    def pipe_adsr_attack_time_get(
+    def pipe_attack_time_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Attack Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_adsr_attack_time_set(
+    def pipe_attack_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             attack_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Attack Time"
-        self.parser[section][field] = str(attack_time)
+        self.config[section][field] = attack_time
 
     #--------------------------------------------------------------------------
     # Decay Time
     #--------------------------------------------------------------------------
-    def pipe_adsr_decay_time_get(
+    def pipe_decay_time_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Decay Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_adsr_decay_time_set(
+    def pipe_decay_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             decay_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Decay Time"
-        self.parser[section][field] = str(decay_time)
+        self.config[section][field] = decay_time
 
     #--------------------------------------------------------------------------
     # Sustain Level
     #--------------------------------------------------------------------------
-    def pipe_adsr_sustain_level_get(
+    def pipe_sustain_level_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Sustain Level"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_adsr_sustain_level_set(
+    def pipe_sustain_level_set(
             self,
             rank_number: int,
             pipe_number: int,
             sustain_level: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Sustain Level"
-        self.parser[section][field] = str(sustain_level)
+        self.config[section][field] = sustain_level
 
     #--------------------------------------------------------------------------
     # Release Time
     #--------------------------------------------------------------------------
-    def pipe_adsr_release_time_get(
+    def pipe_release_time_get(
             self,
             rank_number: int,
             pipe_number: int
     ) -> int:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Release Time"
-        return int(self.parser[section][field])
+        return self.config[section][field]
 
-    def pipe_adsr_release_time_set(
+    def pipe_release_time_set(
             self,
             rank_number: int,
             pipe_number: int,
             release_time: int
     ) -> None:
-        section: str = f"Rank {rank_number} - Pipe {pipe_number} \
-            - ADSR Settings"
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
         field: str = "Release Time"
-        self.parser[section][field] = str(release_time)
+        self.config[section][field] = release_time
+
+    #**************************************************************************
+    # Sections
+    #**************************************************************************
+    @property
+    def stop_settings(self) -> dict:
+        return "Stop Settings"
+
+    def rank_settings(self, rank_number: int) -> str:
+        return f"Rank {rank_number} Settings"
+
+    def rank_harmonics_settings(
+            self,
+            rank_number: int,
+            harmonic_number: int
+    ) -> str:
+        return f"Rank {rank_number} - Harmonic {harmonic_number} Settings"
+
+    def rank_harmonics_adsr_settings(
+            self,
+            rank_number: int,
+            harmonic_number: int
+    ) -> str:
+        rank: str = f"Rank {rank_number}"
+        harmonics: str = f"Harmonic {harmonic_number}"
+        return f"{rank} - {harmonics} - ADSR Settings"
+
+    def rank_adsr_settings(self, rank_number: int) -> str:
+        return f"Rank {rank_number} - ADSR Settings"
+
+    def pipe_settings(self, rank_number: int, pipe_number: int) -> str:
+        return f"Rank {rank_number} - Pipe {pipe_number} Settings"
+
+    def pipe_harmonics_settings(
+            self,
+            rank_number: int,
+            pipe_number: int,
+            harmonic_number: int
+    ) -> str:
+        rank: str = f"Rank {rank_number}"
+        pipe: str = f"Pipe {pipe_number}"
+        harmonics: str = f"Harmonic {harmonic_number}"
+        return f"{rank} - {pipe} - {harmonics} - Settings"
+
+    def pipe_harmonics_adsr_settings(
+            self,
+            rank_number: int,
+            pipe_number: int,
+            harmonic_number: int
+    ) -> str:
+        rank: str = f"Rank {rank_number}"
+        pipe: str = f"Pipe {pipe_number}"
+        harmonics: str = f"Harmonic {harmonic_number}"
+        return f"{rank} - {pipe} - {harmonics} - ADSR Settings"
+
+    def pipe_adsr_settings(
+            self,
+            rank_number: int,
+            pipe_number: int
+    ) -> str:
+        rank: str = f"Rank {rank_number}"
+        pipe: str = f"Pipe {pipe_number}"
+        return f"{rank} - {pipe} - ADSR Settings"
+
+
+if __name__ == "__main__":
+    stop_config: StopConfig = StopConfig()
+    stop_config.load_file("src/config/stops/AEOLINE 8'.json")
+    print(stop_config.rank_size_get(1))

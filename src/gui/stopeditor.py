@@ -7,7 +7,6 @@ from PySide6.QtWidgets import (
     QScrollArea,
     QScrollBar,
     QGroupBox,
-    #QTabWidget,
     QLabel,
     QLineEdit,
     QComboBox,
@@ -524,6 +523,26 @@ class StopEditor(QFrame):
             rankharmonicsadsr_layout.addRow(label, widget)
         self.__rankharm_adsr.setLayout(rankharmonicsadsr_layout)
 
+    def __ui_layout_rank_adsr(self) -> None:
+        rankadsr_layout: QVBoxLayout = QVBoxLayout()
+        rankadsr_form_layout: QFormLayout = QFormLayout()
+        rankadsr_widgets: tuple[QLabel, QSpinBox] = (
+            (self.__rank_attack_label, self.__rank_attack_spin),
+            (self.__rank_decay_label, self.__rank_decay_spin),
+            (self.__rank_sustain_label, self.__rank_sustain_spin),
+            (self.__rank_release_label, self.__rank_release_spin)
+        )
+        for label, widget in rankadsr_widgets:
+            rankadsr_form_layout.addRow(label, widget)
+        self.__rank_adsr.setLayout(rankadsr_form_layout)
+        widgets: tuple[QWidget] = (
+            self.__rank_adsr_button,
+            self.__rank_adsr
+        )
+        for widget in widgets:
+            rankadsr_layout.addWidget(widget)
+        self.__rank_adsr.setLayout(rankadsr_layout)
+
     def __ui_layout_rank_harmonic(self) -> None:
         rankharmonic_layout: QVBoxLayout = QVBoxLayout()
         rankharmonic_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -873,6 +892,7 @@ class StopEditor(QFrame):
         self.__ranknum_spin.setMaximum(max)
 
     def rank_size_populate(self, rank_sizes: tuple[str]) -> None:
+        self.__ranksize_combo.clear()
         self.__ranksize_combo.addItems(rank_sizes)
 
     def number_pipes_set_minimum(self, min: int) -> None:
@@ -1172,9 +1192,25 @@ class StopEditor(QFrame):
     def release_time_pipe_change(self, action: Callable) -> None:
         self.__pipe_release_spin.valueChanged.connect(action)
 
+    def load_stop_action(self, action: Callable) -> None:
+        self.__load_button.clicked.connect(action)
+
+    def cancel_changes_action(self, action: Callable) -> None:
+        self.__cancel_button.clicked.connect(action)
+
+    def save_stop_action(self, action: Callable) -> None:
+        self.__save_button.clicked.connect(action)
+
     #**************************************************************************
     # Properties
     #**************************************************************************
+    #==========================================================================
+    # Stop Header
+    #==========================================================================
+    @property
+    def stop_header(self) -> str:
+        return self.__header_edit.text()
+
     #==========================================================================
     # Stop Name
     #==========================================================================
