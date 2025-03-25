@@ -46,7 +46,6 @@ class StopEditorUI:
         self.rank_size_editor = self.rank_size_config
         self.number_pipes_editor = self.number_pipes_config
         self.pipe_type_editor = self.pipe_type_config
-        print(f"Starting Note: {self.starting_note_config}")
         self.starting_note_editor = self.starting_note_config
         self.frequency_offset_editor = self.frequency_offset_config
         self.number_harmonics_editor = self.number_harmonics_config
@@ -61,42 +60,15 @@ class StopEditorUI:
         self.release_rank_editor = self.release_rank_config
         self.note_editor = self.note_config
         self.relative_note_editor = self.relative_note_config
-        if self.amplitude_pipe_config != 0:
-            self.amplitude_pipe_editor = self.amplitude_pipe_config
-        else:
-            self.amplitude_pipe_editor = self.amplitude_rank_config
-        if self.attack_harmonic_pipe_config != 0:
-            self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
-        else:
-            self.attack_harmonic_pipe_editor = self.attack_harmonic_rank_config
-        if self.decay_harmonic_pipe_config != 0:
-            self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
-        else:
-            self.decay_harmonic_pipe_editor = self.decay_harmonic_rank_config
-        if self.sustain_harmonic_pipe_config != 0:
-            self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
-        else:
-            self.sustain_harmonic_pipe_editor = self.sustain_harmonic_rank_config
-        if self.release_harmonic_pipe_config != 0:
-            self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
-        else:
-            self.release_harmonic_pipe_editor = self.release_harmonic_rank_config
-        if self.attack_pipe_config != 0:
-            self.attack_pipe_editor = self.attack_pipe_config
-        else:
-            self.attack_pipe_editor = self.attack_rank_config
-        if self.decay_pipe_config != 0:
-            self.decay_pipe_editor = self.decay_pipe_config
-        else:
-            self.decay_pipe_editor = self.decay_rank_config
-        if self.sustain_pipe_config != 0:
-            self.sustain_pipe_editor = self.sustain_pipe_config
-        else:
-            self.sustain_pipe_editor = self.sustain_rank_config
-        if self.release_pipe_config != 0:
-            self.release_pipe_editor = self.release_pipe_config
-        else:
-            self.release_pipe_editor = self.release_rank_config
+        self.amplitude_pipe_editor = self.amplitude_pipe_config
+        self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
+        self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
+        self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
+        self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
+        self.attack_pipe_editor = self.attack_pipe_config
+        self.decay_pipe_editor = self.decay_pipe_config
+        self.sustain_pipe_editor = self.sustain_pipe_config
+        self.release_pipe_editor = self.release_pipe_config
 
     #==========================================================================
     # Initialize UI Configuration
@@ -349,22 +321,6 @@ class StopEditorUI:
     #**************************************************************************
     # Actions
     #**************************************************************************
-    def __check_number(
-            self,
-            editor_number: int,
-            config_number: int,
-            del_methods: tuple[Callable],
-            init_methods: tuple[Callable]
-    ) -> None:
-        if editor_number < config_number:
-            for number in range(editor_number, config_number):
-                for method in del_methods:
-                    method(number)
-        elif editor_number > config_number:
-            for number in range(config_number, editor_number):
-                for method in init_methods:
-                    method(number)
-
     def __set_maximum_number(
             self,
             editor_number: int,
@@ -378,38 +334,26 @@ class StopEditorUI:
             self.stop_editor.update_stop_header()
     
     def __update_stop_name(self) -> None:
-        self.__init_stop_settings_config()
         self.stop_name_config = self.stop_name_editor
         self.__update_stop_header()
 
     def __update_stop_family(self) -> None:
-        self.__init_stop_settings_config()
         self.stop_family_config = self.stop_family_editor
 
     def __update_organ_division(self) -> None:
-        self.__init_stop_settings_config()
         self.organ_division_config = self.organ_division_editor
 
     def __update_number_ranks(self) -> None:
-        self.__init_stop_settings_config()
         # Set Maximum Rank Number
         self.__set_maximum_number(
             self.number_ranks_editor,
             self.stop_editor.rank_number_set_maximum,
             self.stop_editor.number_harmonics_set_maximum
         )
-        # Initialize Rank Settings
-        self.__check_number(
-            editor_number=self.number_ranks_editor,
-            config_number=self.number_ranks_config,
-            del_methods=(self.stop_config.del_rank_settings,),
-            init_methods=(self.stop_config.init_rank_settings,),
-        )
         self.number_ranks_config = self.number_ranks_editor
         self.__update_stop_header()
 
     def __update_rank_series(self) -> None:
-        self.__init_stop_settings_config()
         rank_sizes: tuple[str] = ("",)
         match self.rank_series_editor:
             case "64' Series":
@@ -428,7 +372,6 @@ class StopEditorUI:
         self.rank_series_config = self.rank_series_editor
 
     def __update_rank_number(self) -> None:
-        self.__init_rank_settings_config()
         self.rank_size_editor = self.rank_size_config
         self.number_pipes_editor = self.number_pipes_config
         self.pipe_type_editor = self.pipe_type_config
@@ -445,33 +388,22 @@ class StopEditorUI:
         self.__update_rank_number_pipe()
 
     def __update_rank_size(self) -> None:
-        self.__init_rank_settings_config()
         self.rank_size_config = self.rank_size_editor
         self.__update_stop_header()
 
     def __update_number_pipes(self) -> None:
-        self.__init_rank_settings_config()
         # Set Maximum Pipe Number
         self.__set_maximum_number(
             self.number_pipes_editor,
             self.stop_editor.pipe_number_set_maximum,
             self.stop_editor.pipe_number_harmonic_set_maximum
         )
-        # Initialize Pipe Settings
-        self.__check_number(
-            editor_number=self.number_pipes_editor,
-            config_number=self.number_pipes_config,
-            del_methods=(self.stop_config.del_pipe_settings,),
-            init_methods=(self.stop_config.init_pipe_settings,)
-        )
         self.number_pipes_config = self.number_pipes_editor
 
     def __update_pipe_type(self) -> None:
-        self.__init_rank_settings_config()
         self.pipe_type_config = self.pipe_type_editor
 
     def __update_starting_note(self) -> None:
-        self.__init_rank_settings_config()
         rank_number = self.rank_number_editor
         number_pipes = self.number_pipes_editor
         notes: str = organlib.NOTES
@@ -489,28 +421,18 @@ class StopEditorUI:
         self.starting_note_config = self.starting_note_editor
 
     def __update_frequency_offset(self) -> None:
-        self.__init_rank_settings_config()
         self.frequency_offset_config = self.frequency_offset_editor
 
     def __update_number_harmonics(self) -> None:
-        self.__init_rank_settings_config()
         # Set Maximum Harmonic Number
         self.__set_maximum_number(
             self.number_harmonics_editor,
             self.stop_editor.harmonic_number_rank_set_maximum,
             self.stop_editor.harmonic_number_pipe_set_maximum
         )
-        # Initialize Harmonic Settings
-        self.__check_number(
-            editor_number=self.number_harmonics_editor,
-            config_number=self.number_harmonics_config,
-            del_methods=self.stop_config.del_rank_harmonic_settings,
-            init_methods=self.stop_config.init_rank_harmonic_settings
-        )
         self.number_harmonics_config = self.number_harmonics_editor
 
     def __update_rank_harmonic_number(self) -> None:
-        self.__init_rank_harmonic_settings_config()
         self.amplitude_rank_editor = self.amplitude_rank_config
         self.attack_harmonic_rank_editor = self.attack_harmonic_rank_config
         self.decay_harmonic_rank_editor = self.decay_harmonic_rank_config
@@ -520,35 +442,27 @@ class StopEditorUI:
         self.__update_harmonic_number_pipe()
 
     def __update_rank_amplitude(self) -> None:
-        self.__init_rank_harmonic_settings_config()
         self.amplitude_rank_config = self.amplitude_rank_editor
 
     def __update_rank_harmonic_attack(self) -> None:
-        self.__init_rank_harmonic_adsr_settings_config()
         self.attack_harmonic_rank_config = self.attack_harmonic_rank_editor
 
     def __update_rank_harmonic_decay(self) -> None:
-        self.__init_rank_harmonic_adsr_settings_config()
         self.decay_harmonic_rank_config = self.decay_harmonic_rank_editor
 
     def __update_rank_harmonic_sustain(self) -> None:
-        self.__init_rank_harmonic_adsr_settings_config()
         self.sustain_harmonic_rank_config = self.sustain_harmonic_rank_editor
 
     def __update_rank_harmonic_release(self) -> None:
-        self.__init_rank_harmonic_adsr_settings_config()
         self.release_harmonic_rank_config = self.release_harmonic_rank_editor
 
     def __update_rank_attack(self) -> None:
-        self.__init_rank_adsr_settings_config()
         self.attack_rank_config = self.attack_rank_editor
 
     def __update_rank_decay(self) -> None:
-        self.__init_rank_adsr_settings_config()
         self.decay_rank_config = self.decay_rank_editor
 
     def __update_rank_sustain(self) -> None:
-        self.__init_rank_adsr_settings_config()
         self.sustain_rank_config = self.sustain_rank_editor
 
     def __update_rank_release(self) -> None:
@@ -556,14 +470,12 @@ class StopEditorUI:
         self.release_rank_config = self.release_rank_editor
 
     def __update_rank_number_pipe(self) -> None:
-        self.__init_pipe_settings_config()
         self.rank_number_editor = self.rank_number_pipe_editor
         self.__update_rank_number() 
         self.pipe_number_editor = 1
         self.__update_pipe_number()
 
     def __update_pipe_number(self) -> None:
-        self.__init_pipe_settings_config()
         self.note_editor = self.note_config
         self.relative_note_editor = self.relative_note_config
         self.harmonic_number_pipe_editor = 1
@@ -598,7 +510,6 @@ class StopEditorUI:
         self.release_pipe_config = self.release_pipe_editor
 
     def __update_pipe_harmonic_number(self) -> None:
-        self.__init_pipe_harmonic_settings_config()
         self.amplitude_pipe_editor = self.amplitude_pipe_config
         self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
         self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
@@ -608,23 +519,18 @@ class StopEditorUI:
         self.__update_rank_harmonic_number()
 
     def __update_pipe_amplitude(self) -> None:
-        self.__init_pipe_harmonic_settings_config()
         self.amplitude_pipe_config = self.amplitude_pipe_editor
 
     def __update_pipe_harmonic_attack(self) -> None:
-        self.__init_pipe_harmonic_adsr_settings_config()
         self.attack_harmonic_pipe_config = self.attack_harmonic_pipe_editor
 
     def __update_pipe_harmonic_decay(self) -> None:
-        self.__init_pipe_harmonic_adsr_settings_config()
         self.decay_harmonic_pipe_config = self.decay_harmonic_pipe_editor
 
     def __update_pipe_harmonic_sustain(self) -> None:
-        self.__init_pipe_harmonic_adsr_settings_config()
         self.sustain_harmonic_pipe_config = self.sustain_harmonic_pipe_editor
 
     def __update_pipe_harmonic_release(self) -> None:
-        self.__init_pipe_harmonic_adsr_settings_config()
         self.release_harmonic_pipe_config = self.release_harmonic_pipe_editor
 
     def __load_config(self) -> None:

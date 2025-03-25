@@ -62,6 +62,11 @@ class StopConfig:
             "Number of Pipes": 61,
             "Number of Harmonics": 1
         }
+        self.init_rank_adsr_settings(rank_number)
+        for harmonic in range(1, self.number_harmonics_get(rank_number)):
+            self.init_rank_harmonic_settings(rank_number, harmonic)
+        for pipe in range(1, self.number_pipes_get(rank_number)):
+            self.init_pipe_settings(rank_number, pipe)\
 
     def init_rank_harmonic_settings(
             self, 
@@ -76,6 +81,7 @@ class StopConfig:
         ] = {
             "Amplitude": 0
         }
+        self.init_rank_harmonic_adsr_settings(rank_number, harmonic_number)
 
     def init_rank_harmonic_adsr_settings(
             self,
@@ -119,6 +125,11 @@ class StopConfig:
             "Note": "",
             "Relative Note": ""
         }
+        self.init_pipe_adsr_settings(rank_number, pipe_number)
+        for harmonic in range(1, self.number_harmonics_get(rank_number)):
+            self.init_pipe_harmonic_settings(
+                rank_number, pipe_number, harmonic
+            )
 
     def init_pipe_harmonic_settings(
             self,
@@ -135,6 +146,9 @@ class StopConfig:
         ] = {
             "Amplitude": 0
         }
+        self.init_pipe_harmonic_adsr_settings(
+            rank_number, pipe_number, harmonic_number
+        )
 
     def init_pipe_harmonic_adsr_settings(
             self,
@@ -171,6 +185,14 @@ class StopConfig:
             "Sustain Level": 0,
             "Release Time": 0
         }
+
+    #==========================================================================
+    # Harmonic Settings
+    #==========================================================================
+    def init_harmonic_settings(
+            self,
+    ) -> None:
+        pass
 
     #**************************************************************************
     # Section Deletion
@@ -363,6 +385,13 @@ class StopConfig:
     ) -> None:
         section: str = self.stop_settings
         field: str = "Number of Ranks"
+        number_rank_sections: str = self.number_ranks_get()
+        if number_ranks > number_rank_sections:
+            for rank in range(number_rank_sections, number_ranks):
+                self.init_rank_settings(rank)
+        elif number_ranks < number_rank_sections:
+            for rank in range(number_ranks, number_rank_sections):
+                self.del_rank_settings(rank)
         self.config[section][field] = number_ranks
 
     #--------------------------------------------------------------------------
@@ -422,6 +451,13 @@ class StopConfig:
     ) -> None:
         section: str = self.rank_settings(rank_number)
         field: str = "Number of Pipes"
+        number_pipe_sections: int = self.number_pipes_get(rank_number)
+        if number_pipes > number_pipe_sections:
+            for pipe in range(number_pipe_sections, number_pipes):
+                self.init_pipe_settings(rank_number, pipe)
+        elif number_pipes < number_pipe_sections:
+            for pipe in range(number_pipes, number_pipe_sections):
+                self.del_pipe_settings(rank_number, pipe)
         self.config[section][field] = number_pipes
 
     #--------------------------------------------------------------------------
@@ -502,6 +538,18 @@ class StopConfig:
     ) -> None:
         section: str = self.rank_settings(rank_number)
         field: str = "Number of Harmonics"
+        number_harmonic_sections: int = self.number_harmonics_get(rank_number)
+        number_pipes: int = self.number_pipes_get(rank_number)
+        if number_harmonics > number_harmonic_sections:
+            for harmonic in range(number_harmonic_sections, number_harmonics):
+                self.init_rank_harmonic_settings(rank_number, harmonic)
+                for pipe in range(1, number_pipes):
+                    self.init_pipe_harmonic_settings(
+                        rank_number, pipe, harmonic
+                    )
+        elif number_harmonics < number_harmonic_sections:
+            for harmonic in range(number_harmonics, number_harmonic_sections):
+                self.del_harmonic_settings(rank_number, harmonic)
         self.config[section][field] = number_harmonics
 
     #==========================================================================
@@ -763,6 +811,7 @@ class StopConfig:
             )
         field: str = "Note"
         self.config[section][field] = note
+        self.config[section]["Relative Note"] = note
 
     #--------------------------------------------------------------------------
     # Relative Note
