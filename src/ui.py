@@ -15,8 +15,8 @@ class StopEditorUI:
         self.stop_editor: StopEditor = StopEditor()
         self.stop_config: StopConfig = StopConfig()
         self.config_file: str | None = None
-        self.__default_ui_editor_data()
         self.__init_ui()
+        self.__default_ui_editor_data()
 
     #**************************************************************************
     # Configuration
@@ -27,7 +27,7 @@ class StopEditorUI:
     def __default_ui_editor_data(self) -> None:
         self.stop_config.clear_config()
         self.__init_rank_number()
-        self.__init_config()
+        self.stop_config.init_default_config()
         self.__load_ui_editor_data()
 
     def __init_rank_number(self) -> None:
@@ -46,6 +46,7 @@ class StopEditorUI:
         self.rank_size_editor = self.rank_size_config
         self.number_pipes_editor = self.number_pipes_config
         self.pipe_type_editor = self.pipe_type_config
+        print(f"Starting Note: {self.starting_note_config}")
         self.starting_note_editor = self.starting_note_config
         self.frequency_offset_editor = self.frequency_offset_config
         self.number_harmonics_editor = self.number_harmonics_config
@@ -96,108 +97,6 @@ class StopEditorUI:
             self.release_pipe_editor = self.release_pipe_config
         else:
             self.release_pipe_editor = self.release_rank_config
-
-    #==========================================================================
-    # Initialize Configuration
-    #==========================================================================
-    def __init_config(self) -> None:
-        self.__init_stop_settings_config()
-        self.__init_rank_settings_config()
-        self.__init_rank_harmonic_settings_config()
-        self.__init_rank_harmonic_adsr_settings_config()
-        self.__init_rank_adsr_settings_config()
-        self.__init_pipe_settings_config()
-        self.__init_pipe_harmonic_settings_config()
-        self.__init_pipe_harmonic_adsr_settings_config()
-        self.__init_pipe_adsr_settings_config()
-    
-    def __init_stop_settings_config(self) -> None:
-        if not self.stop_config.stop_settings in self.stop_config.config:
-            self.stop_config.init_stop_settings()
-
-    def __init_rank_settings_config(self) -> None:
-        rank_number: int = self.rank_number_editor
-        section: str = self.stop_config.rank_settings(rank_number)
-        if not section in self.stop_config.config:
-            self.stop_config.init_rank_settings(rank_number)
-
-    def __init_rank_harmonic_settings_config(self) -> None:
-        rank_number: int = self.rank_number_editor
-        harmonic_number: int = self.harmonic_number_rank_editor
-        section: str = self.stop_config.rank_harmonics_settings(
-            rank_number, harmonic_number
-        )
-        if not section in self.stop_config.config:
-            self.stop_config.init_rank_harmonic_settings(
-                rank_number, harmonic_number
-            ) 
-
-    def __init_rank_harmonic_adsr_settings_config(self) -> None:
-        rank_number: int = self.rank_number_editor
-        harmonic_number: int = self.harmonic_number_rank_editor
-        section: str = self.stop_config.rank_harmonics_adsr_settings(
-            rank_number, harmonic_number
-        )
-        if not section in self.stop_config.config:
-            self.stop_config.init_rank_harmonic_adsr_settings(
-                rank_number, harmonic_number
-            )
-
-    def __init_rank_adsr_settings_config(self) -> None:
-        rank_number: int = self.rank_number_editor
-        section: str = self.stop_config.rank_adsr_settings(rank_number)
-        if not section in self.stop_config.config:
-            self.stop_config.init_rank_adsr_settings(rank_number)
-
-    def __init_pipe_settings_config(self) -> None:
-        rank_number: str = f"Rank {self.rank_number_editor}"
-        pipe_number: str = f"Pipe {self.pipe_number_editor}"
-        section: str = self.stop_config.pipe_settings(rank_number, pipe_number)
-        if not section in self.stop_config.config:
-            self.stop_config.init_pipe_settings(
-                rank_number=self.rank_number_editor,
-                pipe_number=self.pipe_number_editor
-            )
-
-    def __init_pipe_harmonic_settings_config(self) -> None:
-        rank_number: str = f"Rank {self.rank_number_editor}"
-        pipe_number: str = f"Pipe {self.pipe_number_editor}"
-        harmonic_number: str = f"Harmonic {self.harmonic_number_pipe_editor}"
-        section: str = self.stop_config.pipe_harmonics_settings(
-            rank_number, pipe_number, harmonic_number
-        )
-        if not section in self.stop_config.config:
-            self.stop_config.init_pipe_harmonic_settings(
-                rank_number=self.rank_number_editor,
-                pipe_number=self.pipe_number_editor,
-                harmonic_number=self.harmonic_number_pipe_editor
-            )
-
-    def __init_pipe_harmonic_adsr_settings_config(self) -> None:
-        rank_number: str = f"Rank {self.rank_number_editor}"
-        pipe_number: str = f"Pipe {self.pipe_number_editor}"
-        harmonic_number: str = f"Harmonic {self.harmonic_number_pipe_editor}"
-        section: str = self.stop_config.pipe_harmonics_adsr_settings(
-            rank_number, pipe_number, harmonic_number
-        )
-        if not section in self.stop_config.config:
-            self.stop_config.init_pipe_harmonic_adsr_settings(
-                rank_number=self.rank_number_editor,
-                pipe_number=self.pipe_number_editor,
-                harmonic_number=self.harmonic_number_pipe_editor
-            )
-
-    def __init_pipe_adsr_settings_config(self) -> None:
-        rank_number: str = f"Rank {self.rank_number_editor}"
-        pipe_number: str = f"Pipe {self.pipe_number_editor}"
-        section: str = self.stop_config.pipe_adsr_settings(
-            rank_number, pipe_number
-        )
-        if not section in self.stop_config.config:
-            self.stop_config.init_pipe_adsr_settings(
-                rank_number=self.rank_number_editor,
-                pipe_number=self.pipe_number_editor
-            )
 
     #==========================================================================
     # Initialize UI Configuration
@@ -497,7 +396,7 @@ class StopEditorUI:
         self.__set_maximum_number(
             self.number_ranks_editor,
             self.stop_editor.rank_number_set_maximum,
-            self.stop_editor.rank_number_harmonic_set_maximum
+            self.stop_editor.number_harmonics_set_maximum
         )
         # Initialize Rank Settings
         self.__check_number(
@@ -520,7 +419,7 @@ class StopEditorUI:
             case "16' Series":
                 rank_sizes += organlib.RANK_SERIES_16
             case "8' Series":
-                rank_sizes += organlib.RANK_SIZES_8
+                rank_sizes += organlib.RANK_SERIES_8
             case "4' Series":
                 rank_sizes += organlib.RANK_SERIES_4
             case "":
@@ -573,6 +472,20 @@ class StopEditorUI:
 
     def __update_starting_note(self) -> None:
         self.__init_rank_settings_config()
+        rank_number = self.rank_number_editor
+        number_pipes = self.number_pipes_editor
+        notes: str = organlib.NOTES
+        for num in range(1, number_pipes):
+            self.stop_config.note_set(
+                rank_number=rank_number,
+                pipe_number=num,
+                note=notes[num]
+            )
+            self.stop_config.relative_note_set(
+                rank_number=rank_number,
+                pipe_number=num,
+                relative_note=notes[num]
+            )
         self.starting_note_config = self.starting_note_editor
 
     def __update_frequency_offset(self) -> None:

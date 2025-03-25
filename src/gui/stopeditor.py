@@ -78,7 +78,7 @@ class StopEditor(QFrame):
         self.__organdivision_label: QLabel = QLabel("Organ Division:")
         self.__organdivision_combo: QComboBox = QComboBox()
         # Number of Ranks
-        self.__numranks_label: QLabel = QLabel("Number of Rank:")
+        self.__numranks_label: QLabel = QLabel("Number of Ranks:")
         self.__numranks_spin: QSpinBox = QSpinBox()
         # Rank Series
         self.__rankseries_label: QLabel = QLabel("Rank Series:")
@@ -477,10 +477,10 @@ class StopEditor(QFrame):
         rankheader_widgets: tuple[QLabel, QWidget] = (
             (self.__ranknum_label, self.__ranknum_spin),
             (self.__ranksize_label, self.__ranksize_combo),
-            (self.__numpipes_label, self.__numpipes_spin),
             (self.__pipetype_label, self.__pipetype_combo),
             (self.__startnote_label, self.__startnote_combo),
             (self.__freqoffset_label, self.__freqoffset_spin),
+            (self.__numpipes_label, self.__numpipes_spin),
             (self.__numharmonics_label, self.__numharmonics_spin)
         )
         for label, widget in rankheader_widgets:
@@ -1323,6 +1323,7 @@ class StopEditor(QFrame):
 
     @starting_note.setter
     def starting_note(self, n: str) -> None:
+        print(n)
         self.__startnote_combo.setCurrentText(n)
 
     #==========================================================================

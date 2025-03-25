@@ -22,6 +22,22 @@ class StopConfig:
     #**************************************************************************
     # Section Creation
     #**************************************************************************
+
+    #==========================================================================
+    # Default Config
+    #==========================================================================
+    def init_default_config(self) -> None:
+        self.init_stop_settings()
+        self.init_rank_settings(1)
+        self.init_rank_harmonic_settings(1, 1)
+        self.init_rank_harmonic_adsr_settings(1, 1)
+        self.init_rank_adsr_settings(1)
+        for pipe in range(1, self.number_pipes_get(1)):
+            self.init_pipe_settings(1, pipe)
+            self.init_pipe_harmonic_settings(1, pipe, 1)
+            self.init_pipe_harmonic_adsr_settings(1, pipe, 1)
+            self.init_pipe_adsr_settings(1, pipe)
+
     #==========================================================================
     # Stop Settings
     #==========================================================================
@@ -40,10 +56,10 @@ class StopConfig:
     def init_rank_settings(self, rank_number: int) -> None:
         self.config[self.rank_settings(rank_number)] = {
             "Rank Size": "",
-            "Number of Pipes": 1,
             "Pipe Type": "",
-            "Starting Note": "",
+            "Starting Note": "C2",
             "Frequency Offset": 0,
+            "Number of Pipes": 61,
             "Number of Harmonics": 1
         }
 
