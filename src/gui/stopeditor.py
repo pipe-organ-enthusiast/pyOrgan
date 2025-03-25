@@ -868,12 +868,15 @@ class StopEditor(QFrame):
     # Widget Data
     #==========================================================================
     def stop_names_populate(self, stop_names: tuple[str]) -> None:
+        self.__stopname_combo.clear()
         self.__stopname_combo.addItems(stop_names)
 
     def stop_families_populate(self, stop_families: tuple[str]) -> None:
+        self.__stopfamily_combo.clear()
         self.__stopfamily_combo.addItems(stop_families)
 
     def organ_divisions_populate(self, divisions: tuple[str]) -> None:
+        self.__organdivision_combo.clear()
         self.__organdivision_combo.addItems(divisions)
 
     def number_ranks_set_minimum(self, min: int) -> None:
@@ -883,6 +886,7 @@ class StopEditor(QFrame):
         self.__numranks_spin.setMaximum(max)
 
     def rank_series_populate(self, rank_series: tuple[str]) -> None:
+        self.__rankseries_combo.clear()
         self.__rankseries_combo.addItems(rank_series)
 
     def rank_number_set_minimum(self, min: int) -> None:

@@ -60,15 +60,42 @@ class StopEditorUI:
         self.release_rank_editor = self.release_rank_config
         self.note_editor = self.note_config
         self.relative_note_editor = self.relative_note_config
-        self.amplitude_pipe_editor = self.amplitude_pipe_config
-        self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
-        self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
-        self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
-        self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
-        self.attack_pipe_editor = self.attack_pipe_config
-        self.decay_pipe_editor = self.decay_pipe_config
-        self.sustain_pipe_editor = self.sustain_pipe_config
-        self.release_pipe_editor = self.release_pipe_config
+        if self.amplitude_pipe_config != 0:
+            self.amplitude_pipe_editor = self.amplitude_pipe_config
+        else:
+            self.amplitude_pipe_editor = self.amplitude_rank_config
+        if self.attack_harmonic_pipe_config != 0:
+            self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
+        else:
+            self.attack_harmonic_pipe_editor = self.attack_harmonic_rank_config
+        if self.decay_harmonic_pipe_config != 0:
+            self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
+        else:
+            self.decay_harmonic_pipe_editor = self.decay_harmonic_rank_config
+        if self.sustain_harmonic_pipe_config != 0:
+            self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
+        else:
+            self.sustain_harmonic_pipe_editor = self.sustain_harmonic_rank_config
+        if self.release_harmonic_pipe_config != 0:
+            self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
+        else:
+            self.release_harmonic_pipe_editor = self.release_harmonic_rank_config
+        if self.attack_pipe_config != 0:
+            self.attack_pipe_editor = self.attack_pipe_config
+        else:
+            self.attack_pipe_editor = self.attack_rank_config
+        if self.decay_pipe_config != 0:
+            self.decay_pipe_editor = self.decay_pipe_config
+        else:
+            self.decay_pipe_editor = self.decay_rank_config
+        if self.sustain_pipe_config != 0:
+            self.sustain_pipe_editor = self.sustain_pipe_config
+        else:
+            self.sustain_pipe_editor = self.sustain_rank_config
+        if self.release_pipe_config != 0:
+            self.release_pipe_editor = self.release_pipe_config
+        else:
+            self.release_pipe_editor = self.release_rank_config
 
     #==========================================================================
     # Initialize Configuration
@@ -484,6 +511,21 @@ class StopEditorUI:
 
     def __update_rank_series(self) -> None:
         self.__init_stop_settings_config()
+        rank_sizes: tuple[str] = ("",)
+        match self.rank_series_editor:
+            case "64' Series":
+                rank_sizes += organlib.RANK_SERIES_64
+            case "32' Series":
+                rank_sizes += organlib.RANK_SERIES_32
+            case "16' Series":
+                rank_sizes += organlib.RANK_SERIES_16
+            case "8' Series":
+                rank_sizes += organlib.RANK_SIZES_8
+            case "4' Series":
+                rank_sizes += organlib.RANK_SERIES_4
+            case "":
+                rank_sizes += organlib.RANK_SIZES
+        self.stop_editor.rank_size_populate(rank_sizes)
         self.rank_series_config = self.rank_series_editor
 
     def __update_rank_number(self) -> None:
@@ -500,6 +542,8 @@ class StopEditorUI:
         self.decay_rank_editor = self.decay_rank_config
         self.sustain_rank_editor = self.sustain_rank_config
         self.release_rank_editor = self.release_rank_config
+        self.rank_number_pipe_editor = self.rank_number_editor
+        self.__update_rank_number_pipe()
 
     def __update_rank_size(self) -> None:
         self.__init_rank_settings_config()
@@ -559,6 +603,8 @@ class StopEditorUI:
         self.decay_harmonic_rank_editor = self.decay_harmonic_rank_config
         self.sustain_harmonic_rank_editor = self.sustain_harmonic_rank_config
         self.release_harmonic_rank_editor = self.release_harmonic_rank_config
+        self.harmonic_number_pipe_editor = self.harmonic_number_rank_editor
+        self.__update_harmonic_number_pipe()
 
     def __update_rank_amplitude(self) -> None:
         self.__init_rank_harmonic_settings_config()
@@ -598,6 +644,8 @@ class StopEditorUI:
 
     def __update_rank_number_pipe(self) -> None:
         self.__init_pipe_settings_config()
+        self.rank_number_editor = self.rank_number_pipe_editor
+        self.__update_rank_number() 
         self.pipe_number_editor = 1
         self.__update_pipe_number()
 
@@ -643,6 +691,8 @@ class StopEditorUI:
         self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
         self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
         self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
+        self.harmonic_number_rank_editor = self.harmonic_number_pipe_editor
+        self.__update_rank_harmonic_number()
 
     def __update_pipe_amplitude(self) -> None:
         self.__init_pipe_harmonic_settings_config()
