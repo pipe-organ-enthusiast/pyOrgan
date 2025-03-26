@@ -1,4 +1,4 @@
-from gui import MainWindow, StopEditor
+from gui import StopEditor
 from organ import organlib
 from config_editors import StopConfig
 #------------------------------------------------------------------------------
@@ -12,9 +12,11 @@ from typing import Callable
 #******************************************************************************
 class StopEditorUI:
     def __init__(self) -> None:
+        print("class: StopEditorUI")
+        print("method: __init__")
         self.stop_editor: StopEditor = StopEditor()
         self.stop_config: StopConfig = StopConfig()
-        self.config_file: str | None = None
+        self.config_file: str = ""
         self.__init_ui()
         self.__default_ui_editor_data()
 
@@ -25,12 +27,15 @@ class StopEditorUI:
     # Default Data
     #==========================================================================
     def __default_ui_editor_data(self) -> None:
-        #self.stop_config.clear_config()
+        print("class: StopEditorUI")
+        print("method: __default_ui_editor_data")
         self.__init_rank_number()
         self.stop_config.init_default_config()
         self.__load_ui_editor_data()
 
     def __init_rank_number(self) -> None:
+        print("class: StopEditorUI")
+        print("method: __init_rank_number")
         self.rank_number_editor = 1
         self.harmonic_number_rank_editor = 1
         self.rank_number_pipe_editor = 1
@@ -38,15 +43,27 @@ class StopEditorUI:
         self.harmonic_number_pipe_editor = 1
     
     def __load_ui_editor_data(self) -> None:
+        print("class: StopEditorUI")
+        print("method: __load_ui_editor_data")
+        print("setting stop name")
         self.stop_name_editor = self.stop_name_config
+        print("setting stop family")
         self.stop_family_editor = self.stop_family_config
+        print("setting organ division")
         self.organ_division_editor = self.organ_division_config
+        print("setting number of ranks")
         self.number_ranks_editor = self.number_ranks_config
+        print("setting rank series")
         self.rank_series_editor = self.rank_series_config
+        print("setting rank size")
         self.rank_size_editor = self.rank_size_config
+        print("setting number of pipes")
         self.number_pipes_editor = self.number_pipes_config
+        print("setting pipe type")
         self.pipe_type_editor = self.pipe_type_config
+        print("setting starting note")
         self.starting_note_editor = self.starting_note_config
+        print("setting frequency offset")
         self.frequency_offset_editor = self.frequency_offset_config
         self.number_harmonics_editor = self.number_harmonics_config
         self.amplitude_rank_editor = self.amplitude_rank_config
@@ -59,7 +76,9 @@ class StopEditorUI:
         self.sustain_rank_editor = self.sustain_rank_config
         self.release_rank_editor = self.release_rank_config
         self.note_editor = self.note_config
+        #print("setting relative note")
         self.relative_note_editor = self.relative_note_config
+        #print("setting amplitude pipe")
         self.amplitude_pipe_editor = self.amplitude_pipe_config
         self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
         self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
@@ -74,6 +93,7 @@ class StopEditorUI:
     # Initialize UI Configuration
     #==========================================================================
     def __init_ui(self) -> None:
+        print("method: __init_ui")
         self.__stop_name_config()
         self.__stop_family_config()
         self.__organ_division_config()
@@ -113,55 +133,66 @@ class StopEditorUI:
         self.__options_config()
 
     def __stop_name_config(self) -> None:
-        stop_names: tuple[str] = ("",) + organlib.STOP_NAMES
+        print("method: __stop_name_config")
+        stop_names: tuple[str, ...] = ("",) + organlib.STOP_NAMES
         self.stop_editor.stop_names_populate(stop_names)
         self.stop_editor.stop_name_change(self.__update_stop_name)
 
     def __stop_family_config(self) -> None:
-        stop_families: tuple[str] = ("",) + organlib.STOP_FAMILIES
+        print("method: __stop_family_config")
+        stop_families: tuple[str, ...] = ("",) + organlib.STOP_FAMILIES
         self.stop_editor.stop_families_populate(stop_families)
         self.stop_editor.stop_family_change(self.__update_stop_family)
 
     def __organ_division_config(self) -> None:
-        organ_divisions: tuple[str] = ("",) + organlib.ORGAN_DIVISIONS
+        print("method: __organ_division_config")
+        organ_divisions: tuple[str, ...] = ("",) + organlib.ORGAN_DIVISIONS
         self.stop_editor.organ_divisions_populate(organ_divisions)
         self.stop_editor.organ_division_change(self.__update_organ_division)
 
     def __number_ranks_config(self) -> None:
+        print("method: __number_ranks_config")
         self.stop_editor.number_ranks_set_minimum(1)
         self.stop_editor.number_ranks_set_maximum(20)
         self.stop_editor.number_ranks_change(self.__update_number_ranks)
 
     def __rank_series_config(self) -> None:
-        rank_series: tuple[str] = ("",) + organlib.RANK_SERIES
+        print("method: __rank_series_config")
+        rank_series: tuple[str, ...] = ("",) + organlib.RANK_SERIES
         self.stop_editor.rank_series_populate(rank_series)
         self.stop_editor.rank_series_change(self.__update_rank_series)
 
     def __rank_number_config(self) -> None:
+        print("method: __rank_number_config")
         self.stop_editor.rank_number_set_minimum(1)
         self.stop_editor.rank_number_change(self.__update_rank_number)
 
     def __rank_size_config(self) -> None:
-        rank_sizes: tuple[str] = ("",) + organlib.RANK_SIZES
+        print("method: __rank_size_config")
+        rank_sizes: tuple[str, ...] = ("",) + organlib.RANK_SIZES
         self.stop_editor.rank_size_populate(rank_sizes)
         self.stop_editor.rank_size_change(self.__update_rank_size)
 
     def __number_pipes_config(self) -> None:
+        print("method: __number_pipes_config")
         self.stop_editor.number_pipes_set_minimum(1)
         self.stop_editor.number_pipes_set_maximum(61)
         self.stop_editor.number_pipes_change(self.__update_number_pipes)
 
     def __pipe_type_config(self) -> None:
-        pipe_types: tuple[str] = ("",) + organlib.PIPE_TYPES
+        print("method: __pipe_type_config")
+        pipe_types: tuple[str, ...] = ("",) + organlib.PIPE_TYPES
         self.stop_editor.pipe_types_populate(pipe_types)
         self.stop_editor.pipe_type_change(self.__update_pipe_type)
 
     def __starting_note_config(self) -> None:
-        starting_notes: tuple[str] = ("",) + organlib.NOTES
+        print("method: __starting_note_config")
+        starting_notes: tuple[str, ...] = ("",) + organlib.NOTES
         self.stop_editor.starting_note_populate(starting_notes)
         self.stop_editor.starting_note_change(self.__update_starting_note)
 
     def __frequency_offset_config(self) -> None:
+        print("method: __frequency_offset_config")
         self.stop_editor.frequency_offset_set_minimum(-7)
         self.stop_editor.frequency_offset_set_maximum(7)
         self.stop_editor.frequency_offset_change(
@@ -169,6 +200,7 @@ class StopEditorUI:
         )
 
     def __number_harmonics_config(self) -> None:
+        print("method: __number_harmonics_config")
         self.stop_editor.number_harmonics_set_minimum(1)
         self.stop_editor.number_harmonics_set_maximum(20)
         self.stop_editor.number_harmonics_change(
@@ -176,17 +208,20 @@ class StopEditorUI:
         )
 
     def __rank_harmonic_number_config(self) -> None:
+        print("method: __rank_harmonic_number_config")
         self.stop_editor.harmonic_number_rank_set_minimum(1)
         self.stop_editor.harmonic_number_rank_change(
-            self.__update_rank_harmonic_number
+            self.__update_harmonic_number_rank
         )
 
     def __rank_amplitude_config(self) -> None:
+        print("method: __rank_amplitude_config")
         self.stop_editor.amplitude_rank_set_minimum(0)
         self.stop_editor.amplitude_rank_set_maximum(100)
         self.stop_editor.amplitude_rank_change(self.__update_rank_amplitude)
 
     def __rank_harmonic_attack_config(self) -> None:
+        print("method: __rank_harmonic_attack_config")
         self.stop_editor.attack_time_rank_harmonic_set_minimum(0)
         self.stop_editor.attack_time_rank_harmonic_set_maximum(1000)
         self.stop_editor.attack_time_rank_harmonic_change(
@@ -194,6 +229,7 @@ class StopEditorUI:
         )
 
     def __rank_harmonic_decay_config(self) -> None:
+        print("method: __rank_harmonic_decay_config")
         self.stop_editor.decay_time_rank_harmonic_set_minimum(0)
         self.stop_editor.decay_time_rank_harmonic_set_maximum(1000)
         self.stop_editor.decay_time_rank_harmonic_change(
@@ -201,6 +237,7 @@ class StopEditorUI:
         )
 
     def __rank_harmonic_sustain_config(self) -> None:
+        print("method: __rank_harmonic_sustain_config")
         self.stop_editor.sustain_level_rank_harmonic_set_minimum(0)
         self.stop_editor.sustain_level_rank_harmonic_set_maximum(100)
         self.stop_editor.sustain_level_rank_harmonic_change(
@@ -245,19 +282,19 @@ class StopEditorUI:
         self.stop_editor.pipe_number_change(self.__update_pipe_number)
 
     def __note_config(self) -> None:
-        notes: tuple[str] = ("",) + organlib.NOTES
+        notes: tuple[str, ...] = ("",) + organlib.NOTES
         self.stop_editor.note_populate(notes)
         self.stop_editor.note_change(self.__update_note)
 
     def __relative_note_config(self) -> None:
-        notes: tuple[str] = ("",) + organlib.NOTES
+        notes: tuple[str, ...] = ("",) + organlib.NOTES
         self.stop_editor.relative_note_populate(notes)
         self.stop_editor.relative_note_change(self.__update_relative_note)
 
     def __harmonic_number_pipe_config(self) -> None:
         self.stop_editor.harmonic_number_pipe_set_minimum(1)
         self.stop_editor.harmonic_number_pipe_change(
-            self.__update_pipe_harmonic_number
+            self.__update_harmonic_number_pipe
         )
 
     def __amplitude_pipe_config(self) -> None:
@@ -324,7 +361,7 @@ class StopEditorUI:
     def __set_maximum_number(
             self,
             editor_number: int,
-            *methods: Callable
+            *methods: Callable[[int], None]
     ) -> None:
         for method in methods:
             method(editor_number)
@@ -334,7 +371,7 @@ class StopEditorUI:
         condition2: bool = self.number_ranks_editor > 1
         condition3: bool = self.rank_size_editor != ""
         condition4: bool = condition2 or condition3
-        if condition1 and condition4 != "":
+        if condition1 and condition4:
             self.stop_editor.update_stop_header()
     
     def __update_stop_name(self) -> None:
@@ -358,7 +395,7 @@ class StopEditorUI:
         self.__update_stop_header()
 
     def __update_rank_series(self) -> None:
-        rank_sizes: tuple[str] = ("",)
+        rank_sizes: tuple[str, ...] = ("",)
         match self.rank_series_editor:
             case "64' Series":
                 rank_sizes += organlib.RANK_SERIES_64
@@ -370,12 +407,12 @@ class StopEditorUI:
                 rank_sizes += organlib.RANK_SERIES_8
             case "4' Series":
                 rank_sizes += organlib.RANK_SERIES_4
-            case "":
+            case _:
                 rank_sizes += organlib.RANK_SIZES
         self.stop_editor.rank_size_populate(rank_sizes)
         self.rank_series_config = self.rank_series_editor
 
-    def __update_rank_number(self) -> None:
+    def __update_rank_number_general(self) -> None:
         self.rank_size_editor = self.rank_size_config
         self.number_pipes_editor = self.number_pipes_config
         self.pipe_type_editor = self.pipe_type_config
@@ -383,13 +420,17 @@ class StopEditorUI:
         self.frequency_offset_editor = self.frequency_offset_config
         self.number_harmonics_editor = self.number_harmonics_config
         self.harmonic_number_rank_editor = 1
-        self.__update_rank_harmonic_number()
+        self.__update_harmonic_number()
         self.attack_rank_editor = self.attack_rank_config
         self.decay_rank_editor = self.decay_rank_config
         self.sustain_rank_editor = self.sustain_rank_config
         self.release_rank_editor = self.release_rank_config
+        self.pipe_number_editor = 1
+        self.__update_pipe_number()
+
+    def __update_rank_number(self) -> None:
         self.rank_number_pipe_editor = self.rank_number_editor
-        self.__update_rank_number_pipe()
+        self.__update_rank_number_general()
 
     def __update_rank_size(self) -> None:
         self.rank_size_config = self.rank_size_editor
@@ -407,21 +448,22 @@ class StopEditorUI:
         self.pipe_type_config = self.pipe_type_editor
 
     def __update_starting_note(self) -> None:
-        rank_number = self.rank_number_editor
-        number_pipes = self.number_pipes_editor
-        notes: str = organlib.NOTES
-        for num in range(1, number_pipes):
-            self.stop_config.note_set(
-                rank_number=rank_number,
-                pipe_number=num,
-                note=notes[num]
-            )
-            self.stop_config.relative_note_set(
-                rank_number=rank_number,
-                pipe_number=num,
-                relative_note=notes[num]
-            )
-        self.starting_note_config = self.starting_note_editor
+        print("method: __update_starting_note")
+        #rank_number = self.rank_number_editor
+        #number_pipes = self.number_pipes_editor
+        #notes: tuple[str, ...] = organlib.NOTES
+        #for num in range(1, number_pipes):
+        #    self.stop_config.note_set(
+        #        rank_number=rank_number,
+        #        pipe_number=num,
+        #        note=notes[num]
+        #    )
+        #    self.stop_config.relative_note_set(
+        #        rank_number=rank_number,
+        #        pipe_number=num,
+        #        relative_note=notes[num]
+        #    )
+        #self.starting_note_config = self.starting_note_editor
 
     def __update_frequency_offset(self) -> None:
         self.frequency_offset_config = self.frequency_offset_editor
@@ -435,14 +477,23 @@ class StopEditorUI:
         )
         self.number_harmonics_config = self.number_harmonics_editor
 
-    def __update_rank_harmonic_number(self) -> None:
+    def __update_harmonic_number(self) -> None:
         self.amplitude_rank_editor = self.amplitude_rank_config
         self.attack_harmonic_rank_editor = self.attack_harmonic_rank_config
         self.decay_harmonic_rank_editor = self.decay_harmonic_rank_config
         self.sustain_harmonic_rank_editor = self.sustain_harmonic_rank_config
         self.release_harmonic_rank_editor = self.release_harmonic_rank_config
         self.harmonic_number_pipe_editor = self.harmonic_number_rank_editor
-        self.__update_harmonic_number_pipe()
+        self.amplitude_pipe_editor = self.amplitude_pipe_config
+        self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
+        self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
+        self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
+        self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
+        self.harmonic_number_rank_editor = self.harmonic_number_pipe_editor
+
+    def __update_harmonic_number_rank(self) -> None:
+        self.harmonic_number_pipe_editor = self.harmonic_number_rank_editor
+        self.__update_harmonic_number()
 
     def __update_rank_amplitude(self) -> None:
         self.amplitude_rank_config = self.amplitude_rank_editor
@@ -469,20 +520,17 @@ class StopEditorUI:
         self.sustain_rank_config = self.sustain_rank_editor
 
     def __update_rank_release(self) -> None:
-        self.__init_rank_adsr_settings_config()
         self.release_rank_config = self.release_rank_editor
 
     def __update_rank_number_pipe(self) -> None:
         self.rank_number_editor = self.rank_number_pipe_editor
-        self.__update_rank_number() 
-        self.pipe_number_editor = 1
-        self.__update_pipe_number()
+        self.__update_rank_number_general()
 
     def __update_pipe_number(self) -> None:
         self.note_editor = self.note_config
         self.relative_note_editor = self.relative_note_config
         self.harmonic_number_pipe_editor = 1
-        self.__update_pipe_harmonic_number()
+        self.__update_harmonic_number()
         self.attack_pipe_editor = self.attack_pipe_config
         self.decay_pipe_editor = self.decay_pipe_config
         self.sustain_pipe_editor = self.sustain_pipe_config
@@ -492,7 +540,32 @@ class StopEditorUI:
         self.note_config = self.note_editor
 
     def __update_relative_note(self) -> None:
+        #print("updating relative note...")
         self.relative_note_config = self.relative_note_editor
+        #starting_pipe: int = self.pipe_number_editor
+        #total_pipes: int = self.number_pipes_editor
+        #number_pipes: int = len(range(starting_pipe, total_pipes))
+        #note: str = self.relative_note_editor
+        #notes: tuple[str, ...] = organlib.NOTES
+        #note_index: int = notes.index(note)
+        #revised_notes: tuple[str, ...] = notes[note_index:]
+        #if len(revised_notes) < number_pipes:
+        #    number_pipes = len(revised_notes)
+        #for num in range(number_pipes):
+        #    print(self.rank_number_editor, starting_pipe+num, revised_notes[num])
+        #    self.stop_config.relative_note_set(
+        #        rank_number=self.rank_number_editor,
+        #        pipe_number=starting_pipe+num,
+        #        relative_note=revised_notes[num]
+        #    )
+        #print("Relative Notes updated")
+
+    def __update_harmonic_number_pipe(self) -> None:
+        self.harmonic_number_rank_editor = self.harmonic_number_pipe_editor
+        self.__update_harmonic_number()
+
+    def __update_pipe_amplitude(self) -> None:
+        self.amplitude_pipe_config = self.amplitude_pipe_editor
 
     def __update_pipe_attack(self) -> None:
         self.attack_pipe_config = self.attack_pipe_editor
@@ -505,18 +578,6 @@ class StopEditorUI:
 
     def __update_pipe_release(self) -> None:
         self.release_pipe_config = self.release_pipe_editor
-
-    def __update_pipe_harmonic_number(self) -> None:
-        self.amplitude_pipe_editor = self.amplitude_pipe_config
-        self.attack_harmonic_pipe_editor = self.attack_harmonic_pipe_config
-        self.decay_harmonic_pipe_editor = self.decay_harmonic_pipe_config
-        self.sustain_harmonic_pipe_editor = self.sustain_harmonic_pipe_config
-        self.release_harmonic_pipe_editor = self.release_harmonic_pipe_config
-        self.harmonic_number_rank_editor = self.harmonic_number_pipe_editor
-        self.__update_rank_harmonic_number()
-
-    def __update_pipe_amplitude(self) -> None:
-        self.amplitude_pipe_config = self.amplitude_pipe_editor
 
     def __update_pipe_harmonic_attack(self) -> None:
         self.attack_harmonic_pipe_config = self.attack_harmonic_pipe_editor
@@ -537,15 +598,15 @@ class StopEditorUI:
 
     def __load_stop(self) -> None:
         file_dialog: QFileDialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
         file_dialog.setNameFilter("JSON Files (*.json)")
-        file_dialog.setViewMode(QFileDialog.Detail)
+        file_dialog.setViewMode(QFileDialog.ViewMode.Detail)
         file_dialog.setDirectory("src/config/stops")
         self.config_file = file_dialog.getOpenFileName()[0]
         self.__load_config()
 
     def __cancel_changes(self) -> None:
-        if self.config_file == None:
+        if self.config_file == "":
             self.__default_ui_editor_data()
         else:
             self.__load_config()
@@ -670,10 +731,12 @@ class StopEditorUI:
     #--------------------------------------------------------------------------
     @property
     def starting_note_editor(self) -> str:
+        print("method: starting_note_editor (getter)")
         return self.stop_editor.starting_note
 
     @starting_note_editor.setter
     def starting_note_editor(self, value: str) -> None:
+        print("method: starting_note_editor (setter)")
         self.stop_editor.starting_note = value
 
     #--------------------------------------------------------------------------
@@ -1073,16 +1136,19 @@ class StopEditorUI:
     #--------------------------------------------------------------------------
     @property
     def starting_note_config(self) -> str:
+        print("method: starting_note_config (getter)")
         return self.stop_config.starting_note_get(
             rank_number=self.rank_number_editor
         )
 
     @starting_note_config.setter
     def starting_note_config(self, value: str):
-        notes: tuple[str] = organlib.NOTES
+        print(f"method: starting_note_config (setter)")
+        notes: tuple[str, ...] = organlib.NOTES
+        print(notes)
         starting_note_index: int = notes.index(value)
-        print(f"Starting Note: {value}")
-        revised_notes: tuple[str] = tuple(
+        print(starting_note_index)
+        revised_notes: tuple[str, ...] = tuple(
             [note for note in notes[starting_note_index:]]
         )
         self.stop_config.starting_note_set(
@@ -1095,13 +1161,13 @@ class StopEditorUI:
     # Frequency Offset
     #--------------------------------------------------------------------------
     @property
-    def frequency_offset_config(self) -> str:
+    def frequency_offset_config(self) -> int:
         return self.stop_config.frequency_offset_get(
             rank_number=self.rank_number_editor
         )
 
     @frequency_offset_config.setter
-    def frequency_offset_config(self, value: str):
+    def frequency_offset_config(self, value: int):
         self.stop_config.frequency_offset_set(
             rank_number=self.rank_number_editor,
             frequency_offset=value

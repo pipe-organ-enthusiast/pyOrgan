@@ -267,7 +267,7 @@ class StopEditor(QFrame):
         self.__ui_settings_editor_checkboxes()
 
     def __ui_settings_editor_groupboxes(self) -> None:
-        group_boxes: tuple[QGroupBox, str] = (
+        group_boxes: tuple[QGroupBox, ...] = (
             self.__stop_settings,
             self.__rank_settings,
             self.__pipe_settings,
@@ -282,7 +282,7 @@ class StopEditor(QFrame):
             group_box.setAlignment(
                 Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
             )
-        top_level: tuple[QGroupBox] = (
+        top_level: tuple[QGroupBox, ...] = (
             self.__stop_settings,
             self.__rank_settings,
             self.__pipe_settings
@@ -291,7 +291,7 @@ class StopEditor(QFrame):
             group_box.setFixedWidth(270)
 
     def __ui_settings_editor_labels(self) -> None:
-        labels: tuple[QLabel] = (
+        labels: tuple[QLabel, ...] = (
             self.__stopname_label,
             self.__stopfamily_label,
             self.__organdivision_label,
@@ -333,7 +333,7 @@ class StopEditor(QFrame):
             label.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
     def __ui_settings_editor_comboboxes(self) -> None:
-        comboboxes: tuple[QComboBox] = (
+        comboboxes: tuple[QComboBox, ...] = (
             self.__stopname_combo,
             self.__stopfamily_combo,
             self.__organdivision_combo,
@@ -346,15 +346,16 @@ class StopEditor(QFrame):
         )
         for widget in comboboxes:
             widget.setEditable(True)
-            edit = widget.lineEdit()
+            edit: QLineEdit = widget.lineEdit() # type: ignore
             edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if widget == self.__stopname_combo:
                 edit.setReadOnly(False)
             else:
                 edit.setReadOnly(True)
+        self.__note_combo.setEnabled(False)
 
     def __ui_settings_editor_spinboxes(self) -> None:
-        spin_boxes: tuple[QSpinBox] = (
+        spin_boxes: tuple[QSpinBox, ...] = (
             self.__numranks_spin,
             self.__ranknum_spin,
             self.__numpipes_spin,
@@ -420,7 +421,7 @@ class StopEditor(QFrame):
     #==========================================================================
     def __ui_layout_header(self) -> None:
         header_layout: QHBoxLayout = QHBoxLayout()
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__header_label,
             self.__header_edit
         )
@@ -440,7 +441,7 @@ class StopEditor(QFrame):
     #--------------------------------------------------------------------------
     def __ui_layout_stop_settings(self) -> None:
         stopsettings_layout: QFormLayout = QFormLayout()
-        stopsettings_widgets: tuple[QLabel, QWidget] = (
+        stopsettings_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__stopname_label, self.__stopname_combo),
             (self.__stopfamily_label, self.__stopfamily_combo),
             (self.__organdivision_label, self.__organdivision_combo),
@@ -458,7 +459,7 @@ class StopEditor(QFrame):
         self.__ui_layout_rank_harmonic()
         self.__ui_layout_rank_harmonics_adsr()
         ranksettings_layout: QVBoxLayout = QVBoxLayout()
-        ranksettings_widgets: tuple[QWidget] = (
+        ranksettings_widgets: tuple[QWidget, ...] = (
             self.__ui_layout_rank_header(),
             self.__ui_layout_rank_harmonic_settings(),
             self.__ui_layout_rank_adsr()
@@ -474,7 +475,7 @@ class StopEditor(QFrame):
     def __ui_layout_rank_header(self) -> QWidget:
         rankheader_widget: QWidget = QWidget()
         rankheader_layout: QFormLayout = QFormLayout()
-        rankheader_widgets: tuple[QLabel, QWidget] = (
+        rankheader_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__ranknum_label, self.__ranknum_spin),
             (self.__ranksize_label, self.__ranksize_combo),
             (self.__pipetype_label, self.__pipetype_combo),
@@ -502,7 +503,7 @@ class StopEditor(QFrame):
     def __ui_layout_rank_harmonics_widget(self) -> QWidget:
         rankharmonics_widget: QWidget = QWidget()
         rankharmonics_layout: QFormLayout = QFormLayout()
-        rankharmonics_widgets: tuple[QLabel, QWidget] = (
+        rankharmonics_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__rank_harmonicnum_label, self.__rank_harmonicnum_spin),
             (self.__rank_amplitude_label, self.__rank_amplitude_spin)
         )
@@ -513,7 +514,7 @@ class StopEditor(QFrame):
 
     def __ui_layout_rank_harmonics_adsr(self) -> None:
         rankharmonicsadsr_layout: QFormLayout = QFormLayout()
-        rankharmonicsadsr_widgets: tuple[QLabel, QWidget] = (
+        rankharmonicsadsr_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__rankharm_attack_label, self.__rankharm_attack_spin),
             (self.__rankharm_decay_label, self.__rankharm_decay_spin),
             (self.__rankharm_sustain_label, self.__rankharm_sustain_spin),
@@ -522,26 +523,6 @@ class StopEditor(QFrame):
         for label, widget in rankharmonicsadsr_widgets:
             rankharmonicsadsr_layout.addRow(label, widget)
         self.__rankharm_adsr.setLayout(rankharmonicsadsr_layout)
-
-    def __ui_layout_rank_adsr(self) -> None:
-        rankadsr_layout: QVBoxLayout = QVBoxLayout()
-        rankadsr_form_layout: QFormLayout = QFormLayout()
-        rankadsr_widgets: tuple[QLabel, QSpinBox] = (
-            (self.__rank_attack_label, self.__rank_attack_spin),
-            (self.__rank_decay_label, self.__rank_decay_spin),
-            (self.__rank_sustain_label, self.__rank_sustain_spin),
-            (self.__rank_release_label, self.__rank_release_spin)
-        )
-        for label, widget in rankadsr_widgets:
-            rankadsr_form_layout.addRow(label, widget)
-        self.__rank_adsr.setLayout(rankadsr_form_layout)
-        widgets: tuple[QWidget] = (
-            self.__rank_adsr_button,
-            self.__rank_adsr
-        )
-        for widget in widgets:
-            rankadsr_layout.addWidget(widget)
-        self.__rank_adsr.setLayout(rankadsr_layout)
 
     def __ui_layout_rank_harmonic(self) -> None:
         rankharmonic_layout: QVBoxLayout = QVBoxLayout()
@@ -560,7 +541,7 @@ class StopEditor(QFrame):
         rankadsr_widget: QWidget = QWidget()
         rankadsr_layout: QVBoxLayout = QVBoxLayout()
         rankadsr_form_layout: QFormLayout = QFormLayout()
-        rankadsr_widgets: tuple[QLabel, QSpinBox] = (
+        rankadsr_widgets: tuple[tuple[QLabel, QSpinBox], ...] = (
             (self.__rank_attack_label, self.__rank_attack_spin),
             (self.__rank_decay_label, self.__rank_decay_spin),
             (self.__rank_sustain_label, self.__rank_sustain_spin),
@@ -569,7 +550,7 @@ class StopEditor(QFrame):
         for label, widget in rankadsr_widgets:
             rankadsr_form_layout.addRow(label, widget)
         self.__rank_adsr.setLayout(rankadsr_form_layout)
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__rank_adsr_button,
             self.__rank_adsr
         )
@@ -585,7 +566,7 @@ class StopEditor(QFrame):
         self.__ui_layout_pipe_harmonic()
         self.__ui_layout_pipe_harmonics_adsr()
         pipesettings_layout: QVBoxLayout = QVBoxLayout()
-        pipesettings_widgets: tuple[QWidget] = (
+        pipesettings_widgets: tuple[QWidget, ...] = (
             self.__ui_layout_pipe_header(),
             self.__ui_layout_pipe_harmonic_settings(),
             self.__ui_layout_pipe_adsr()
@@ -598,7 +579,7 @@ class StopEditor(QFrame):
     def __ui_layout_pipe_header(self) -> QWidget:
         pipeheader_widget: QWidget = QWidget()
         pipeheader_layout: QFormLayout = QFormLayout()
-        pipeheader_widgets: tuple[QLabel, QWidget] = (
+        pipeheader_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__ranknum_pipe_label, self.__ranknum_pipe_spin),
             (self.__pipenum_label, self.__pipenum_spin),        
             (self.__note_label, self.__note_combo),
@@ -623,7 +604,7 @@ class StopEditor(QFrame):
     def __ui_layout_pipe_harmonics_widget(self) -> QWidget:
         pipeharmonics_widget: QWidget = QWidget()
         pipeharmonics_layout: QFormLayout = QFormLayout()
-        pipeharmonics_widgets: tuple[QLabel, QWidget] = (
+        pipeharmonics_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__pipe_harmonicnum_label, self.__pipe_harmonicnum_spin),
             (self.__pipe_amplitude_label, self.__pipe_amplitude_spin)
         )
@@ -634,7 +615,7 @@ class StopEditor(QFrame):
 
     def __ui_layout_pipe_harmonics_adsr(self) -> None:
         pipeharmonicsadsr_layout: QFormLayout = QFormLayout()
-        pipeharmonicsadsr_widgets: tuple[QLabel, QWidget] = (
+        pipeharmonicsadsr_widgets: tuple[tuple[QLabel, QWidget], ...] = (
             (self.__pipeharm_attack_label, self.__pipeharm_attack_spin),
             (self.__pipeharm_decay_label, self.__pipeharm_decay_spin),
             (self.__pipeharm_sustain_label, self.__pipeharm_sustain_spin),
@@ -661,7 +642,7 @@ class StopEditor(QFrame):
         pipeadsr_widget: QWidget = QWidget()
         pipeadsr_layout: QVBoxLayout = QVBoxLayout()
         pipeadsr_form_layout: QFormLayout = QFormLayout()
-        pipeadsr_widgets: tuple[QLabel, QSpinBox] = (
+        pipeadsr_widgets: tuple[tuple[QLabel, QSpinBox], ...] = (
             (self.__pipe_attack_label, self.__pipe_attack_spin),
             (self.__pipe_decay_label, self.__pipe_decay_spin),
             (self.__pipe_sustain_label, self.__pipe_sustain_spin),
@@ -670,7 +651,7 @@ class StopEditor(QFrame):
         for label, widget in pipeadsr_widgets:
             pipeadsr_form_layout.addRow(label, widget)
         self.__pipe_adsr.setLayout(pipeadsr_form_layout)
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__pipe_adsr_button,
             self.__pipe_adsr
         )
@@ -688,7 +669,7 @@ class StopEditor(QFrame):
         editor_scroll.setWidgetResizable(True)
         editor_scroll.setFixedWidth(310)
         editor_layout: QVBoxLayout = QVBoxLayout()
-        editor_widgets: tuple[QWidget] = (
+        editor_widgets: tuple[QWidget, ...] = (
             self.__stop_settings,
             self.__rank_settings,
             self.__pipe_settings
@@ -702,10 +683,10 @@ class StopEditor(QFrame):
     #**************************************************************************
     # Options
     #**************************************************************************
-    def __ui_layout_options(self) -> QWidget:
+    def __ui_layout_options(self) -> None:
         options_layout: QVBoxLayout = QVBoxLayout()
         options_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        buttons: tuple[QPushButton] = (
+        buttons: tuple[QPushButton, ...] = (
             self.__load_button,
             self.__cancel_button,
             self.__save_button
@@ -719,7 +700,7 @@ class StopEditor(QFrame):
     #**************************************************************************
     def __ui_layout_main(self) -> None:
         main_layout: QHBoxLayout = QHBoxLayout()
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__ui_layout_form(),
             self.__options
         )
@@ -731,7 +712,7 @@ class StopEditor(QFrame):
         form_widget: QWidget = QWidget()
         form_layout: QVBoxLayout = QVBoxLayout()
         form_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        form_widgets: tuple[QWidget] = (
+        form_widgets: tuple[QWidget, ...] = (
             self.header_widget,
             self.__ui_layout_editor_scroll(),
         )
@@ -747,7 +728,7 @@ class StopEditor(QFrame):
     # Widget Manipulation
     #==========================================================================
     def __rank_harmonics_checked(self) -> None:
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__rank_harmonic,
             self.__rank_harmonicnum_label,
             self.__rank_harmonicnum_spin,
@@ -766,7 +747,7 @@ class StopEditor(QFrame):
                     widget.setEnabled(False)
 
     def __rankharm_adsr_checked(self) -> None:
-        widgets = (
+        widgets: tuple[QWidget, ...] = (
             self.__rankharm_adsr,
             self.__rankharm_attack_label,
             self.__rankharm_attack_spin,
@@ -786,7 +767,7 @@ class StopEditor(QFrame):
                     widget.setEnabled(False)
 
     def __rank_adsr_checked(self) -> None:
-        widgets = (
+        widgets: tuple[QWidget, ...] = (
             self.__rank_adsr,
             self.__rank_attack_label,
             self.__rank_attack_spin,
@@ -806,7 +787,7 @@ class StopEditor(QFrame):
                     widget.setEnabled(False)
 
     def __pipe_harmonics_checked(self) -> None:
-        widgets: tuple[QWidget] = (
+        widgets: tuple[QWidget, ...] = (
             self.__pipe_harmonic,
             self.__pipe_harmonicnum_label,
             self.__pipe_harmonicnum_spin,
@@ -825,7 +806,7 @@ class StopEditor(QFrame):
                     widget.setEnabled(False)
 
     def __pipeharm_adsr_checked(self) -> None:
-        spins = (
+        spins: tuple[QWidget, ...] = (
             self.__pipeharm_adsr,
             self.__pipeharm_attack_label,
             self.__pipeharm_attack_spin,
@@ -845,7 +826,7 @@ class StopEditor(QFrame):
                     spin.setEnabled(False)
 
     def __pipe_adsr_checked(self) -> None:
-        spins = (
+        spins: tuple[QWidget, ...] = (
             self.__pipe_adsr,
             self.__pipe_attack_label,
             self.__pipe_attack_spin,
@@ -867,15 +848,15 @@ class StopEditor(QFrame):
     #==========================================================================
     # Widget Data
     #==========================================================================
-    def stop_names_populate(self, stop_names: tuple[str]) -> None:
+    def stop_names_populate(self, stop_names: tuple[str, ...]) -> None:
         self.__stopname_combo.clear()
         self.__stopname_combo.addItems(stop_names)
 
-    def stop_families_populate(self, stop_families: tuple[str]) -> None:
+    def stop_families_populate(self, stop_families: tuple[str, ...]) -> None:
         self.__stopfamily_combo.clear()
         self.__stopfamily_combo.addItems(stop_families)
 
-    def organ_divisions_populate(self, divisions: tuple[str]) -> None:
+    def organ_divisions_populate(self, divisions: tuple[str, ...]) -> None:
         self.__organdivision_combo.clear()
         self.__organdivision_combo.addItems(divisions)
 
@@ -885,7 +866,7 @@ class StopEditor(QFrame):
     def number_ranks_set_maximum(self, max: int) -> None:
         self.__numranks_spin.setMaximum(max)
 
-    def rank_series_populate(self, rank_series: tuple[str]) -> None:
+    def rank_series_populate(self, rank_series: tuple[str, ...]) -> None:
         self.__rankseries_combo.clear()
         self.__rankseries_combo.addItems(rank_series)
 
@@ -895,7 +876,7 @@ class StopEditor(QFrame):
     def rank_number_set_maximum(self, max: int) -> None:
         self.__ranknum_spin.setMaximum(max)
 
-    def rank_size_populate(self, rank_sizes: tuple[str]) -> None:
+    def rank_size_populate(self, rank_sizes: tuple[str, ...]) -> None:
         self.__ranksize_combo.clear()
         self.__ranksize_combo.addItems(rank_sizes)
 
@@ -905,10 +886,10 @@ class StopEditor(QFrame):
     def number_pipes_set_maximum(self, max: int) -> None:
         self.__numpipes_spin.setMaximum(max)
 
-    def pipe_types_populate(self, pipe_types: tuple[str]) -> None:
+    def pipe_types_populate(self, pipe_types: tuple[str, ...]) -> None:
         self.__pipetype_combo.addItems(pipe_types)
 
-    def starting_note_populate(self, starting_notes: tuple[str]) -> None:
+    def starting_note_populate(self, starting_notes: tuple[str, ...]) -> None:
         self.__startnote_combo.addItems(starting_notes)
 
     def frequency_offset_set_minimum(self, min: int) -> None:
@@ -995,10 +976,10 @@ class StopEditor(QFrame):
     def pipe_number_set_maximum(self, max: int) -> None:
         self.__pipenum_spin.setMaximum(max)
 
-    def note_populate(self, notes: tuple[str]) -> None:
+    def note_populate(self, notes: tuple[str, ...]) -> None:
         self.__note_combo.addItems(notes)
 
-    def relative_note_populate(self, notes: tuple[str]) -> None:
+    def relative_note_populate(self, notes: tuple[str, ...]) -> None:
         self.__relnote_combo.addItems(notes)
 
     def harmonic_number_pipe_set_minimum(self, min: int) -> None:
@@ -1086,123 +1067,125 @@ class StopEditor(QFrame):
                 stop_name = f"{self.stop_name} IX"
             case 10:
                 stop_name = f"{self.stop_name} X"
+            case _:
+                stop_name = ""
         self.__header_edit.setText(stop_name)
 
-    def stop_name_change(self, action: Callable) -> None:
+    def stop_name_change(self, action: Callable[[], None]) -> None:
         self.__stopname_combo.currentTextChanged.connect(action)
 
-    def stop_family_change(self, action: Callable) -> None:
+    def stop_family_change(self, action: Callable[[], None]) -> None:
         self.__stopfamily_combo.currentTextChanged.connect(action)
 
-    def organ_division_change(self, action: Callable) -> None:
+    def organ_division_change(self, action: Callable[[], None]) -> None:
         self.__organdivision_combo.currentTextChanged.connect(action)
 
-    def number_ranks_change(self, action: Callable) -> None:
+    def number_ranks_change(self, action: Callable[[], None]) -> None:
         self.__numranks_spin.valueChanged.connect(action)
 
-    def rank_series_change(self, action: Callable) -> None:
+    def rank_series_change(self, action: Callable[[], None]) -> None:
         self.__rankseries_combo.currentTextChanged.connect(action)
 
-    def rank_number_change(self, action: Callable) -> None:
+    def rank_number_change(self, action: Callable[[], None]) -> None:
         self.__ranknum_spin.valueChanged.connect(action)
 
-    def rank_size_change(self, action: Callable) -> None:
+    def rank_size_change(self, action: Callable[[], None]) -> None:
         self.__ranksize_combo.currentTextChanged.connect(action)
 
-    def number_pipes_change(self, action: Callable) -> None:
+    def number_pipes_change(self, action: Callable[[], None]) -> None:
         self.__numpipes_spin.valueChanged.connect(action)
 
-    def pipe_type_change(self, action: Callable) -> None:
+    def pipe_type_change(self, action: Callable[[], None]) -> None:
         self.__pipetype_combo.currentTextChanged.connect(action)
 
-    def starting_note_change(self, action: Callable) -> None:
+    def starting_note_change(self, action: Callable[[], None]) -> None:
         self.__startnote_combo.currentTextChanged.connect(action)
 
-    def frequency_offset_change(self, action: Callable) -> None:
+    def frequency_offset_change(self, action: Callable[[], None]) -> None:
         self.__freqoffset_spin.valueChanged.connect(action)
 
-    def number_harmonics_change(self, action: Callable) -> None:
+    def number_harmonics_change(self, action: Callable[[], None]) -> None:
         self.__numharmonics_spin.valueChanged.connect(action)
 
-    def harmonic_number_rank_change(self, action: Callable) -> None:
+    def harmonic_number_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_harmonicnum_spin.valueChanged.connect(action)
 
-    def amplitude_rank_change(self, action: Callable) -> None:
+    def amplitude_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_amplitude_spin.valueChanged.connect(action)
 
-    def attack_time_rank_harmonic_change(self, action: Callable) -> None:
+    def attack_time_rank_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__rankharm_attack_spin.valueChanged.connect(action)
 
-    def decay_time_rank_harmonic_change(self, action: Callable) -> None:
+    def decay_time_rank_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__rankharm_decay_spin.valueChanged.connect(action)
 
-    def sustain_level_rank_harmonic_change(self, action: Callable) -> None:
+    def sustain_level_rank_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__rankharm_sustain_spin.valueChanged.connect(action)
 
-    def release_time_rank_harmonic_change(self, action: Callable) -> None:
+    def release_time_rank_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__rankharm_release_spin.valueChanged.connect(action)
 
-    def attack_time_rank_change(self, action: Callable) -> None:
+    def attack_time_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_attack_spin.valueChanged.connect(action)
 
-    def decay_time_rank_change(self, action: Callable) -> None:
+    def decay_time_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_decay_spin.valueChanged.connect(action)
 
-    def sustain_level_rank_change(self, action: Callable) -> None:
+    def sustain_level_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_sustain_spin.valueChanged.connect(action)
 
-    def release_time_rank_change(self, action: Callable) -> None:
+    def release_time_rank_change(self, action: Callable[[], None]) -> None:
         self.__rank_release_spin.valueChanged.connect(action)
 
-    def rank_number_pipe_change(self, action: Callable) -> None:
+    def rank_number_pipe_change(self, action: Callable[[], None]) -> None:
         self.__ranknum_pipe_spin.valueChanged.connect(action)
 
-    def pipe_number_change(self, action: Callable) -> None:
+    def pipe_number_change(self, action: Callable[[], None]) -> None:
         self.__pipenum_spin.valueChanged.connect(action)
 
-    def note_change(self, action: Callable) -> None:
+    def note_change(self, action: Callable[[], None]) -> None:
         self.__note_combo.currentTextChanged.connect(action)
 
-    def relative_note_change(self, action: Callable) -> None:
+    def relative_note_change(self, action: Callable[[], None]) -> None:
         self.__relnote_combo.currentTextChanged.connect(action)
 
-    def harmonic_number_pipe_change(self, action: Callable) -> None:
+    def harmonic_number_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_harmonicnum_spin.valueChanged.connect(action)
 
-    def amplitude_pipe_change(self, action: Callable) -> None:
+    def amplitude_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_amplitude_spin.valueChanged.connect(action)
 
-    def attack_time_pipe_harmonic_change(self, action: Callable) -> None:
+    def attack_time_pipe_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__pipeharm_attack_spin.valueChanged.connect(action)
 
-    def decay_time_pipe_harmonic_change(self, action: Callable) -> None:
+    def decay_time_pipe_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__pipeharm_decay_spin.valueChanged.connect(action)
 
-    def sustain_level_pipe_harmonic_change(self, action: Callable) -> None:
+    def sustain_level_pipe_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__pipeharm_sustain_spin.valueChanged.connect(action)
 
-    def release_time_pipe_harmonic_change(self, action: Callable) -> None:
+    def release_time_pipe_harmonic_change(self, action: Callable[[], None]) -> None:
         self.__pipeharm_release_spin.valueChanged.connect(action)
 
-    def attack_time_pipe_change(self, action: Callable) -> None:
+    def attack_time_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_attack_spin.valueChanged.connect(action)
 
-    def decay_time_pipe_change(self, action: Callable) -> None:
+    def decay_time_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_decay_spin.valueChanged.connect(action)
 
-    def sustain_level_pipe_change(self, action: Callable) -> None:
+    def sustain_level_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_sustain_spin.valueChanged.connect(action)
 
-    def release_time_pipe_change(self, action: Callable) -> None:
+    def release_time_pipe_change(self, action: Callable[[], None]) -> None:
         self.__pipe_release_spin.valueChanged.connect(action)
 
-    def load_stop_action(self, action: Callable) -> None:
+    def load_stop_action(self, action: Callable[[], None]) -> None:
         self.__load_button.clicked.connect(action)
 
-    def cancel_changes_action(self, action: Callable) -> None:
+    def cancel_changes_action(self, action: Callable[[], None]) -> None:
         self.__cancel_button.clicked.connect(action)
 
-    def save_stop_action(self, action: Callable) -> None:
+    def save_stop_action(self, action: Callable[[], None]) -> None:
         self.__save_button.clicked.connect(action)
 
     #**************************************************************************
@@ -1323,7 +1306,6 @@ class StopEditor(QFrame):
 
     @starting_note.setter
     def starting_note(self, n: str) -> None:
-        print(n)
         self.__startnote_combo.setCurrentText(n)
 
     #==========================================================================
@@ -1331,7 +1313,7 @@ class StopEditor(QFrame):
     #==========================================================================
     @property
     def frequency_offset(self) -> int:
-        self.__freqoffset_spin.value()
+        return self.__freqoffset_spin.value()
 
     @frequency_offset.setter
     def frequency_offset(self, f: int) -> None:

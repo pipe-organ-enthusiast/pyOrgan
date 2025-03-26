@@ -1,0 +1,1191 @@
+{
+    "Stop Settings": {
+        "Stop Name": "AEOLINE",
+        "Stop Family": "STRING",
+        "Organ Division": "CHOIR",
+        "Number of Ranks": 1,
+        "Rank Series": "8' Series"
+    },
+    "Rank 1 Settings": {
+        "Rank Size": "8'",
+        "Pipe Type": "OPEN",
+        "Starting Note": "C2",
+        "Frequency Offset": 0,
+        "Number of Pipes": 61,
+        "Number of Harmonics": 1
+    },
+    "Rank 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Harmonic 1 Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 1 Settings": {
+        "Note": "C2",
+        "Relative Note": "C2"
+    },
+    "Rank 1 - Pipe 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 1 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 1 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 2 Settings": {
+        "Note": "C#2",
+        "Relative Note": "C#2"
+    },
+    "Rank 1 - Pipe 2 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 2 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 2 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 3 Settings": {
+        "Note": "D2",
+        "Relative Note": "D2"
+    },
+    "Rank 1 - Pipe 3 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 3 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 3 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 4 Settings": {
+        "Note": "D#2",
+        "Relative Note": "D#2"
+    },
+    "Rank 1 - Pipe 4 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 4 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 4 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 5 Settings": {
+        "Note": "E2",
+        "Relative Note": "E2"
+    },
+    "Rank 1 - Pipe 5 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 5 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 5 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 6 Settings": {
+        "Note": "F2",
+        "Relative Note": "F2"
+    },
+    "Rank 1 - Pipe 6 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 6 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 6 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 7 Settings": {
+        "Note": "F#2",
+        "Relative Note": "F#2"
+    },
+    "Rank 1 - Pipe 7 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 7 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 7 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 8 Settings": {
+        "Note": "G2",
+        "Relative Note": "G2"
+    },
+    "Rank 1 - Pipe 8 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 8 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 8 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 9 Settings": {
+        "Note": "G#2",
+        "Relative Note": "G#2"
+    },
+    "Rank 1 - Pipe 9 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 9 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 9 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 10 Settings": {
+        "Note": "A2",
+        "Relative Note": "A2"
+    },
+    "Rank 1 - Pipe 10 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 10 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 10 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 11 Settings": {
+        "Note": "A#2",
+        "Relative Note": "A#2"
+    },
+    "Rank 1 - Pipe 11 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 11 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 11 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 12 Settings": {
+        "Note": "B2",
+        "Relative Note": "B2"
+    },
+    "Rank 1 - Pipe 12 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 12 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 12 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 13 Settings": {
+        "Note": "C3",
+        "Relative Note": "C3"
+    },
+    "Rank 1 - Pipe 13 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 13 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 13 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 14 Settings": {
+        "Note": "C#3",
+        "Relative Note": "C#3"
+    },
+    "Rank 1 - Pipe 14 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 14 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 14 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 15 Settings": {
+        "Note": "D3",
+        "Relative Note": "D3"
+    },
+    "Rank 1 - Pipe 15 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 15 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 15 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 16 Settings": {
+        "Note": "D#3",
+        "Relative Note": "D#3"
+    },
+    "Rank 1 - Pipe 16 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 16 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 16 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 17 Settings": {
+        "Note": "E3",
+        "Relative Note": "E3"
+    },
+    "Rank 1 - Pipe 17 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 17 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 17 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 18 Settings": {
+        "Note": "F3",
+        "Relative Note": "F3"
+    },
+    "Rank 1 - Pipe 18 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 18 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 18 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 19 Settings": {
+        "Note": "F#3",
+        "Relative Note": "F#3"
+    },
+    "Rank 1 - Pipe 19 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 19 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 19 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 20 Settings": {
+        "Note": "G3",
+        "Relative Note": "G3"
+    },
+    "Rank 1 - Pipe 20 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 20 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 20 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 21 Settings": {
+        "Note": "G#3",
+        "Relative Note": "G#3"
+    },
+    "Rank 1 - Pipe 21 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 21 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 21 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 22 Settings": {
+        "Note": "A3",
+        "Relative Note": "A3"
+    },
+    "Rank 1 - Pipe 22 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 22 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 22 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 23 Settings": {
+        "Note": "A#3",
+        "Relative Note": "A#3"
+    },
+    "Rank 1 - Pipe 23 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 23 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 23 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 24 Settings": {
+        "Note": "B3",
+        "Relative Note": "B3"
+    },
+    "Rank 1 - Pipe 24 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 24 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 24 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 25 Settings": {
+        "Note": "C4",
+        "Relative Note": "C4"
+    },
+    "Rank 1 - Pipe 25 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 25 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 25 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 26 Settings": {
+        "Note": "C#4",
+        "Relative Note": "C#4"
+    },
+    "Rank 1 - Pipe 26 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 26 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 26 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 27 Settings": {
+        "Note": "D4",
+        "Relative Note": "D4"
+    },
+    "Rank 1 - Pipe 27 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 27 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 27 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 28 Settings": {
+        "Note": "D#4",
+        "Relative Note": "D#4"
+    },
+    "Rank 1 - Pipe 28 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 28 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 28 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 29 Settings": {
+        "Note": "E4",
+        "Relative Note": "E4"
+    },
+    "Rank 1 - Pipe 29 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 29 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 29 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 30 Settings": {
+        "Note": "F4",
+        "Relative Note": "F4"
+    },
+    "Rank 1 - Pipe 30 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 30 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 30 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 31 Settings": {
+        "Note": "F#4",
+        "Relative Note": "F#4"
+    },
+    "Rank 1 - Pipe 31 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 31 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 31 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 32 Settings": {
+        "Note": "G4",
+        "Relative Note": "G4"
+    },
+    "Rank 1 - Pipe 32 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 32 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 32 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 33 Settings": {
+        "Note": "G#4",
+        "Relative Note": "G#4"
+    },
+    "Rank 1 - Pipe 33 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 33 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 33 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 34 Settings": {
+        "Note": "A4",
+        "Relative Note": "A4"
+    },
+    "Rank 1 - Pipe 34 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 34 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 34 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 35 Settings": {
+        "Note": "A#4",
+        "Relative Note": "A#4"
+    },
+    "Rank 1 - Pipe 35 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 35 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 35 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 36 Settings": {
+        "Note": "B4",
+        "Relative Note": "B4"
+    },
+    "Rank 1 - Pipe 36 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 36 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 36 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 37 Settings": {
+        "Note": "C5",
+        "Relative Note": "C5"
+    },
+    "Rank 1 - Pipe 37 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 37 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 37 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 38 Settings": {
+        "Note": "C#5",
+        "Relative Note": "C#5"
+    },
+    "Rank 1 - Pipe 38 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 38 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 38 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 39 Settings": {
+        "Note": "D5",
+        "Relative Note": "D5"
+    },
+    "Rank 1 - Pipe 39 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 39 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 39 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 40 Settings": {
+        "Note": "D#5",
+        "Relative Note": "D#5"
+    },
+    "Rank 1 - Pipe 40 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 40 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 40 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 41 Settings": {
+        "Note": "E5",
+        "Relative Note": "E5"
+    },
+    "Rank 1 - Pipe 41 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 41 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 41 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 42 Settings": {
+        "Note": "F5",
+        "Relative Note": "F5"
+    },
+    "Rank 1 - Pipe 42 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 42 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 42 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 43 Settings": {
+        "Note": "F#5",
+        "Relative Note": "F#5"
+    },
+    "Rank 1 - Pipe 43 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 43 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 43 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 44 Settings": {
+        "Note": "G5",
+        "Relative Note": "G5"
+    },
+    "Rank 1 - Pipe 44 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 44 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 44 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 45 Settings": {
+        "Note": "G#5",
+        "Relative Note": "G#5"
+    },
+    "Rank 1 - Pipe 45 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 45 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 45 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 46 Settings": {
+        "Note": "A5",
+        "Relative Note": "A5"
+    },
+    "Rank 1 - Pipe 46 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 46 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 46 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 47 Settings": {
+        "Note": "A#5",
+        "Relative Note": "A#5"
+    },
+    "Rank 1 - Pipe 47 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 47 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 47 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 48 Settings": {
+        "Note": "B5",
+        "Relative Note": "B5"
+    },
+    "Rank 1 - Pipe 48 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 48 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 48 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 49 Settings": {
+        "Note": "C6",
+        "Relative Note": "C6"
+    },
+    "Rank 1 - Pipe 49 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 49 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 49 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 50 Settings": {
+        "Note": "C#6",
+        "Relative Note": "C#6"
+    },
+    "Rank 1 - Pipe 50 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 50 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 50 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 51 Settings": {
+        "Note": "D6",
+        "Relative Note": "D6"
+    },
+    "Rank 1 - Pipe 51 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 51 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 51 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 52 Settings": {
+        "Note": "D#6",
+        "Relative Note": "D#6"
+    },
+    "Rank 1 - Pipe 52 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 52 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 52 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 53 Settings": {
+        "Note": "E6",
+        "Relative Note": "E6"
+    },
+    "Rank 1 - Pipe 53 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 53 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 53 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 54 Settings": {
+        "Note": "F6",
+        "Relative Note": "F6"
+    },
+    "Rank 1 - Pipe 54 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 54 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 54 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 55 Settings": {
+        "Note": "F#6",
+        "Relative Note": "F#6"
+    },
+    "Rank 1 - Pipe 55 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 55 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 55 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 56 Settings": {
+        "Note": "G6",
+        "Relative Note": "G6"
+    },
+    "Rank 1 - Pipe 56 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 56 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 56 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 57 Settings": {
+        "Note": "G#6",
+        "Relative Note": "G#6"
+    },
+    "Rank 1 - Pipe 57 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 57 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 57 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 58 Settings": {
+        "Note": "A6",
+        "Relative Note": "A6"
+    },
+    "Rank 1 - Pipe 58 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 58 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 58 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 59 Settings": {
+        "Note": "A#6",
+        "Relative Note": "A#6"
+    },
+    "Rank 1 - Pipe 59 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 59 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 59 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 60 Settings": {
+        "Note": "B6",
+        "Relative Note": "B6"
+    },
+    "Rank 1 - Pipe 60 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 60 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 60 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 61 Settings": {
+        "Note": "C7",
+        "Relative Note": "C7"
+    },
+    "Rank 1 - Pipe 61 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    },
+    "Rank 1 - Pipe 61 - Harmonic 1 - Settings": {
+        "Amplitude": 0
+    },
+    "Rank 1 - Pipe 61 - Harmonic 1 - ADSR Settings": {
+        "Attack Time": 0,
+        "Decay Time": 0,
+        "Sustain Level": 0,
+        "Release Time": 0
+    }
+}
