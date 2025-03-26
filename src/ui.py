@@ -25,7 +25,7 @@ class StopEditorUI:
     # Default Data
     #==========================================================================
     def __default_ui_editor_data(self) -> None:
-        self.stop_config.clear_config()
+        #self.stop_config.clear_config()
         self.__init_rank_number()
         self.stop_config.init_default_config()
         self.__load_ui_editor_data()
@@ -330,7 +330,11 @@ class StopEditorUI:
             method(editor_number)
     
     def __update_stop_header(self) -> None:
-        if self.number_ranks_editor > 1 or self.rank_size_editor != "":
+        condition1: bool = self.stop_name_editor != ""
+        condition2: bool = self.number_ranks_editor > 1
+        condition3: bool = self.rank_size_editor != ""
+        condition4: bool = condition2 or condition3
+        if condition1 and condition4 != "":
             self.stop_editor.update_stop_header()
     
     def __update_stop_name(self) -> None:
@@ -396,7 +400,6 @@ class StopEditorUI:
         self.__set_maximum_number(
             self.number_pipes_editor,
             self.stop_editor.pipe_number_set_maximum,
-            self.stop_editor.pipe_number_harmonic_set_maximum
         )
         self.number_pipes_config = self.number_pipes_editor
 
@@ -486,27 +489,21 @@ class StopEditorUI:
         self.release_pipe_editor = self.release_pipe_config
 
     def __update_note(self) -> None:
-        self.__init_pipe_settings_config()
         self.note_config = self.note_editor
 
     def __update_relative_note(self) -> None:
-        self.__init_pipe_settings_config()
         self.relative_note_config = self.relative_note_editor
 
     def __update_pipe_attack(self) -> None:
-        self.__init_pipe_adsr_settings_config()
         self.attack_pipe_config = self.attack_pipe_editor
 
     def __update_pipe_decay(self) -> None:
-        self.__init_pipe_adsr_settings_config()
         self.decay_pipe_config = self.decay_pipe_editor
 
     def __update_pipe_sustain(self) -> None:
-        self.__init_pipe_adsr_settings_config()
         self.sustain_pipe_config = self.sustain_pipe_editor
 
     def __update_pipe_release(self) -> None:
-        self.__init_pipe_adsr_settings_config()
         self.release_pipe_config = self.release_pipe_editor
 
     def __update_pipe_harmonic_number(self) -> None:
@@ -1082,9 +1079,16 @@ class StopEditorUI:
 
     @starting_note_config.setter
     def starting_note_config(self, value: str):
+        notes: tuple[str] = organlib.NOTES
+        starting_note_index: int = notes.index(value)
+        print(f"Starting Note: {value}")
+        revised_notes: tuple[str] = tuple(
+            [note for note in notes[starting_note_index:]]
+        )
         self.stop_config.starting_note_set(
             rank_number=self.rank_number_editor,
-            starting_note=value
+            starting_note=value,
+            notes=revised_notes
         )
 
     #--------------------------------------------------------------------------

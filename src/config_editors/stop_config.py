@@ -27,34 +27,33 @@ class StopConfig:
     # Default Config
     #==========================================================================
     def init_default_config(self) -> None:
+        self.clear_config()
         self.init_stop_settings()
-        self.init_rank_settings(1)
-        self.init_rank_harmonic_settings(1, 1)
-        self.init_rank_harmonic_adsr_settings(1, 1)
-        self.init_rank_adsr_settings(1)
-        for pipe in range(1, self.number_pipes_get(1)):
-            self.init_pipe_settings(1, pipe)
-            self.init_pipe_harmonic_settings(1, pipe, 1)
-            self.init_pipe_harmonic_adsr_settings(1, pipe, 1)
-            self.init_pipe_adsr_settings(1, pipe)
+        #self.init_rank_settings(1)
 
     #==========================================================================
     # Stop Settings
     #==========================================================================
-    def init_stop_settings(self) -> None: 
-        self.config[self.stop_settings] = {
+    def init_stop_settings(self) -> None:
+        section: str = self.stop_settings
+        print(f"Creating Config for: {section}") 
+        self.config[section] = {
             "Stop Name": "",
             "Stop Family": "",
             "Organ Division": "",
             "Number of Ranks": 1,
             "Rank Series": ""
         }
+        for rank in range(1, self.number_ranks_get()+1):
+            self.init_rank_settings(rank)
 
     #==========================================================================
     # Rank Settings
     #==========================================================================
     def init_rank_settings(self, rank_number: int) -> None:
-        self.config[self.rank_settings(rank_number)] = {
+        section: str = self.rank_settings(rank_number)
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Rank Size": "",
             "Pipe Type": "",
             "Starting Note": "C2",
@@ -63,22 +62,22 @@ class StopConfig:
             "Number of Harmonics": 1
         }
         self.init_rank_adsr_settings(rank_number)
-        for harmonic in range(1, self.number_harmonics_get(rank_number)):
+        for harmonic in range(1, self.number_harmonics_get(rank_number)+1):
             self.init_rank_harmonic_settings(rank_number, harmonic)
-        for pipe in range(1, self.number_pipes_get(rank_number)):
-            self.init_pipe_settings(rank_number, pipe)\
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.init_pipe_settings(rank_number, pipe)
 
     def init_rank_harmonic_settings(
             self, 
             rank_number: int, 
             harmonic_number: int
     ) -> None:
-        self.config[
-            self.rank_harmonics_settings(
-                rank_number = rank_number, 
-                harmonic_number = harmonic_number
-            )
-        ] = {
+        section: str = self.rank_harmonics_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Amplitude": 0
         }
         self.init_rank_harmonic_adsr_settings(rank_number, harmonic_number)
@@ -88,25 +87,29 @@ class StopConfig:
             rank_number: int,
             harmonic_number: int
     ) -> None:
-        self.config[
-            self.rank_harmonics_adsr_settings(
-                rank_number = rank_number,
-                harmonic_number = harmonic_number
-            )
-        ] = {
+        section: str = self.rank_harmonics_adsr_settings(
+            rank_number=rank_number,
+            harmonic_number=harmonic_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Attack Time": 0,
             "Decay Time": 0,
             "Sustain Level": 0,
             "Release Time": 0
         }
+        print(self.config)
 
     def init_rank_adsr_settings(self, rank_number: int) -> None:
-        self.config[self.rank_adsr_settings(rank_number=rank_number)] = {
+        section: str = self.rank_adsr_settings(rank_number)
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Attack Time": 0,
             "Decay Time": 0,
             "Sustain Level": 0,
             "Release Time": 0
         }
+        print(self.config)
 
     #==========================================================================
     # Pipe Settings
@@ -116,17 +119,17 @@ class StopConfig:
             rank_number: int,
             pipe_number: int
     ) -> None:
-        self.config[
-            self.pipe_settings(
-                rank_number=rank_number,
-                pipe_number=pipe_number
-            )
-        ] = {
+        section: str = self.pipe_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Note": "",
             "Relative Note": ""
         }
         self.init_pipe_adsr_settings(rank_number, pipe_number)
-        for harmonic in range(1, self.number_harmonics_get(rank_number)):
+        for harmonic in range(1, self.number_harmonics_get(rank_number)+1):
             self.init_pipe_harmonic_settings(
                 rank_number, pipe_number, harmonic
             )
@@ -137,13 +140,13 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        self.config[
-            self.pipe_harmonics_settings(
-                rank_number=rank_number,
-                pipe_number=pipe_number,
-                harmonic_number=harmonic_number
-            )
-        ] = {
+        section: str = self.pipe_harmonics_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Amplitude": 0
         }
         self.init_pipe_harmonic_adsr_settings(
@@ -156,13 +159,13 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        self.config[
-            self.pipe_harmonics_adsr_settings(
-                rank_number=rank_number,
-                pipe_number=pipe_number,
-                harmonic_number=harmonic_number
-            )
-        ] = {
+        section: str = self.pipe_harmonics_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number,
+            harmonic_number=harmonic_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Attack Time": 0,
             "Decay Time": 0,
             "Sustain Level": 0,
@@ -174,12 +177,12 @@ class StopConfig:
             rank_number: int,
             pipe_number: int,
     ) -> None:
-        self.config[
-            self.pipe_adsr_settings(
-                rank_number=rank_number,
-                pipe_number=pipe_number
-            )
-        ] = {
+        section: str = self.pipe_adsr_settings(
+            rank_number=rank_number,
+            pipe_number=pipe_number
+        )
+        print(f"Creating Config for: {section}")
+        self.config[section] = {
             "Attack Time": 0,
             "Decay Time": 0,
             "Sustain Level": 0,
@@ -191,8 +194,14 @@ class StopConfig:
     #==========================================================================
     def init_harmonic_settings(
             self,
+            rank_number: int,
+            pipe_number: int,
+            harmonic_number: int
     ) -> None:
-        pass
+        self.init_rank_harmonic_settings(rank_number, harmonic_number)
+        self.init_pipe_harmonic_settings(
+            rank_number, pipe_number, harmonic_number
+        )
 
     #**************************************************************************
     # Section Deletion
@@ -493,12 +502,15 @@ class StopConfig:
 
     def starting_note_set(
             self, 
-            rank_number: int, 
-            starting_note: str
+            rank_number: int,
+            starting_note: str,
+            notes: tuple[str]
     ) -> None:
         section: str = self.rank_settings(rank_number)
         field: str = "Starting Note"
         self.config[section][field] = starting_note
+        for pipe in range(1, self.number_pipes_get(rank_number)):
+            self.note_set(rank_number, pipe, notes[pipe])
 
     #--------------------------------------------------------------------------
     # Frequency Offset
