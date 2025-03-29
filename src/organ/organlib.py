@@ -762,4 +762,4 @@ def calc_frequency_equal_temperment(note: str, rank: str) -> float:
 
 if __name__ == "__main__":
     frequency: float = calc_frequency_equal_temperment("A4", "16'")
-    print(frequency)
+    ic(frequency)

@@ -1,9 +1,10 @@
 from gui import StopEditor
 from organ import organlib
 from config_editors import StopConfig
+import log_file
 #------------------------------------------------------------------------------
 from PySide6.QtWidgets import QApplication, QFileDialog
-from icecream import ic # type: ignore
+from icecream import ic  # type: ignore
 #------------------------------------------------------------------------------
 from typing import Callable
 
@@ -1713,7 +1714,11 @@ class StopEditorUI:
 
 
 if __name__ == "__main__":
+    log_file.start_logging()
     app = QApplication([])
+    ic(app)
     stop_editor_ui = StopEditorUI()
+    #log: str = f"{ic.contextDelimiter} {ic(stop_editor_ui)}"
     stop_editor_ui.stop_editor.show()
+    #print(log)
     app.exec()

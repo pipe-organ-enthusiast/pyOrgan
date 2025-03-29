@@ -5,11 +5,11 @@ from icecream import ic # type: ignore
 
 class StopConfig:
     def __init__(self) -> None:
-        print("Initializing StopConfig...")
+        ic("Initializing StopConfig...")
         ic()
         self.config: dict[str, dict[str, str | int]] = {}
         ic(self.config)
-        print("StopConfig Initialized")
+        ic("StopConfig Initialized")
 
     #**************************************************************************
     # File Operations
@@ -18,21 +18,21 @@ class StopConfig:
             self,
             file: str
     ) -> None:
-        print("Loading File...")
+        ic("Loading File...")
         ic()
         ic(file)
         with open(file, "r") as config_file:
             self.config = json.load(config_file)
         ic(self.config)
-        print("File Loaded.")
+        ic("File Loaded.")
 
     def save_file(self, file: str) -> None:
-        print("Saving File...")
+        ic("Saving File...")
         ic()
         ic(file)
         with open(file, "w") as config_file:
             json.dump(self.config, config_file, indent=4)
-        print("File Saved.")
+        ic("File Saved.")
 
     #**************************************************************************
     # Config Creation
@@ -41,31 +41,31 @@ class StopConfig:
     # Default Config
     #==========================================================================
     def init_default_config(self) -> None:
-        print("Initializing Default Config...")
+        ic("Initializing Default Config...")
         ic()
         self.clear_config()
         self.init_stop_config()
         ic(self.config)
-        print("Default Config Initialized.")
+        ic("Default Config Initialized.")
 
     #==========================================================================
     # Stop Config
     #==========================================================================
     def init_stop_config(self) -> None:
-        print("Initializing Stop Config...")
+        ic("Initializing Stop Config...")
         ic()
         self.init_stop_settings()
         number_ranks: int = self.number_ranks_get()
         ic(number_ranks)
         for rank in range(1, number_ranks+1):
             self.init_rank_config(rank)
-        print("Stop Config Initialized.")
+        ic("Stop Config Initialized.")
 
     #==========================================================================
     # Rank Config
     #==========================================================================
     def init_rank_config(self, rank_number: int) -> None:
-        print("Initializing Rank Config...")
+        ic("Initializing Rank Config...")
         ic()
         ic(rank_number)
         self.init_rank_settings(rank_number)
@@ -78,10 +78,10 @@ class StopConfig:
         for pipe in pipes:
             ic(pipe)
             self.init_pipe_config(rank_number, pipe)
-        print("Rank Config Initialized.")
+        ic("Rank Config Initialized.")
 
     def init_rank_harmonics_config(self, rank_number: int) -> None:
-        print("Initializing Rank Harmonics Config...")
+        ic("Initializing Rank Harmonics Config...")
         ic()
         ic(rank_number)
         number_harmonics: int = self.number_harmonics_get(rank_number)
@@ -92,7 +92,7 @@ class StopConfig:
             ic(harmonic)
             self.init_rank_harmonic_settings(rank_number, harmonic)
             self.init_rank_harmonic_adsr_settings(rank_number, harmonic)
-        print("Rank Harmonics Config Initialized.")
+        ic("Rank Harmonics Config Initialized.")
 
     #==========================================================================
     # Pipe Config
@@ -102,7 +102,7 @@ class StopConfig:
             rank_number: int,
             pipe_number: int
     ) -> None:
-        print("Initializing Pipe Config...")
+        ic("Initializing Pipe Config...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -120,7 +120,7 @@ class StopConfig:
             self.init_pipe_harmonic_adsr_settings(
                 rank_number, pipe_number, harmonic
             )
-        print("Pipe Config Initialized.")
+        ic("Pipe Config Initialized.")
 
     #==========================================================================
     # Harmonic Config
@@ -131,7 +131,7 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        print("Initializing Harmonic Config...")
+        ic("Initializing Harmonic Config...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -148,13 +148,16 @@ class StopConfig:
         self.init_pipe_harmonic_adsr_settings(
             rank_number, pipe_number, harmonic_number
         )
-        print("Harmonic Config Initialized.")
-    
+        ic("Harmonic Config Initialized.")
+
+    #**************************************************************************
+    # Section Initialization
+    #**************************************************************************
     #==========================================================================
     # Stop Settings
     #==========================================================================
     def init_stop_settings(self) -> None:
-        print("Initializing Stop Settings...")
+        ic("Initializing Stop Settings...")
         ic()
         section: str = self.stop_settings
         ic(section)
@@ -166,13 +169,13 @@ class StopConfig:
             "Rank Series": ""
         }
         ic(self.config[section])
-        print("Stop Settings Initialized.")
+        ic("Stop Settings Initialized.")
 
     #==========================================================================
     # Rank Settings
     #==========================================================================
     def init_rank_settings(self, rank_number: int) -> None:
-        print("Initializing Rank Settings...")
+        ic("Initializing Rank Settings...")
         ic()
         ic(rank_number)
         section: str = self.rank_settings(rank_number)
@@ -186,14 +189,14 @@ class StopConfig:
             "Number of Harmonics": 1
         }
         ic(self.config[section])
-        print("Rank Settings Initialized.")
+        ic("Rank Settings Initialized.")
 
     def init_rank_harmonic_settings(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> None:
-        print("Initializing Rank Harmonic Settings...")
+        ic("Initializing Rank Harmonic Settings...")
         ic()
         ic(rank_number)
         ic(harmonic_number)
@@ -206,14 +209,14 @@ class StopConfig:
             "Amplitude": 0
         }
         ic(self.config[section])
-        print("Rank Harmonic Settings Initialized.")
+        ic("Rank Harmonic Settings Initialized.")
 
     def init_rank_harmonic_adsr_settings(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> None:
-        print("Initializing Rank Harmonic ADSR Settings...")
+        ic("Initializing Rank Harmonic ADSR Settings...")
         ic()
         ic(rank_number)
         ic(harmonic_number)
@@ -229,10 +232,10 @@ class StopConfig:
             "Release Time": 0
         }
         ic(self.config[section])
-        print("Rank Harmonic ADSR Settings Initialized.")
+        ic("Rank Harmonic ADSR Settings Initialized.")
 
     def init_rank_adsr_settings(self, rank_number: int) -> None:
-        print("Initializing Rank ADSR Settings...")
+        ic("Initializing Rank ADSR Settings...")
         ic()
         ic(rank_number)
         section: str = self.rank_adsr_settings(rank_number)
@@ -244,7 +247,7 @@ class StopConfig:
             "Release Time": 0
         }
         ic(self.config[section])
-        print("Rank ADSR Settings Initialized.")
+        ic("Rank ADSR Settings Initialized.")
 
     #==========================================================================
     # Pipe Settings
@@ -254,7 +257,7 @@ class StopConfig:
             rank_number: int,
             pipe_number: int
     ) -> None:
-        print("Initializing Pipe Settings...")
+        ic("Initializing Pipe Settings...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -268,7 +271,7 @@ class StopConfig:
             "Relative Note": ""
         }
         ic(self.config[section])
-        print("Pipe Settings Initialized.")
+        ic("Pipe Settings Initialized.")
 
     def init_pipe_harmonic_settings(
             self,
@@ -276,7 +279,7 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        print("Initializing Pipe Harmonic Settings...")
+        ic("Initializing Pipe Harmonic Settings...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -291,7 +294,7 @@ class StopConfig:
             "Amplitude": 0
         }
         ic(self.config[section])
-        print("Pipe Harmonic Settings Initialized.")
+        ic("Pipe Harmonic Settings Initialized.")
 
     def init_pipe_harmonic_adsr_settings(
             self,
@@ -299,7 +302,7 @@ class StopConfig:
             pipe_number: int,
             harmonic_number: int
     ) -> None:
-        print("Initializing Pipe Harmonic ADSR Settings...")
+        ic("Initializing Pipe Harmonic ADSR Settings...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -317,14 +320,14 @@ class StopConfig:
             "Release Time": 0
         }
         ic(self.config[section])
-        print("Pipe Harmonic ADSR Settings Initialized.")
+        ic("Pipe Harmonic ADSR Settings Initialized.")
 
     def init_pipe_adsr_settings(
             self,
             rank_number: int,
             pipe_number: int,
     ) -> None:
-        print("Initializing Pipe ADSR Settings...")
+        ic("Initializing Pipe ADSR Settings...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -340,34 +343,34 @@ class StopConfig:
             "Release Time": 0
         }
         ic(self.config[section])
-        print("Pipe ADSR Settings Initialized.")
+        ic("Pipe ADSR Settings Initialized.")
 
 
     #**************************************************************************
     # Section Deletion
     #**************************************************************************
     def clear_config(self) -> None:
-        print("Clearing Config...")
+        ic("Clearing Config...")
         ic()
         for key in self.config.keys():
             ic(key)
             del self.config[key]
         ic(self.config)
-        print("Config Cleared.")
+        ic("Config Cleared.")
 
     def del_stop_settings(self) -> None:
-        print("Deleting Stop Settings...")
+        ic("Deleting Stop Settings...")
         ic()
         sections: list[str] = [self.stop_settings,]
         ic(sections)
         self.__del_sections(sections)
-        print("Stop Settings Deleted.")
+        ic("Stop Settings Deleted.")
 
     def del_rank_settings(
             self,
             rank_number: int
     ) -> None:
-        print("Deleting Rank Settings...")
+        ic("Deleting Rank Settings...")
         ic()
         ic(rank_number)
         sections: list[str] = [
@@ -417,14 +420,14 @@ class StopConfig:
                 )
         ic(sections)
         self.__del_sections(sections)
-        print("Rank Settings Deleted.")
+        ic("Rank Settings Deleted.")
 
     def del_pipe_settings(
             self,
             rank_number: int,
             pipe_number: int
     ) -> None:
-        print("Deleting Pipe Settings...")
+        ic("Deleting Pipe Settings...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -453,14 +456,14 @@ class StopConfig:
             )
         ic(sections)
         self.__del_sections(sections)
-        print("Pipe Settings Deleted.")
+        ic("Pipe Settings Deleted.")
 
     def del_harmonic_settings(
             self,
             rank_number: int,
             harmonic_number: int
     ) -> None:
-        print("Deleting Harmonic Settings...")
+        ic("Deleting Harmonic Settings...")
         ic()
         ic(rank_number)
         ic(harmonic_number)
@@ -491,31 +494,33 @@ class StopConfig:
             )
         ic(sections)
         self.__del_sections(sections)
-        print("Harmonic Settings Deleted.")
+        ic("Harmonic Settings Deleted.")
 
     def __del_sections(self, sections: list[str]) -> None:
-        print("Deleting Sections...")
+        ic("Deleting Sections...")
         ic(sections)
         for section in sections:
             ic(section)
             self.config.pop(section, None)
         ic(self.config)
-        print("Sections Deleted.")
+        ic("Sections Deleted.")
 
-    
+    #**************************************************************************
+    # Field Updating
+    #**************************************************************************
     def update_note(
             self,
             rank_number: int,
             pipe_number: int,
             note: str
     ) -> None:
-        print("Updating Note...")
+        ic("Updating Note...")
         ic()
         ic(rank_number)
         ic(pipe_number)
         ic(note)
         self.note_set(rank_number, pipe_number, note)
-        print("Note Updated.")
+        ic("Note Updated.")
 
     def update_relative_notes(
             self,
@@ -523,7 +528,7 @@ class StopConfig:
             pipe_number: int,
             notes: tuple[str, ...]
     ) -> None:
-        print("Updating Relative Notes...")
+        ic("Updating Relative Notes...")
         ic()
         ic(rank_number)
         ic(pipe_number)
@@ -544,7 +549,7 @@ class StopConfig:
             note = notes[i]
             ic(note)
             self.relative_note_set(rank_number, pipe, note)
-        print("Relative Notes Updated.")
+        ic("Relative Notes Updated.")
 
     #**************************************************************************
     # Getter and Setter Methods
@@ -556,7 +561,7 @@ class StopConfig:
     # Stop Name
     #--------------------------------------------------------------------------
     def stop_name_get(self) -> str:
-        print("Getting Stop Name...")
+        ic("Getting Stop Name...")
         ic()
         section: str = self.stop_settings
         ic(section)
@@ -564,11 +569,11 @@ class StopConfig:
         ic(field)
         stop_name: str = str(self.config[section][field])
         ic(stop_name)
-        print("Stop Name Retrieved.")
+        ic("Stop Name Retrieved.")
         return stop_name
 
     def stop_name_set(self, value: str) -> None:
-        print("Setting Stop Name...")
+        ic("Setting Stop Name...")
         ic()
         ic(value)
         section: str = self.stop_settings
@@ -577,13 +582,13 @@ class StopConfig:
         ic(field)
         self.config[section][field] = value
         ic(self.config[section][field])
-        print("Stop Name Set.")
+        ic("Stop Name Set.")
 
     #--------------------------------------------------------------------------
     # Stop Family
     #--------------------------------------------------------------------------
     def stop_family_get(self) -> str:
-        print("Getting Stop Family...")
+        ic("Getting Stop Family...")
         ic()
         section: str = self.stop_settings
         ic(section)
@@ -591,14 +596,14 @@ class StopConfig:
         ic(field)
         stop_family: str = str(self.config[section][field])
         ic(stop_family)
-        print("Stop Family Retrieved.")
+        ic("Stop Family Retrieved.")
         return stop_family
 
     def stop_family_set(
             self,
             value: str
     ) -> None:
-        print("Setting Stop Family...")
+        ic("Setting Stop Family...")
         ic()
         ic(value)
         section: str = self.stop_settings
@@ -607,13 +612,13 @@ class StopConfig:
         ic(field)
         self.config[section][field] = value
         ic(self.config[section][field])
-        print("Stop Family Set.")
+        ic("Stop Family Set.")
 
     #--------------------------------------------------------------------------
     # Organ Division
     #--------------------------------------------------------------------------
     def organ_division_get(self) -> str:
-        print("Getting Organ Division...")
+        ic("Getting Organ Division...")
         ic()
         section: str = self.stop_settings
         ic(section)
@@ -621,7 +626,7 @@ class StopConfig:
         ic(field)
         organ_division: str = str(self.config[section][field])
         ic(organ_division)
-        print("Organ Division Retrieved.")
+        ic("Organ Division Retrieved.")
         return organ_division
 
     def organ_division_set(
@@ -637,10 +642,16 @@ class StopConfig:
     # Number of Ranks
     #--------------------------------------------------------------------------
     def number_ranks_get(self) -> int:
+        ic("Getting Number of Ranks...")
         ic()
         section: str = self.stop_settings
+        ic(section)
         field: str = "Number of Ranks"
-        return int(self.config[section][field])
+        ic(field)
+        number_ranks: int = int(self.config[section][field])
+        ic(number_ranks)
+        ic("Number of Ranks Retrieved.")
+        return number_ranks
 
     def number_ranks_set(
             self,
