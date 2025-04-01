@@ -31,10 +31,10 @@ class StopEditor(QFrame):
         self.__init_ui()
         self.__ui_settings()
         #self.__ui_layout()
-        #self.__rank_harmonics_checked()
-        #self.__rank_adsr_checked()
-        #self.__pipe_harmonics_checked()
-        #self.__pipe_adsr_checked()
+        self.__rank_harmonics_checked()
+        self.__rank_adsr_checked()
+        self.__pipe_harmonics_checked()
+        self.__pipe_adsr_checked()
         ic("Stop Editor Initialized.")
 
     #===============================================================================================
@@ -42,9 +42,37 @@ class StopEditor(QFrame):
     #===============================================================================================
     def __init_ui(self) -> None:
         ic("Initializing Widgets...")
+        #-------------------------------------------------------------------------------------------
+        # Widgets
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Widgets...")
         self.__init_ui_header()
         self.__init_ui_editor()
         self.__init_ui_options()
+        ic("Widgets Created.")
+        #-------------------------------------------------------------------------------------------
+        # Layout
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Layout...")
+        layout_editor: QVBoxLayout = QVBoxLayout()
+        ic(layout_editor)
+        widgets: tuple[QWidget, ...] = (
+            self.__header_widget,
+            self.__editor_scroll
+        )
+        ic(widgets)
+        for widget in widgets:
+            ic(widget)
+            layout_editor.addWidget(widget)
+            ic(f"{widget} added to {layout_editor}")
+        layout: QHBoxLayout = QHBoxLayout()
+        ic(layout)
+        layout.addLayout(layout_editor)
+        layout.addWidget(self.__options_widget)
+        ic(f"{self.__options_widget} added to {layout}")
+        self.setLayout(layout)
+        ic(self.layout())
+        ic("Layout Created.")
         ic("Widgets Initialized.")
 
     #***********************************************************************************************
@@ -52,12 +80,35 @@ class StopEditor(QFrame):
     #***********************************************************************************************
     def __init_ui_header(self) -> None:
         ic("Initializing Header...")
+        #-------------------------------------------------------------------------------------------
+        # Widgets
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Widgets...")
         self.__header_widget: QWidget = QWidget()
         ic(self.__header_widget)
         self.__header_label: QLabel = QLabel("Stop:")
         ic(self.__header_label)
         self.__header_edit: QLineEdit = QLineEdit()
         ic(self.__header_edit)
+        ic("Widgets Created.")
+        #-------------------------------------------------------------------------------------------
+        # Layout
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Layout...")
+        layout: QHBoxLayout = QHBoxLayout()
+        ic(layout)
+        widgets: tuple[QWidget, ...] = (
+            self.__header_label,
+            self.__header_edit
+        )
+        ic(widgets)
+        for widget in widgets:
+            ic(widget)
+            layout.addWidget(widget)
+            ic(f"{widget} added to {layout}")
+        self.__header_widget.setLayout(layout)
+        ic(self.__header_widget.layout())
+        ic("Layout Created.")
         ic("Header Initialized.")
 
     #***********************************************************************************************
@@ -105,8 +156,8 @@ class StopEditor(QFrame):
         ic(self.__editor_widget.layout())
         self.__editor_scroll.setWidget(self.__editor_widget)
         ic(self.__editor_scroll.widget())
+        ic("Layout Created.")
         ic("Editor Initialized.")
-
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Stop Settings
@@ -675,14 +726,39 @@ class StopEditor(QFrame):
     #***********************************************************************************************
     def __init_ui_options(self) -> None:
         ic("Initializing Options...")
-        self.__options: QWidget = QWidget()
-        ic(self.__options)
+        #-------------------------------------------------------------------------------------------
+        # Widgets
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Widgets...")
+        self.__options_widget: QWidget = QWidget()
+        ic(self.__options_widget)
         self.__load_button: QPushButton = QPushButton("Load Stop")
         ic(self.__load_button)
         self.__cancel_button: QPushButton = QPushButton("Cancel Changes")
         ic(self.__cancel_button)
         self.__save_button: QPushButton = QPushButton("Save Stop")
         ic(self.__save_button)
+        ic("Widgets Created.")
+        #-------------------------------------------------------------------------------------------
+        # Layout
+        #-------------------------------------------------------------------------------------------
+        ic("Creating Layout...")
+        layout: QVBoxLayout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        ic(layout)
+        widgets: tuple[QWidget, ...] = (
+            self.__load_button,
+            self.__cancel_button,
+            self.__save_button
+        )
+        ic(widgets)
+        for widget in widgets:
+            ic(widget)
+            layout.addWidget(widget)
+            ic(f"{widget} added to {layout}")
+        self.__options_widget.setLayout(layout)
+        ic(self.__options_widget.layout())
+        ic("Layout Created.")
         ic("Options Initialized.")
 
     #===============================================================================================
@@ -885,478 +961,6 @@ class StopEditor(QFrame):
         self.__pipe_adsr_button.checkStateChanged.connect(self.__pipe_adsr_checked)
         ic(f"{self.__pipe_adsr_button} connected to {self.__pipe_adsr_checked}")
         ic("Check Boxes Settings Complete.")
-
-#    #===============================================================================================
-#    # Layout
-#    #===============================================================================================
-#    def __ui_layout(self) -> None:
-#        ic("Setting Up Layout...")
-#        self.__ui_layout_header()
-#        self.__ui_layout_editor()
-#        self.__ui_layout_options()
-#        self.__ui_layout_main()
-#        ic("Layout Complete.")
-#
-#    #***********************************************************************************************
-#    # Header
-#    #***********************************************************************************************
-#    def __ui_layout_header(self) -> None:
-#        ic("Laying Out Header...")
-#        header_layout: QHBoxLayout = QHBoxLayout()
-#        ic(header_layout)
-#        widgets: tuple[QWidget, ...] = (
-#            self.__header_label,
-#            self.__header_edit
-#        )
-#        ic(widgets)
-#        for widget in widgets:
-#            ic(widget)
-#            header_layout.addWidget(widget)
-#            ic(f"{widget} added to {header_layout}")
-#        self.__header_widget.setLayout(header_layout)
-#        ic(self.__header_widget.layout())
-#        ic("Header Layout Complete.")
-#
-#    #***********************************************************************************************
-#    # Editor Forms
-#    #***********************************************************************************************
-#    def __ui_layout_editor(self) -> None:
-#        ic("Laying Out Editor...")
-#        self.__ui_layout_stop_settings()
-#        self.__ui_layout_rank_settings()
-#        self.__ui_layout_pipe_settings()
-#        ic("Editor Layout Complete.")
-#
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    # Stop Settings
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    def __ui_layout_stop_settings(self) -> None:
-#        ic("Laying Out Stop Settings...")
-#        stop_settings_layout: QFormLayout = QFormLayout()
-#        ic(stop_settings_layout)
-#        stop_settings_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__stopname_label, self.__stop_name_combo),
-#            (self.__stop_family_label, self.__stop_family_combo),
-#            (self.__organ_division_label, self.__organ_division_combo),
-#            (self.__number_ranks_label, self.__number_ranks_spin),
-#            (self.__rank_series_label, self.__rank_series_combo)
-#        )
-#        ic(stop_settings_widgets)
-#        for label, widget in stop_settings_widgets:
-#            ic(label, widget)
-#            stop_settings_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {stop_settings_layout}")
-#        self.__stop_settings_group.setLayout(stop_settings_layout)
-#        ic(self.__stop_settings_group.layout())
-#        ic("Stop Settings Layout Complete.")
-# 
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    # Rank Settings
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    def __ui_layout_rank_settings(self) -> None:
-#        ic("Laying Out Rank Settings...")
-#        self.__ui_layout_rank_harmonic()
-#        self.__ui_layout_rank_harmonics_adsr()
-#        rank_settings_layout: QVBoxLayout = QVBoxLayout()
-#        ic(rank_settings_layout)
-#        rank_settings_widgets: tuple[QWidget, ...] = (
-#            self.__ui_layout_rank_header(),
-#            self.__ui_layout_rank_harmonic_settings(),
-#            self.__ui_layout_rank_adsr()
-#        )
-#        ic(rank_settings_widgets)
-#        for widget in rank_settings_widgets:
-#            ic(widget)
-#            rank_settings_layout.addWidget(widget)
-#            ic(f"{widget} added to {rank_settings_layout}")
-#            rank_settings_layout.addSpacing(10)
-#        self.__rank_settings.setLayout(rank_settings_layout)
-#        ic(self.__rank_settings.layout())
-#        ic("Rank Settings Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_rank_header(self) -> QWidget:
-#        ic("Laying Out Rank Header...")
-#        rank_header_widget: QWidget = QWidget()
-#        ic(rank_header_widget)
-#        rank_header_layout: QFormLayout = QFormLayout()
-#        ic(rank_header_layout)
-#        rank_header_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__rank_number_label, self.__rank_number_spin),
-#            (self.__rank_size_label, self.__rank_size_combo),
-#            (self.__pipe_type_label, self.__pipe_type_combo),
-#            (self.__starting_note_label, self.__starting_note_combo),
-#            (self.__frequency_offset_label, self.__frequency_offset_spin),
-#            (self.__number_pipes_label, self.__number_pipes_spin),
-#            (self.__number_harmonics_label, self.__number_harmonics_spin)
-#        )
-#        ic(rank_header_widgets)
-#        for label, widget in rank_header_widgets:
-#            ic(label, widget)
-#            rank_header_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {rank_header_layout}")
-#        rank_header_widget.setLayout(rank_header_layout)
-#        ic(rank_header_widget.layout())
-#        ic("Rank Header Layout Complete.")
-#        return rank_header_widget
-# 
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_rank_harmonic_settings(self) -> QWidget:
-#        ic("Laying Out Rank Harmonics Settings...")
-#        rank_harmonics_settings_widget: QWidget = QWidget()
-#        ic(rank_harmonics_settings_widget)
-#        rank_harmonics_settings_layout: QVBoxLayout = QVBoxLayout()
-#        ic(rank_harmonics_settings_layout)
-#        rank_harmonics_settings_layout.addWidget(self.__rank_harmonics_button)
-#        ic(f"{self.__rank_harmonics_button} added to {rank_harmonics_settings_layout}")
-#        rank_harmonics_settings_layout.addWidget(self.__rank_harmonic)
-#        ic(f"{self.__rank_harmonic} added to {rank_harmonics_settings_layout}")
-#        rank_harmonics_settings_widget.setLayout(rank_harmonics_settings_layout)
-#        ic(rank_harmonics_settings_widget.layout())
-#        ic("Rank Harmonics Settings Layout Complete.")
-#        return rank_harmonics_settings_widget
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_rank_harmonics_widget(self) -> QWidget:
-#        ic("Laying Out Rank Harmonics Widget...")
-#        rank_harmonics_widget: QWidget = QWidget()
-#        ic(rank_harmonics_widget)
-#        rank_harmonics_layout: QFormLayout = QFormLayout()
-#        ic(rank_harmonics_layout)
-#        rank_harmonics_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__rank_harmonic_number_label, self.__rank_harmonic_number_spin),
-#            (self.__rank_amplitude_label, self.__rank_amplitude_spin)
-#        )
-#        ic(rank_harmonics_widgets)
-#        for label, widget in rank_harmonics_widgets:
-#            ic(label, widget)
-#            rank_harmonics_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {rank_harmonics_layout}")
-#        rank_harmonics_widget.setLayout(rank_harmonics_layout)
-#        ic(rank_harmonics_widget.layout())
-#        ic("Rank Harmonics Widget Layout Complete.")
-#        return rank_harmonics_widget
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_rank_harmonics_adsr(self) -> None:
-#        ic("Laying Out Rank Harmonics ADSR...")
-#        rank_harmonics_adsr_layout: QFormLayout = QFormLayout()
-#        ic(rank_harmonics_adsr_layout)
-#        rank_harmonics_adsr_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__rank_harmonics_attack_label, self.__rank_harmonics_attack_spin),
-#            (self.__rank_harmonics_decay_label, self.__rank_harmonics_decay_spin),
-#            (self.__rank_harmonics_sustain_label, self.__rank_harmonics_sustain_spin),
-#            (self.__rank_harmonics_release_label, self.__rank_harmonics_release_spin)
-#        )
-#        ic(rank_harmonics_adsr_widgets)
-#        for label, widget in rank_harmonics_adsr_widgets:
-#            ic(label, widget)
-#            rank_harmonics_adsr_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {rank_harmonics_adsr_layout}")
-#        self.__rank_harmonics_adsr.setLayout(rank_harmonics_adsr_layout)
-#        ic(self.__rank_harmonics_adsr.layout())
-#        ic("Rank Harmonics ADSR Layout Complete.")
-#
-#    def __ui_layout_rank_harmonic(self) -> None:
-#        ic("Laying Out Rank Harmonic...")
-#        rank_harmonic_layout: QVBoxLayout = QVBoxLayout()
-#        rank_harmonics_widget: QWidget = self.__ui_layout_rank_harmonics_widget()
-#        ic(rank_harmonic_layout)
-#        rank_harmonic_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-#        ic(rank_harmonic_layout.alignment())
-#        rank_harmonic_layout.addWidget(rank_harmonics_widget)
-#        ic(f"{self.__ui_layout_rank_harmonics_widget()} added to {rank_harmonic_layout}")
-#        rank_harmonic_layout.addSpacing(10)
-#        rank_harmonic_layout.addWidget(self.__rank_harmonics_adsr_button)
-#        ic(f"{self.__rank_harmonics_adsr_button} added to {rank_harmonic_layout}")
-#        rank_harmonic_layout.addWidget(self.__rank_harmonics_adsr)
-#        ic(f"{self.__rank_harmonics_adsr} added to {rank_harmonic_layout}")
-#        self.__rank_harmonic.setLayout(rank_harmonic_layout)
-#        ic(self.__rank_harmonic.layout())
-#        ic("Rank Harmonic Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_rank_adsr(self) -> QWidget:
-#        ic("Laying Out Rank ADSR...")
-#        rank_adsr_widget: QWidget = QWidget()
-#        ic(rank_adsr_widget)
-#        rank_adsr_layout: QVBoxLayout = QVBoxLayout()
-#        ic(rank_adsr_layout)
-#        rank_adsr_form_layout: QFormLayout = QFormLayout()
-#        ic(rank_adsr_form_layout)
-#        rank_adsr_widgets: tuple[tuple[QLabel, QSpinBox], ...] = (
-#            (self.__rank_attack_label, self.__rank_attack_spin),
-#            (self.__rank_decay_label, self.__rank_decay_spin),
-#            (self.__rank_sustain_label, self.__rank_sustain_spin),
-#            (self.__rank_release_label, self.__rank_release_spin)
-#        )
-#        ic(rank_adsr_widgets)
-#        for label, widget in rank_adsr_widgets:
-#            ic(label, widget)
-#            rank_adsr_form_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {rank_adsr_form_layout}")
-#        self.__rank_adsr.setLayout(rank_adsr_form_layout)
-#        ic(self.__rank_adsr.layout())
-#        widgets: tuple[QWidget, ...] = (
-#            self.__rank_adsr_button,
-#            self.__rank_adsr
-#        )
-#        ic(widgets)
-#        for widget in widgets:
-#            ic(widget)
-#            rank_adsr_layout.addWidget(widget)
-#            ic(f"{widget} added to {rank_adsr_layout}")
-#        rank_adsr_widget.setLayout(rank_adsr_layout)
-#        ic(rank_adsr_widget.layout())
-#        ic("Rank ADSR Layout Complete.")
-#        return rank_adsr_widget
-#
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    # Pipe Settings
-#    #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    def __ui_layout_pipe_settings(self) -> None:
-#        ic("Laying Out Pipe Settings...")
-#        self.__ui_layout_pipe_harmonic()
-#        self.__ui_layout_pipe_harmonics_adsr()
-#        pipe_settings_layout: QVBoxLayout = QVBoxLayout()
-#        ic(pipe_settings_layout)
-#        pipe_settings_widgets: tuple[QWidget, ...] = (
-#            self.__ui_layout_pipe_header(),
-#            self.__ui_layout_pipe_harmonic_settings(),
-#            self.__ui_layout_pipe_adsr()
-#        )
-#        ic(pipe_settings_widgets)
-#        for widget in pipe_settings_widgets:
-#            ic(widget)
-#            pipe_settings_layout.addWidget(widget)
-#            ic(f"{widget} added to {pipe_settings_layout}")
-#            pipe_settings_layout.addSpacing(10)
-#        self.__pipe_settings.setLayout(pipe_settings_layout)
-#        ic(self.__pipe_settings.layout())
-#        ic("Pipe Settings Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_header(self) -> QWidget:
-#        ic("Laying Out Pipe Header...")
-#        pipe_header_widget: QWidget = QWidget()
-#        ic(pipe_header_widget)
-#        pipe_header_layout: QFormLayout = QFormLayout()
-#        ic(pipe_header_layout)
-#        pipe_header_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__rank_number_pipe_label, self.__rank_number_pipe_spin),
-#            (self.__pipe_number_label, self.__pipe_number_spin),        
-#            (self.__note_label, self.__note_combo),
-#            (self.__relative_note_label, self.__relative_note_combo)
-#        )
-#        ic(pipe_header_widgets)
-#        for label, widget in pipe_header_widgets:
-#            ic(label, widget)
-#            pipe_header_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {pipe_header_layout}")
-#        pipe_header_widget.setLayout(pipe_header_layout)
-#        ic(pipe_header_widget.layout())
-#        ic("Pipe Header Layout Complete.")
-#        return pipe_header_widget
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_harmonic_settings(self) -> QWidget:
-#        ic("Laying Out Pipe Harmonic Settings...")
-#        pipe_harmonics_settings_widget: QWidget = QWidget()
-#        ic(pipe_harmonics_settings_widget)
-#        pipe_harmonics_settings_layout: QVBoxLayout = QVBoxLayout()
-#        ic(pipe_harmonics_settings_layout)
-#        pipe_harmonics_settings_layout.addWidget(self.__pipe_harmonics_button)
-#        ic(f"{self.__pipe_harmonics_button} added to {pipe_harmonics_settings_layout}")
-#        pipe_harmonics_settings_layout.addWidget(self.__pipe_harmonic)
-#        ic(f"{self.__pipe_harmonic} added to {pipe_harmonics_settings_layout}")
-#        pipe_harmonics_settings_widget.setLayout(pipe_harmonics_settings_layout)
-#        ic(pipe_harmonics_settings_widget.layout())
-#        ic("Pipe Harmonic Settings Layout Complete.")
-#        return pipe_harmonics_settings_widget
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_harmonics_widget(self) -> QWidget:
-#        ic("Laying Out Pipe Harmonics Widget...")
-#        pipe_harmonics_widget: QWidget = QWidget()
-#        pipe_harmonics_layout: QFormLayout = QFormLayout()
-#        pipe_harmonics_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__pipe_harmonic_number_label, self.__pipe_harmonic_number_spin),
-#            (self.__pipe_amplitude_label, self.__pipe_amplitude_spin)
-#        )
-#        for label, widget in pipe_harmonics_widgets:
-#            pipe_harmonics_layout.addRow(label, widget)
-#        pipe_harmonics_widget.setLayout(pipe_harmonics_layout)
-#        ic("Pipe Harmonics Widget Layout Complete.")
-#        return pipe_harmonics_widget
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_harmonics_adsr(self) -> None:
-#        ic("Laying Out Pipe Harmonics ADSR...")
-#        pipe_harmonics_adsr_layout: QFormLayout = QFormLayout()
-#        ic(pipe_harmonics_adsr_layout)
-#        pipe_harmonics_adsr_widgets: tuple[tuple[QLabel, QWidget], ...] = (
-#            (self.__pipe_harmonics_attack_label, self.__pipe_harmonics_attack_spin),
-#            (self.__pipe_harmonics_decay_label, self.__pipe_harmonics_decay_spin),
-#            (self.__pipe_harmonics_sustain_label, self.__pipe_harmonics_sustain_spin),
-#            (self.__pipe_harmonics_release_label, self.__pipe_harmonics_release_spin)
-#        )
-#        ic(pipe_harmonics_adsr_widgets)
-#        for label, widget in pipe_harmonics_adsr_widgets:
-#            ic(label, widget)
-#            pipe_harmonics_adsr_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {pipe_harmonics_adsr_layout}")
-#        self.__pipe_harmonics_adsr.setLayout(pipe_harmonics_adsr_layout)
-#        ic(self.__pipe_harmonics_adsr.layout())
-#        ic("Pipe Harmonics ADSR Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_harmonic(self) -> None:
-#        ic("Laying Out Pipe Harmonic...")
-#        pipe_harmonic_layout: QVBoxLayout = QVBoxLayout()
-#        ic(pipe_harmonic_layout)
-#        pipe_harmonic_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-#        ic(pipe_harmonic_layout.alignment())
-#        pipe_harmonic_layout.addWidget(self.__ui_layout_pipe_harmonics_widget())
-#        ic(f"{self.__ui_layout_pipe_harmonics_widget()} added to {pipe_harmonic_layout}")
-#        pipe_harmonic_layout.addSpacing(10)
-#        pipe_harmonic_layout.addWidget(self.__pipe_harmonics_adsr_button)
-#        ic(f"{self.__pipe_harmonics_adsr_button} added to {pipe_harmonic_layout}")
-#        pipe_harmonic_layout.addWidget(self.__pipe_harmonics_adsr)
-#        ic(f"{self.__pipe_harmonics_adsr} added to {pipe_harmonic_layout}")
-#        self.__pipe_harmonic.setLayout(pipe_harmonic_layout)
-#        ic(self.__pipe_harmonic.layout())
-#        ic("Pipe Harmonic Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_pipe_adsr(self) -> QWidget:
-#        ic("Laying Out Pipe ADSR...")
-#        pipe_adsr_widget: QWidget = QWidget()
-#        ic(pipe_adsr_widget)
-#        pipe_adsr_layout: QVBoxLayout = QVBoxLayout()
-#        ic(pipe_adsr_layout)
-#        pipe_adsr_form_layout: QFormLayout = QFormLayout()
-#        ic(pipe_adsr_form_layout)
-#        pipe_adsr_widgets: tuple[tuple[QLabel, QSpinBox], ...] = (
-#            (self.__pipe_attack_label, self.__pipe_attack_spin),
-#            (self.__pipe_decay_label, self.__pipe_decay_spin),
-#            (self.__pipe_sustain_label, self.__pipe_sustain_spin),
-#            (self.__pipe_release_label, self.__pipe_release_spin)
-#        )
-#        ic(pipe_adsr_widgets)
-#        for label, widget in pipe_adsr_widgets:
-#            ic(label, widget)
-#            pipe_adsr_form_layout.addRow(label, widget)
-#            ic(f"{label} and {widget} added to {pipe_adsr_form_layout}")
-#        self.__pipe_adsr.setLayout(pipe_adsr_form_layout)
-#        ic(self.__pipe_adsr.layout())
-#        widgets: tuple[QWidget, ...] = (
-#            self.__pipe_adsr_button,
-#            self.__pipe_adsr
-#        )
-#        ic(widgets)
-#        for widget in widgets:
-#            ic(widget)
-#            pipe_adsr_layout.addWidget(widget)
-#            ic(f"{widget} added to {pipe_adsr_layout}")
-#        pipe_adsr_widget.setLayout(pipe_adsr_layout)
-#        ic(pipe_adsr_widget.layout())
-#        ic("Pipe ADSR Layout Complete.")
-#        return pipe_adsr_widget
-#        
-#    #***********************************************************************************************
-#    # Editor Layout
-#    #***********************************************************************************************
-#    def __ui_layout_editor_scroll(self) -> QScrollArea:
-#        ic("Laying Out Editor Scroll...")
-#        editor_scroll: QScrollArea = QScrollArea()
-#        ic(editor_scroll)
-#        editor_scroll.setVerticalScrollBar(QScrollBar())
-#        editor_scroll.setWidgetResizable(True)
-#        editor_scroll.setFixedWidth(310)
-#        editor_layout: QVBoxLayout = QVBoxLayout()
-#        ic(editor_layout)
-#        editor_widgets: tuple[QWidget, ...] = (
-#            self.__stop_settings_group,
-#            self.__rank_settings,
-#            self.__pipe_settings
-#        )
-#        ic(editor_widgets)
-#        for widget in editor_widgets:
-#            ic(widget)
-#            editor_layout.addWidget(widget)
-#            ic(f"{widget} added to {editor_layout}")
-#        self.__editor.setLayout(editor_layout)
-#        ic(self.__editor.layout())
-#        editor_scroll.setWidget(self.__editor)
-#        ic(editor_scroll.widget())
-#        ic("Editor Scroll Layout Complete.")
-#        return editor_scroll
-#
-#    #***********************************************************************************************
-#    # Options
-#    #***********************************************************************************************
-#    def __ui_layout_options(self) -> None:
-#        ic("Laying Out Options...")
-#        options_layout: QVBoxLayout = QVBoxLayout()
-#        ic(options_layout)
-#        options_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-#        ic(options_layout.alignment())
-#        buttons: tuple[QPushButton, ...] = (
-#            self.__load_button,
-#            self.__cancel_button,
-#            self.__save_button
-#        )
-#        ic(buttons)
-#        for button in buttons:
-#            ic(button)
-#            options_layout.addWidget(button)
-#            ic(f"{button} added to {options_layout}")
-#        self.__options.setLayout(options_layout)
-#        ic(self.__options.layout())
-#        ic("Options Layout Complete.")
-#
-#    #***********************************************************************************************
-#    # Main Layout
-#    #***********************************************************************************************
-#    def __ui_layout_main(self) -> None:
-#        ic("Laying Out Main Layout...")
-#        main_layout: QHBoxLayout = QHBoxLayout()
-#        ic(main_layout)
-#        widgets: tuple[QWidget, ...] = (
-#            self.__ui_layout_form(),
-#            self.__options
-#        )
-#        ic(widgets)
-#        for widget in widgets:
-#            ic(widget)
-#            main_layout.addWidget(widget)
-#            ic(f"{widget} added to {main_layout}")
-#        self.setLayout(main_layout)
-#        ic(self.layout())
-#        ic("Main Layout Complete.")
-#
-#    #-----------------------------------------------------------------------------------------------
-#    def __ui_layout_form(self) -> QWidget:
-#        ic("Laying Out Form...")
-#        form_widget: QWidget = QWidget()
-#        ic(form_widget)
-#        form_layout: QVBoxLayout = QVBoxLayout()
-#        ic(form_layout)
-#        form_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-#        ic(form_layout.alignment())
-#        form_widgets: tuple[QWidget, ...] = (
-#            self.__header_widget,
-#            self.__ui_layout_editor_scroll(),
-#        )
-#        ic(form_widgets)
-#        for widget in form_widgets:
-#            ic(widget)
-#            form_layout.addWidget(widget)
-#            ic(f"{widget} added to {form_layout}")
-#        form_widget.setLayout(form_layout)
-#        ic(form_widget.layout())
-#        ic("Form Layout Complete.")
-#        return form_widget
 
     #===============================================================================================
     # Actions
