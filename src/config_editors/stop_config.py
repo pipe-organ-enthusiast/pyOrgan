@@ -13,7 +13,10 @@ class StopConfig:
     #===============================================================================================
     # File Operations
     #===============================================================================================
-    def load_file(self, file: str) -> None:
+    def load_file(
+            self,
+            file: str
+    ) -> None:
         ic("Loading File...")
         ic(file)
         with open(file, "r") as config_file:
@@ -22,7 +25,10 @@ class StopConfig:
         ic("File Loaded.")
 
     #-----------------------------------------------------------------------------------------------
-    def save_file(self, file: str) -> None:
+    def save_file(
+            self,
+            file: str
+    ) -> None:
         ic("Saving File...")
         ic(file)
         with open(file, "w") as config_file:
