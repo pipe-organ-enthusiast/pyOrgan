@@ -1209,7 +1209,7 @@ class StopEditorUI:
         ic()
         self.stop_config.rank_size_set(
             rank_number=self.rank_number_editor,
-            rank_size=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1227,7 +1227,7 @@ class StopEditorUI:
         ic()
         self.stop_config.number_pipes_set(
             rank_number=self.rank_number_editor,
-            number_pipes=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1245,7 +1245,7 @@ class StopEditorUI:
         ic()
         self.stop_config.pipe_type_set(
             rank_number=self.rank_number_editor,
-            pipe_type=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1271,7 +1271,7 @@ class StopEditorUI:
         self.stop_config.starting_note_set(
             rank_number=self.rank_number_editor,
             starting_note=value,
-            notes=revised_notes
+            values=revised_notes
         )
 
     #--------------------------------------------------------------------------
@@ -1289,7 +1289,7 @@ class StopEditorUI:
         ic()
         self.stop_config.frequency_offset_set(
             rank_number=self.rank_number_editor,
-            frequency_offset=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1307,7 +1307,7 @@ class StopEditorUI:
         ic()
         self.stop_config.number_harmonics_set(
             rank_number=self.rank_number_editor,
-            number_harmonics=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1327,7 +1327,7 @@ class StopEditorUI:
         self.stop_config.rank_harmonic_amplitude_set(
             rank_number=self.rank_number_editor,
             harmonic_number=self.harmonic_number_rank_editor,
-            amplitude=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1347,7 +1347,7 @@ class StopEditorUI:
         self.stop_config.rank_harmonic_attack_time_set(
             rank_number=self.rank_number_editor,
             harmonic_number=self.harmonic_number_rank_editor,
-            attack_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1367,7 +1367,7 @@ class StopEditorUI:
         self.stop_config.rank_harmonic_decay_time_set(
             rank_number=self.rank_number_editor,
             harmonic_number=self.harmonic_number_rank_editor,
-            decay_time=value
+             value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1387,7 +1387,7 @@ class StopEditorUI:
         self.stop_config.rank_harmonic_sustain_level_set(
             rank_number=self.rank_number_editor,
             harmonic_number=self.harmonic_number_rank_editor,
-            sustain_level=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1407,7 +1407,7 @@ class StopEditorUI:
         self.stop_config.rank_harmonic_release_time_set(
             rank_number=self.rank_number_editor,
             harmonic_number=self.harmonic_number_rank_editor,
-            release_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1425,7 +1425,7 @@ class StopEditorUI:
         ic()
         self.stop_config.rank_attack_time_set(
             rank_number=self.rank_number_editor,
-            attack_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1443,7 +1443,7 @@ class StopEditorUI:
         ic()
         self.stop_config.rank_decay_time_set(
             rank_number=self.rank_number_editor,
-            decay_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1461,7 +1461,7 @@ class StopEditorUI:
         ic()
         self.stop_config.rank_sustain_level_set(
             rank_number=self.rank_number_editor,
-            sustain_level=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1479,7 +1479,7 @@ class StopEditorUI:
         ic()
         self.stop_config.rank_release_time_set(
             rank_number=self.rank_number_editor,
-            release_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1499,7 +1499,7 @@ class StopEditorUI:
         self.stop_config.note_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            note=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1519,7 +1519,7 @@ class StopEditorUI:
         self.stop_config.relative_note_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            relative_note=value
+            value]=value
         )
 
     #--------------------------------------------------------------------------
@@ -1541,7 +1541,7 @@ class StopEditorUI:
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
             harmonic_number=self.harmonic_number_pipe_editor,
-            amplitude=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1563,7 +1563,7 @@ class StopEditorUI:
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
             harmonic_number=self.harmonic_number_pipe_editor,
-            attack_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1585,7 +1585,7 @@ class StopEditorUI:
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
             harmonic_number=self.harmonic_number_pipe_editor,
-            decay_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1607,7 +1607,7 @@ class StopEditorUI:
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
             harmonic_number=self.harmonic_number_pipe_editor,
-            sustain_level=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1629,7 +1629,7 @@ class StopEditorUI:
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
             harmonic_number=self.harmonic_number_pipe_editor,
-            release_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1649,7 +1649,7 @@ class StopEditorUI:
         self.stop_config.pipe_attack_time_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            attack_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1669,7 +1669,7 @@ class StopEditorUI:
         self.stop_config.pipe_decay_time_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            decay_time=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1689,7 +1689,7 @@ class StopEditorUI:
         self.stop_config.pipe_sustain_level_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            sustain_level=value
+            value=value
         )
 
     #--------------------------------------------------------------------------
@@ -1709,7 +1709,7 @@ class StopEditorUI:
         self.stop_config.pipe_release_time_set(
             rank_number=self.rank_number_editor,
             pipe_number=self.pipe_number_editor,
-            release_time=value
+            value=value
         )
 
 

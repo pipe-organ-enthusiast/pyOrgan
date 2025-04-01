@@ -6,9 +6,10 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import (
     #Qt,
-    QAction
+    QAction,
+    QCloseEvent
 )
-from PySide6 import QtCore
+#from PySide6 import QtCore
 #------------------------------------------------------------------------------
 #from .stopeditor import StopEditor
 
@@ -60,14 +61,14 @@ class MainWindow(QMainWindow):
     #    #self.stopeditor.show()
     #    ...
 
-    def closeEvent(self, event):
+    def closeEvent(self, event: QCloseEvent):
         QApplication.closeAllWindows()
         QApplication.quit()
         QApplication.exit()
 
 def main():
     app = QApplication([])
-    window = MainWindow()
+    MainWindow()
     app.exec()
 
 
