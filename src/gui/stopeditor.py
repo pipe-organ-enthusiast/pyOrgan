@@ -1,4 +1,5 @@
 """Stop Editor"""
+from organ import organlib
 #---------------------------------------------------------------------------------------------------
 from typing import Callable
 #---------------------------------------------------------------------------------------------------
@@ -877,6 +878,9 @@ class StopEditor(QFrame):
     #-----------------------------------------------------------------------------------------------
     def __ui_settings_editor_comboboxes(self) -> None:
         ic("Setting Up Combo Boxes...")
+        #-------------------------------------------------------------------------------------------
+        # General ComboBox Settings
+        #-------------------------------------------------------------------------------------------
         comboboxes: tuple[QComboBox, ...] = (
             self.__stop_name_combo,
             self.__stop_family_combo,
@@ -902,6 +906,15 @@ class StopEditor(QFrame):
             else:
                 edit.setReadOnly(True)
             ic(edit.isReadOnly())
+    
+        #-------------------------------------------------------------------------------------------
+        # Stop Name ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Stop Name ComboBox...")
+        stop_names: tuple[str, ...] = ("",) + organlib.STOP_NAMES
+        ic(stop_names)
+        self.__stop_name_combo.addItems(stop_names)
+
         self.__note_combo.setEnabled(False)
         ic(self.__note_combo.isEnabled())
         ic("Combo Boxes Settings Complete.")
@@ -956,8 +969,8 @@ class StopEditor(QFrame):
         ic(f"{self.__rank_adsr_button} connected to {self.__rank_adsr_checked}")
         self.__pipe_harmonics_button.checkStateChanged.connect(self.__pipe_harmonics_checked)
         ic(f"{self.__pipe_harmonics_button} connected to {self.__pipe_harmonics_checked}")
-        self.__pipe_harmonics_adsr_button.checkStateChanged.connect(self.__pipeharm_adsr_checked)
-        ic(f"{self.__pipe_harmonics_adsr_button} connected to {self.__pipeharm_adsr_checked}")
+        self.__pipe_harmonics_adsr_button.checkStateChanged.connect(self.__pipe_harmonics_adsr_checked)
+        ic(f"{self.__pipe_harmonics_adsr_button} connected to {self.__pipe_harmonics_adsr_checked}")
         self.__pipe_adsr_button.checkStateChanged.connect(self.__pipe_adsr_checked)
         ic(f"{self.__pipe_adsr_button} connected to {self.__pipe_adsr_checked}")
         ic("Check Boxes Settings Complete.")
@@ -978,23 +991,23 @@ class StopEditor(QFrame):
             self.__rank_amplitude_spin,
             self.__rank_harmonics_adsr_button
         )
-        #ic(widgets)
+        ic(widgets)
         rank_harmonics_checked: bool = self.__rank_harmonics_button.isChecked()
-        #ic(rank_harmonics_checked)
+        ic(rank_harmonics_checked)
         match rank_harmonics_checked:
             case True:
                 for widget in widgets:
-                    #ic(widget)
+                    ic(widget)
                     widget.setEnabled(True)
-                    #ic(widget.isEnabled())
+                    ic(widget.isEnabled())
             case False:
                 self.__rank_harmonics_adsr_button.setChecked(False)
-                #ic(self.__rank_harmonics_adsr_button.isChecked())
+                ic(self.__rank_harmonics_adsr_button.isChecked())
                 self.__rank_harmonics_adsr_checked()
                 for widget in widgets:
-                    #ic(widget)
+                    ic(widget)
                     widget.setEnabled(False)
-                    #ic(widget.isEnabled())
+                    ic(widget.isEnabled())
         ic("Rank Harmonics CheckBox Clicked Complete.")
 
     #-----------------------------------------------------------------------------------------------
@@ -1080,7 +1093,7 @@ class StopEditor(QFrame):
             case False:
                 self.__pipe_harmonics_adsr_button.setChecked(False)
                 ic(self.__pipe_harmonics_adsr_button.isChecked())
-                self.__pipeharm_adsr_checked()
+                self.__pipe_harmonics_adsr_checked()
                 for widget in widgets:
                     ic(widget)
                     widget.setEnabled(False)
@@ -1088,7 +1101,7 @@ class StopEditor(QFrame):
         ic("Pipe Harmonics CheckBox Clicked Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def __pipeharm_adsr_checked(self) -> None:
+    def __pipe_harmonics_adsr_checked(self) -> None:
         ic("Initiating Pipe Harmonic ADSR CheckBox Clicked...")
         spins: tuple[QWidget, ...] = (
             self.__pipe_harmonics_adsr_group,
@@ -1150,14 +1163,14 @@ class StopEditor(QFrame):
     #***********************************************************************************************
     # Widget Data
     #***********************************************************************************************
-    def stop_names_populate(self, stop_names: tuple[str, ...]) -> None:
-        ic("Populating Stop Names...")
-        ic(stop_names)
-        self.__stop_name_combo.clear()
-        ic(f"{self.__stop_name_combo} cleared.")
-        self.__stop_name_combo.addItems(stop_names)
-        ic(f"{stop_names} added to {self.__stop_name_combo}")
-        ic("Stop Names Populated.")
+    #def stop_names_populate(self, stop_names: tuple[str, ...]) -> None:
+    #    ic("Populating Stop Names...")
+    #    ic(stop_names)
+    #    self.__stop_name_combo.clear()
+    #    ic(f"{self.__stop_name_combo} cleared.")
+    #    self.__stop_name_combo.addItems(stop_names)
+    #    ic(f"{stop_names} added to {self.__stop_name_combo}")
+    #    ic("Stop Names Populated.")
 
     #-----------------------------------------------------------------------------------------------
     def stop_families_populate(self, stop_families: tuple[str, ...]) -> None:
@@ -1673,7 +1686,7 @@ class StopEditor(QFrame):
     #***********************************************************************************************
     # Data Manipulation
     #***********************************************************************************************
-    def update_stop_header(self) -> None:
+    def __update_stop_header(self) -> None:
         ic("Updating Stop Header...")
         match self.number_ranks:
             case 1:
@@ -1711,6 +1724,7 @@ class StopEditor(QFrame):
         ic("Initiating Stop Name Change...")
         ic(action)
         self.__stop_name_combo.currentTextChanged.connect(action)
+        self.__update_stop_header()
         ic("Stop Name Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
@@ -1741,6 +1755,7 @@ class StopEditor(QFrame):
         ic("Initiating Number of Ranks Change...")
         ic(action)
         self.__number_ranks_spin.valueChanged.connect(action)
+        self.__update_stop_header()
         ic("Number of Ranks Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
@@ -1770,6 +1785,7 @@ class StopEditor(QFrame):
         ic("Initiating Rank Size Change...")
         ic(action)
         self.__rank_size_combo.currentTextChanged.connect(action)
+        self.__update_stop_header()
         ic("Rank Size Change Complete.")
 
     #-----------------------------------------------------------------------------------------------

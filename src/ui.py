@@ -128,9 +128,9 @@ class StopEditorUI:
 
     def __stop_name_config(self) -> None:
         #TODO: Transfer to gui/stop_editor.py
-        ic("Configuring Stop Name...")
-        stop_names: tuple[str, ...] = ("",) + organlib.STOP_NAMES
-        self.stop_editor.stop_names_populate(stop_names)
+        #ic("Configuring Stop Name...")
+        #stop_names: tuple[str, ...] = ("",) + organlib.STOP_NAMES
+        #self.stop_editor.stop_names_populate(stop_names)
         self.stop_editor.stop_name_change(self.__update_stop_name)
         ic("Stop Name Configured.")
 
@@ -418,20 +418,20 @@ class StopEditorUI:
         for method in methods:
             method(number)
 
-    def __update_stop_header(self) -> None:
-        #TODO: Transfer to gui/stop_editor.py
-        ic()
-        condition1: bool = self.stop_name_editor != ""
-        condition2: bool = self.number_ranks_editor > 1
-        condition3: bool = self.rank_size_editor != ""
-        condition4: bool = condition2 or condition3
-        if condition1 and condition4:
-            self.stop_editor.update_stop_header()
+    #def __update_stop_header(self) -> None:
+    #    #TODO: Transfer to gui/stop_editor.py
+    #    ic()
+    #    condition1: bool = self.stop_name_editor != ""
+    #    condition2: bool = self.number_ranks_editor > 1
+    #    condition3: bool = self.rank_size_editor != ""
+    #    condition4: bool = condition2 or condition3
+    #    if condition1 and condition4:
+    #        self.stop_editor.__update_stop_header()
 
     def __update_stop_name(self) -> None:
         ic()
         self.stop_name_config = self.stop_name_editor
-        self.__update_stop_header()
+        #self.stop_editor.update_stop_header()
 
     def __update_stop_family(self) -> None:
         ic()
@@ -452,7 +452,7 @@ class StopEditorUI:
         )
         #-------------------------------------------------------------------------------------------
         self.number_ranks_config = self.number_ranks_editor
-        self.__update_stop_header()
+        #self.__update_stop_header()
 
     def __update_rank_series(self) -> None:
         #TODO: Transfer to gui/stop_editor.py
@@ -502,9 +502,6 @@ class StopEditorUI:
     def __update_rank_size(self) -> None:
         ic()
         self.rank_size_config = self.rank_size_editor
-        #-------------------------------------------------------------------------------------------
-        #TODO: Transfer to gui/stop_editor.py
-        self.__update_stop_header()
 
     def __update_number_pipes(self) -> None:
         #TODO: Transfer to gui/stop_editor.py
