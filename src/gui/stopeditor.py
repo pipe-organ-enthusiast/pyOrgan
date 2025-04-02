@@ -881,6 +881,7 @@ class StopEditor(QFrame):
         #-------------------------------------------------------------------------------------------
         # General ComboBox Settings
         #-------------------------------------------------------------------------------------------
+        ic("Setting Up General ComboBox Settings...")
         comboboxes: tuple[QComboBox, ...] = (
             self.__stop_name_combo,
             self.__stop_family_combo,
@@ -906,7 +907,7 @@ class StopEditor(QFrame):
             else:
                 edit.setReadOnly(True)
             ic(edit.isReadOnly())
-    
+        ic("General ComboBox Settings Complete.")
         #-------------------------------------------------------------------------------------------
         # Stop Name ComboBox
         #-------------------------------------------------------------------------------------------
@@ -914,14 +915,81 @@ class StopEditor(QFrame):
         stop_names: tuple[str, ...] = ("",) + organlib.STOP_NAMES
         ic(stop_names)
         self.__stop_name_combo.addItems(stop_names)
-
+        ic(f"{stop_names} added to {self.__stop_name_combo}")
+        ic("Stop Name ComboBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Stop Family ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Stop Family ComboBox...")
+        stop_families: tuple[str, ...] = ("",) + organlib.STOP_FAMILIES
+        ic(stop_families)
+        self.__stop_family_combo.addItems(stop_families)
+        ic(f"{stop_families} added to {self.__stop_family_combo}")
+        ic("Stop Family ComboBox Set Up Complete.")
         self.__note_combo.setEnabled(False)
         ic(self.__note_combo.isEnabled())
         ic("Combo Boxes Settings Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Organ Division ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Organ Division ComboBox...")
+        organ_divisions: tuple[str, ...] = ("",) + organlib.ORGAN_DIVISIONS
+        ic(organ_divisions)
+        self.__organ_division_combo.addItems(organ_divisions)
+        ic(f"{organ_divisions} added to {self.__organ_division_combo}")
+        ic("Organ Division ComboBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Rank Series ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Rank Series ComboBox...")
+        rank_series: tuple[str, ...] = ("",) + organlib.RANK_SERIES
+        ic(rank_series)
+        self.__rank_series_combo.addItems(rank_series)
+        ic(f"{rank_series} added to {self.__rank_series_combo}")
+        ic("Rank Series ComboBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Rank Size ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Rank Size ComboBox...")
+        rank_sizes: tuple[str, ...] = ("",) + organlib.RANK_SIZES
+        ic(rank_sizes)
+        self.__rank_size_combo.addItems(rank_sizes)
+        ic(f"{rank_sizes} added to {self.__rank_size_combo}")
+        ic("Rank Size ComboBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Pipe Type ComboBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Pipe Type ComboBox...")
+        pipe_types: tuple[str, ...] = ("",) + organlib.PIPE_TYPES
+        ic(pipe_types)
+        self.__pipe_type_combo.addItems(pipe_types)
+        ic(f"{pipe_types} added to {self.__pipe_type_combo}")
+        ic("Pipe Type ComboBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Note ComboBoxes
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Note ComboBoxes...")
+        notes: tuple[str, ...] = ("",) + organlib.NOTES
+        ic(notes)
+        note_combos: tuple[QComboBox, ...] = (
+            self.__starting_note_combo,
+            self.__note_combo,
+            self.__relative_note_combo
+        )
+        ic(note_combos)
+        for widget in note_combos:
+            ic(widget)
+            widget.addItems(notes)
+            ic(f"{notes} added to {widget}")
+        ic("Note ComboBoxes Set Up Complete.")
 
     #-----------------------------------------------------------------------------------------------
     def __ui_settings_editor_spinboxes(self) -> None:
         ic("Setting Up Spin Boxes...")
+        #-------------------------------------------------------------------------------------------
+        # General SpinBox Settings
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up General SpinBox Settings...")
         spin_boxes: tuple[QSpinBox, ...] = (
             self.__number_ranks_spin,
             self.__rank_number_spin,
@@ -956,7 +1024,93 @@ class StopEditor(QFrame):
             ic(spin_box)
             spin_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
             ic(spin_box.alignment())
+        ic("General SpinBox Settings Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Number of Ranks SpinBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Number of Ranks SpinBox...")
+        self.__number_ranks_spin.setRange(1, 10)
+        ic(f"{self.__number_ranks_spin.minimum()} to {self.__number_ranks_spin.maximum()}")
         ic("Spin Boxes Settings Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Rank, Pipe, Harmonic Number SpinBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Rank, Pipe, Harmonic Number SpinBox...")
+        number_spins: tuple[QSpinBox, ...] = (
+            self.__rank_number_spin,
+            self.__pipe_number_spin,
+            self.__rank_harmonic_number_spin,
+            self.__pipe_harmonic_number_spin
+        )
+        ic(number_spins)
+        for spin_box in number_spins:
+            ic(spin_box)
+            spin_box.setMinimum(1)
+            ic(spin_box.minimum())
+        ic("Rank Number SpinBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Number of Pipes SpinBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Number of Pipes SpinBox...")
+        self.__number_pipes_spin.setRange(1, 61)
+        ic(f"{self.__number_pipes_spin.minimum()} to {self.__number_pipes_spin.maximum()}")
+        ic("Number of Pipes SpinBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Frequency Offset SpinBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Frequency Offset SpinBox...")
+        self.__frequency_offset_spin.setRange(-7, 7)
+        ic(f"{self.__frequency_offset_spin.minimum()} to {self.__frequency_offset_spin.maximum()}")
+        ic("Frequency Offset SpinBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Number of Harmonics SpinBox
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Number of Harmonics SpinBox...")
+        self.__number_harmonics_spin.setRange(1, 20)
+        ic(f"{self.__number_harmonics_spin.minimum()} to {self.__number_harmonics_spin.maximum()}")
+        ic("Number of Harmonics SpinBox Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Amplitude and Level SpinBoxes
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Amplitude and Level SpinBoxes...")
+        amplitude_spins: tuple[QSpinBox, ...] = (
+            self.__rank_amplitude_spin,
+            self.__pipe_amplitude_spin,
+            self.__rank_harmonics_sustain_spin,
+            self.__pipe_harmonics_sustain_spin,
+            self.__rank_sustain_spin,
+            self.__pipe_sustain_spin
+        )
+        ic(amplitude_spins)
+        for spin_box in amplitude_spins:
+            ic(spin_box)
+            spin_box.setRange(0, 100)
+            ic(f"{spin_box.minimum()} to {spin_box.maximum()}")
+        ic("Amplitude and Level SpinBoxes Set Up Complete.")
+        #-------------------------------------------------------------------------------------------
+        # Attack, Decay, Release SpinBoxes
+        #-------------------------------------------------------------------------------------------
+        ic("Setting Up Attack, Decay, Release SpinBoxes...")
+        attack_decay_release_spins: tuple[QSpinBox, ...] = (
+            self.__rank_harmonics_attack_spin,
+            self.__rank_harmonics_decay_spin,
+            self.__rank_harmonics_release_spin,
+            self.__rank_attack_spin,
+            self.__rank_decay_spin,
+            self.__rank_release_spin,
+            self.__pipe_harmonics_attack_spin,
+            self.__pipe_harmonics_decay_spin,
+            self.__pipe_harmonics_release_spin,
+            self.__pipe_attack_spin,
+            self.__pipe_decay_spin,
+            self.__pipe_release_spin
+        )
+        ic(attack_decay_release_spins)
+        for spin_box in attack_decay_release_spins:
+            ic(spin_box)
+            spin_box.setRange(0, 2000)
+            ic(f"{spin_box.minimum()} to {spin_box.maximum()}")
+        ic("Attack, Decay, Release SpinBoxes Set Up Complete.")
 
     #-----------------------------------------------------------------------------------------------
     def __ui_settings_editor_checkboxes(self) -> None:
@@ -1686,49 +1840,52 @@ class StopEditor(QFrame):
     #***********************************************************************************************
     # Data Manipulation
     #***********************************************************************************************
-    def __update_stop_header(self) -> None:
+    def update_stop_header(self) -> None:
         ic("Updating Stop Header...")
         match self.number_ranks:
             case 1:
-                stop_name = f"{self.stop_name} {self.rank_size}"
+                if self.rank_size != "":
+                    stop_name: str = f"{self.stop_name} {self.rank_size}"
+                else:
+                    stop_name: str = ""
             case 2:
-                stop_name = f"{self.stop_name} II"
+                stop_name: str = f"{self.stop_name} II"
             case 3:
-                stop_name = f"{self.stop_name} III"
+                stop_name: str = f"{self.stop_name} III"
             case 4:
-                stop_name = f"{self.stop_name} IV"
+                stop_name: str = f"{self.stop_name} IV"
             case 5:
-                stop_name = f"{self.stop_name} V"
+                stop_name: str = f"{self.stop_name} V"
             case 6:
-                stop_name = f"{self.stop_name} VI"
+                stop_name: str = f"{self.stop_name} VI"
             case 7:
-                stop_name = f"{self.stop_name} VII"
+                stop_name: str = f"{self.stop_name} VII"
             case 8:
-                stop_name = f"{self.stop_name} VIII"
+                stop_name: str = f"{self.stop_name} VIII"
             case 9:
-                stop_name = f"{self.stop_name} IX"
+                stop_name: str = f"{self.stop_name} IX"
             case 10:
-                stop_name = f"{self.stop_name} X"
+                stop_name: str = f"{self.stop_name} X"
             case _:
-                stop_name = ""
+                stop_name: str = ""
         ic(stop_name)
         self.__header_edit.setText(stop_name)
         ic(self.__header_edit.text())
         ic("Stop Header Updated.")
 
     #-----------------------------------------------------------------------------------------------
-    def stop_name_change(
-        self,
-        action: Callable[[], None]
+    def stop_name_change_connect(
+            self,
+            action: Callable[[], None]
     ) -> None:
-        ic("Initiating Stop Name Change...")
+        ic("Initiating Stop Name Change Connection...")
         ic(action)
         self.__stop_name_combo.currentTextChanged.connect(action)
-        self.__update_stop_header()
-        ic("Stop Name Change Complete.")
+        ic(f"{self.__stop_name_combo} connected to {action}")
+        ic("Stop Name Change Connection Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def stop_family_change(
+    def stop_family_change_connect(
         self,
         action: Callable[[], None]
     ) -> None:
@@ -1738,7 +1895,7 @@ class StopEditor(QFrame):
         ic("Stop Family Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def organ_division_change(
+    def organ_division_change_connect(
         self,
         action: Callable[[], None]
     ) -> None:
@@ -1748,18 +1905,33 @@ class StopEditor(QFrame):
         ic("Organ Division Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def number_ranks_change(
+    def update_number_ranks(self) -> None:
+        ic("Updating Number of Ranks...")
+        number_ranks: int = self.__number_ranks_spin.value()
+        ic(number_ranks)
+        rank_spins: tuple[QSpinBox, ...] = (
+            self.__rank_number_spin,
+            self.__rank_number_pipe_spin
+        )
+        ic(rank_spins)
+        for spin in rank_spins:
+            ic(spin)
+            spin.setMaximum(number_ranks)
+            ic(spin.maximum())
+        ic(self.__number_ranks_spin.maximum())
+
+    #-----------------------------------------------------------------------------------------------
+    def number_ranks_change_connect(
         self,
         action: Callable[[], None]
     ) -> None:
         ic("Initiating Number of Ranks Change...")
         ic(action)
         self.__number_ranks_spin.valueChanged.connect(action)
-        self.__update_stop_header()
         ic("Number of Ranks Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def rank_series_change(
+    def rank_series_change_connect(
         self,
         action: Callable[[], None]
     ) -> None:
@@ -1768,7 +1940,7 @@ class StopEditor(QFrame):
         ic("Rank Series Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
-    def rank_number_change(
+    def rank_number_change_connect(
         self,
         action: Callable[[], None]
     ) -> None:
@@ -1785,7 +1957,7 @@ class StopEditor(QFrame):
         ic("Initiating Rank Size Change...")
         ic(action)
         self.__rank_size_combo.currentTextChanged.connect(action)
-        self.__update_stop_header()
+        self.update_stop_header()
         ic("Rank Size Change Complete.")
 
     #-----------------------------------------------------------------------------------------------
