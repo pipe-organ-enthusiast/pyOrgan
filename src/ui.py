@@ -18,8 +18,8 @@ class StopEditorUI:
         self.stop_config: StopConfig = StopConfig()
         self.config_file: str = ""
         ic(self.config_file)
-        self.__init_ui()
         self.__default_ui_editor_data()
+        self.__init_ui()
         ic("Stop Editor UI Initialized.")
 
     #===================================================================================================================
