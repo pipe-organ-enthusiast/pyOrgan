@@ -3,7 +3,7 @@
     "editor.fontFamily": "Fira Code Retina",
     "editor.fontSize": 12,
     "editor.fontLigatures": true,
-    "editor.rulers": [100],
+    "editor.rulers": [120],
     "workbench.colorTheme": "Spacegray Python",
     "editor.selectionClipboard": false,
     "separators.classes.borderStyle": "double",

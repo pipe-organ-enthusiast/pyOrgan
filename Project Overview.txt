@@ -1,7 +1,7 @@
 pyOrgan
 Virtual Pipe Organ
 Style Guide:
-    Line Length: 100
+    Line Length: 120
 
     Class Separators: ==============================================================================
     
