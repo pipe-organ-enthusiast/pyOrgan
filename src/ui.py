@@ -1214,7 +1214,8 @@ class StopEditorUI:
     @property
     def rank_size_config(self) -> str:
         ic("Getting Rank Size Config...")
-        rank_size: str = self.stop_config.rank_size_get(self.rank_number_editor)
+        rank_number: int = self.rank_number_editor
+        rank_size: str = self.stop_config.rank_size_get(rank_number)
         ic("Rank Size Config Retrieved.")
         return rank_size
 
@@ -1223,7 +1224,8 @@ class StopEditorUI:
     def rank_size_config(self, value: str):
         ic("Setting Rank Size Config...")
         ic(value)
-        self.stop_config.rank_size_set(self.rank_number_editor, value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.rank_size_set(rank_number, value)
         ic("Rank Size Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1232,7 +1234,8 @@ class StopEditorUI:
     @property
     def number_pipes_config(self) -> int:
         ic("Getting Number of Pipes Config...")
-        number_pipes: int = self.stop_config.number_pipes_get(self.rank_number_editor)
+        rank_number: int = self.rank_number_editor
+        number_pipes: int = self.stop_config.number_pipes_get(rank_number)
         ic("Number of Pipes Config Retrieved.")
         return number_pipes
 
@@ -1241,7 +1244,8 @@ class StopEditorUI:
     def number_pipes_config(self, value: int):
         ic("Setting Number of Pipes Config...")
         ic(value)
-        self.stop_config.number_pipes_set(self.rank_number_editor, value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.number_pipes_set(rank_number, value)
         ic("Number of Pipes Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1267,487 +1271,499 @@ class StopEditorUI:
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def starting_note_config(self) -> str:
-        ic()
-        return self.stop_config.starting_note_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Starting Note Config...")
+        rank_number: int = self.rank_number_editor
+        starting_note: str = self.stop_config.starting_note_get(rank_number)
+        ic("Starting Note Config Retrieved.")
+        return starting_note
 
     #-------------------------------------------------------------------------------------------------------------------
     @starting_note_config.setter
     def starting_note_config(self, value: str):
-        ic()
-        notes: tuple[str, ...] = organlib.NOTES
-        ic(notes)
-        starting_note_index: int = notes.index(value)
-        ic(starting_note_index)
-        revised_notes: tuple[str, ...] = tuple(
-            [note for note in notes[starting_note_index:]]
-        )
-        self.stop_config.starting_note_set(
-            rank_number=self.rank_number_editor,
-            starting_note=value,
-            values=revised_notes
-        )
+        ic("Setting Starting Note Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.starting_note_set(rank_number, value)
+        ic("Starting Note Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Frequency Offset
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def frequency_offset_config(self) -> int:
-        ic()
-        return self.stop_config.frequency_offset_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Frequency Offset Config...")
+        rank_number: int = self.rank_number_editor
+        frequency_offset: int = self.stop_config.frequency_offset_get(rank_number)
+        ic("Frequency Offset Config Retrieved.")
+        return frequency_offset
 
     #-------------------------------------------------------------------------------------------------------------------
     @frequency_offset_config.setter
     def frequency_offset_config(self, value: int):
-        ic()
-        self.stop_config.frequency_offset_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Frequency Offset Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.frequency_offset_set(rank_number, value)
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Number of Harmonics
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def number_harmonics_config(self) -> int:
-        ic()
-        return self.stop_config.number_harmonics_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Number of Harmonics Config...")
+        rank_number: int = self.rank_number_editor
+        number_harmonics: int = self.stop_config.number_harmonics_get(rank_number)
+        ic("Number of Harmonics Config Retrieved.")
+        return number_harmonics
 
     #-------------------------------------------------------------------------------------------------------------------
     @number_harmonics_config.setter
     def number_harmonics_config(self, value: int):
-        ic()
-        self.stop_config.number_harmonics_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Number of Harmonics Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.number_harmonics_set(rank_number, value)
+        ic("Number of Harmonics Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Amplitude - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def amplitude_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_harmonic_amplitude_get(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor
-        )
+        ic("Getting Amplitude Rank Config...")
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        amplitude: int = self.stop_config.rank_harmonic_amplitude_get(rank_number, harmonic_number)
+        ic("Amplitude Rank Config Retrieved.")
+        return amplitude
 
     #-------------------------------------------------------------------------------------------------------------------
     @amplitude_rank_config.setter
     def amplitude_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_harmonic_amplitude_set(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor,
-            value=value
-        )
+        ic("Setting Amplitude Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        self.stop_config.rank_harmonic_amplitude_set(rank_number, harmonic_number, value)
+        ic("Amplitude Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Attack Time - Harmonic - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def attack_harmonic_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_harmonic_attack_time_get(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor
-        )
+        ic("Getting Attack Harmonic Rank Config...")
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        attack_time: int = self.stop_config.rank_harmonic_attack_time_get(rank_number, harmonic_number)
+        ic("Attack Harmonic Rank Config Retrieved.")
+        return attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @attack_harmonic_rank_config.setter
     def attack_harmonic_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_harmonic_attack_time_set(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor,
-            value=value
-        )
+        ic("Setting Attack Harmonic Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        self.stop_config.rank_harmonic_attack_time_set(rank_number, harmonic_number, value)
+        ic("Attack Harmonic Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Decay Time - Harmonic - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def decay_harmonic_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_harmonic_decay_time_get(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor
-        )
+        ic("Getting Decay Harmonic Rank Config...")
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        decay_time: int = self.stop_config.rank_harmonic_decay_time_get(rank_number, harmonic_number)
+        ic("Decay Harmonic Rank Config Retrieved.")
+        return decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @decay_harmonic_rank_config.setter
     def decay_harmonic_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_harmonic_decay_time_set(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor,
-             value=value
-        )
+        ic("Setting Decay Harmonic Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        self.stop_config.rank_harmonic_decay_time_set(rank_number, harmonic_number, value)
+        ic("Decay Harmonic Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Sustain Level - Harmonic - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def sustain_harmonic_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_harmonic_sustain_level_get(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor
-        )
+        ic("Getting Sustain Harmonic Rank Config...")
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        sustain_level: int = self.stop_config.rank_harmonic_sustain_level_get(rank_number, harmonic_number)
+        ic("Sustain Harmonic Rank Config Retrieved.")
+        return sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
     @sustain_harmonic_rank_config.setter
     def sustain_harmonic_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_harmonic_sustain_level_set(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor,
-            value=value
-        )
+        ic("Setting Sustain Harmonic Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        self.stop_config.rank_harmonic_sustain_level_set(rank_number, harmonic_number, value)
+        ic("Sustain Harmonic Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Release Time - Harmonic - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def release_harmonic_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_harmonic_release_time_get(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor
-        )
+        ic("Getting Release Harmonic Rank Config...")
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        release_time: int = self.stop_config.rank_harmonic_release_time_get(rank_number, harmonic_number)
+        ic("Release Harmonic Rank Config Retrieved.")
+        return release_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @release_harmonic_rank_config.setter
     def release_harmonic_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_harmonic_release_time_set(
-            rank_number=self.rank_number_editor,
-            harmonic_number=self.harmonic_number_rank_editor,
-            value=value
-        )
+        ic("Setting Release Harmonic Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        harmonic_number: int = self.harmonic_number_rank_editor
+        self.stop_config.rank_harmonic_release_time_set(rank_number, harmonic_number, value)
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Attack Time - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def attack_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_attack_time_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Attack Rank Config...")
+        rank_number: int = self.rank_number_editor
+        attack_time: int = self.stop_config.rank_attack_time_get(rank_number)
+        ic("Attack Rank Config Retrieved.")
+        return attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @attack_rank_config.setter
     def attack_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_attack_time_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Attack Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.rank_attack_time_set(rank_number, value)
+        ic("Attack Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Decay Time - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def decay_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_decay_time_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Decay Rank Config...")
+        rank_number: int = self.rank_number_editor
+        decay_time: int = self.stop_config.rank_decay_time_get(rank_number)
+        ic("Decay Rank Config Retrieved.")
+        return decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @decay_rank_config.setter
     def decay_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_decay_time_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Decay Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.rank_decay_time_set(rank_number, value)
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Sustain Level - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def sustain_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_sustain_level_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Sustain Rank Config...")
+        rank_number: int = self.rank_number_editor
+        sustain_level: int = self.stop_config.rank_sustain_level_get(rank_number)
+        ic("Sustain Rank Config Retrieved.")
+        return sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
     @sustain_rank_config.setter
     def sustain_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_sustain_level_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Sustain Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.rank_sustain_level_set(rank_number, value)
+        ic("Sustain Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Release Time - Rank
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def release_rank_config(self) -> int:
-        ic()
-        return self.stop_config.rank_release_time_get(
-            rank_number=self.rank_number_editor
-        )
+        ic("Getting Release Rank Config...")
+        rank_number: int = self.rank_number_editor
+        release_time: int = self.stop_config.rank_release_time_get(rank_number)
+        ic("Release Rank Config Retrieved.")
+        return release_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @release_rank_config.setter
     def release_rank_config(self, value: int):
-        ic()
-        self.stop_config.rank_release_time_set(
-            rank_number=self.rank_number_editor,
-            value=value
-        )
+        ic("Setting Release Rank Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        self.stop_config.rank_release_time_set(rank_number, value)
+        ic("Release Rank Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Note
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def note_config(self) -> str:
-        ic()
-        return self.stop_config.note_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Note Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        note: str = self.stop_config.note_get(rank_number, pipe_number)
+        ic("Note Config Retrieved.")
+        return note
 
     #-------------------------------------------------------------------------------------------------------------------
     @note_config.setter
     def note_config(self, value: str):
-        ic()
-        self.stop_config.note_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Note Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.note_set(rank_number, pipe_number, value)
+        ic("Note Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Relative Note
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def relative_note_config(self) -> str:
-        ic()
-        return self.stop_config.relative_note_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Relative Note Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        relative_note: str = self.stop_config.relative_note_get(rank_number, pipe_number)
+        ic("Relative Note Config Retrieved.")
+        return relative_note
 
     #-------------------------------------------------------------------------------------------------------------------
     @relative_note_config.setter
     def relative_note_config(self, value: str):
-        ic()
-        self.stop_config.relative_note_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Relative Note Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.relative_note_set(rank_number, pipe_number, value)
+        ic("Relative Note Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Amplitude - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def amplitude_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_harmonic_amplitude_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor
-        )
+        ic("Getting Amplitude Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        amplitude: int = self.stop_config.pipe_harmonic_amplitude_get(rank_number, pipe_number, harmonic_number)
+        ic("Amplitude Pipe Config Retrieved.")
+        return amplitude
 
     #-------------------------------------------------------------------------------------------------------------------
     @amplitude_pipe_config.setter
     def amplitude_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_harmonic_amplitude_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor,
-            value=value
-        )
+        ic("Setting Amplitude Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        self.stop_config.pipe_harmonic_amplitude_set(rank_number, pipe_number, harmonic_number, value)
+        ic("Amplitude Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Attack Time - Harmonic - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def attack_harmonic_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_harmonic_attack_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor
-        )
+        ic("Getting Attack Harmonic Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        attack_time: int = self.stop_config.pipe_harmonic_attack_time_get(rank_number, pipe_number, harmonic_number)
+        ic("Attack Harmonic Pipe Config Retrieved.")
+        return attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @attack_harmonic_pipe_config.setter
     def attack_harmonic_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_harmonic_attack_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor,
-            value=value
-        )
+        ic("Setting Attack Harmonic Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        self.stop_config.pipe_harmonic_attack_time_set(rank_number, pipe_number, harmonic_number, value)
+        ic("Attack Harmonic Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Decay Time - Harmonic - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def decay_harmonic_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_harmonic_decay_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor
-        )
+        ic("Getting Decay Harmonic Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        decay_time: int = self.stop_config.pipe_harmonic_decay_time_get(rank_number, pipe_number, harmonic_number)
+        ic("Decay Harmonic Pipe Config Retrieved.")
+        return decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @decay_harmonic_pipe_config.setter
     def decay_harmonic_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_harmonic_decay_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor,
-            value=value
-        )
+        ic("Setting Decay Harmonic Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        self.stop_config.pipe_harmonic_decay_time_set(rank_number, pipe_number, harmonic_number, value)
+        ic("Decay Harmonic Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Sustain Level - Harmonic - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def sustain_harmonic_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_harmonic_sustain_level_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor
-        )
+        ic("Getting Sustain Harmonic Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        sustain_level: int = self.stop_config.pipe_harmonic_sustain_level_get(rank_number, pipe_number, harmonic_number)
+        ic("Sustain Harmonic Pipe Config Retrieved.")
+        return sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
     @sustain_harmonic_pipe_config.setter
     def sustain_harmonic_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_harmonic_sustain_level_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor,
-            value=value
-        )
+        ic("Setting Sustain Harmonic Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        self.stop_config.pipe_harmonic_sustain_level_set(rank_number, pipe_number, harmonic_number, value)
+        ic("Sustain Harmonic Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Release Time - Harmonic - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def release_harmonic_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_harmonic_release_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor
-        )
+        ic("Getting Release Harmonic Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        release_time: int = self.stop_config.pipe_harmonic_release_time_get(rank_number, pipe_number, harmonic_number)
+        ic("Release Harmonic Pipe Config Retrieved.")
+        return release_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @release_harmonic_pipe_config.setter
     def release_harmonic_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_harmonic_release_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            harmonic_number=self.harmonic_number_pipe_editor,
-            value=value
-        )
+        ic("Setting Release Harmonic Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        harmonic_number: int = self.harmonic_number_pipe_editor
+        self.stop_config.pipe_harmonic_release_time_set(rank_number, pipe_number, harmonic_number, value)
+        ic("Release Harmonic Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Attack Time - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def attack_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_attack_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Attack Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        attack_time: int = self.stop_config.pipe_attack_time_get(rank_number, pipe_number)
+        ic("Attack Pipe Config Retrieved.")
+        return attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @attack_pipe_config.setter
     def attack_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_attack_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Attack Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.pipe_attack_time_set(rank_number, pipe_number, value)
+        ic("Attack Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Decay Time - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def decay_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_decay_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Decay Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        decay_time: int = self.stop_config.pipe_decay_time_get(rank_number, pipe_number)
+        ic("Decay Pipe Config Retrieved.")
+        return decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @decay_pipe_config.setter
     def decay_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_decay_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Decay Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.pipe_decay_time_set(rank_number, pipe_number, value)
+        ic("Decay Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Sustain Level - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def sustain_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_sustain_level_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Sustain Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        sustain_level: int = self.stop_config.pipe_sustain_level_get(rank_number, pipe_number)
+        ic("Sustain Pipe Config Retrieved.")
+        return sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
     @sustain_pipe_config.setter
     def sustain_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_sustain_level_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Sustain Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.pipe_sustain_level_set(rank_number, pipe_number, value)
+        ic("Sustain Pipe Config Set.")
 
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # Release Time - Pipe
     #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     @property
     def release_pipe_config(self) -> int:
-        ic()
-        return self.stop_config.pipe_release_time_get(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor
-        )
+        ic("Getting Release Pipe Config...")
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        release_time: int = self.stop_config.pipe_release_time_get(rank_number, pipe_number)
+        ic("Release Pipe Config Retrieved.")
+        return release_time
 
     #-------------------------------------------------------------------------------------------------------------------
     @release_pipe_config.setter
     def release_pipe_config(self, value: int):
-        ic()
-        self.stop_config.pipe_release_time_set(
-            rank_number=self.rank_number_editor,
-            pipe_number=self.pipe_number_editor,
-            value=value
-        )
+        ic("Setting Release Pipe Config...")
+        ic(value)
+        rank_number: int = self.rank_number_editor
+        pipe_number: int = self.pipe_number_editor
+        self.stop_config.pipe_release_time_set(rank_number, pipe_number, value)
+        ic("Release Pipe Config Set.")
 
 
 if __name__ == "__main__":
