@@ -305,10 +305,7 @@ class StopConfig:
     #===================================================================================================================
     def clear_config(self) -> None:
         ic("Clearing Config...")
-        for key in self.config.keys():
-            ic(key)
-            del self.config[key]
-        ic(self.config)
+        self.config = {}
         ic("Config Cleared.")
 
     #-------------------------------------------------------------------------------------------------------------------
