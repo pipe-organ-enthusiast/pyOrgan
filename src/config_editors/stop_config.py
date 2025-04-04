@@ -45,6 +45,7 @@ class StopConfig:
         ic("Initializing Default Config...")
         self.clear_config()
         self.init_stop_config()
+        self.update_starting_note(1)
         ic(self.config)
         ic("Default Config Initialized.")
 
@@ -403,6 +404,23 @@ class StopConfig:
     #===================================================================================================================
     # Field Updating
     #===================================================================================================================
+    def update_starting_note(
+            self,
+            rank_number: int
+    ) -> None:
+        ic("Updating Starting Note...")
+        ic(rank_number)
+        note: str = self.starting_note_get(rank_number)
+        ic(note)
+        self.starting_note_set(rank_number, note)
+        i: int = organlib.NOTES.index(note)
+        ic(i)
+        notes: tuple[str, ...] = organlib.NOTES[i:]
+        for pipe in range(len(notes)):
+            ic(pipe)
+            self.note_set(rank_number, pipe+1, notes[pipe])
+            self.relative_note_set(rank_number, pipe+1, notes[pipe])
+
     def update_note(
             self,
             rank_number: int,
@@ -414,6 +432,11 @@ class StopConfig:
         ic(pipe_number)
         ic(note)
         self.note_set(rank_number, pipe_number, note)
+        i: int = organlib.NOTES.index(note)
+        ic(i)
+        notes: tuple[str, ...] = organlib.NOTES[i:]
+        ic(notes)
+        self.update_relative_notes(rank_number, pipe_number, notes)
         ic("Note Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
