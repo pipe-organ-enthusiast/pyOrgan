@@ -67,16 +67,16 @@ class StopEditorUI:
         self.editor.amplitude_rank = self.config.rank_harmonic_amplitude_get(
             rank_number, harmonic_number
         )
-        self.editor.attack_time_harmonic_rank = self.config.rank_harmonic_attack_time_get(
+        self.editor.attack_time_rank_harmonic = self.config.rank_harmonic_attack_time_get(
             rank_number, harmonic_number
         )
-        self.editor.decay_time_harmonic_rank = self.config.rank_harmonic_decay_time_get(
+        self.editor.decay_time_rank_harmonic = self.config.rank_harmonic_decay_time_get(
             rank_number, harmonic_number
         )
-        self.editor.sustain_level_harmonic_rank = self.config.rank_harmonic_sustain_level_get(
+        self.editor.sustain_level_rank_harmonic = self.config.rank_harmonic_sustain_level_get(
             rank_number, harmonic_number
         )
-        self.editor.release_time_harmonic_rank = self.config.rank_harmonic_release_time_get(
+        self.editor.release_time_rank_harmonic = self.config.rank_harmonic_release_time_get(
             rank_number, harmonic_number
         )
         self.editor.attack_time_rank = self.config.rank_attack_time_get(rank_number)
@@ -93,16 +93,16 @@ class StopEditorUI:
         self.editor.amplitude_pipe = self.config.pipe_harmonic_amplitude_get(
             rank_number, pipe_number, harmonic_number
         )
-        self.editor.attack_time_harmonic_pipe = self.config.pipe_harmonic_attack_time_get(
+        self.editor.attack_time_pipe_harmonic = self.config.pipe_harmonic_attack_time_get(
             rank_number, pipe_number, harmonic_number
         )
-        self.editor.decay_time_harmonic_pipe = self.config.pipe_harmonic_decay_time_get(
+        self.editor.decay_time_pipe_harmonic = self.config.pipe_harmonic_decay_time_get(
             rank_number, pipe_number, harmonic_number
         )
-        self.editor.sustain_level_harmonic_pipe = self.config.pipe_harmonic_sustain_level_get(
+        self.editor.sustain_level_pipe_harmonic = self.config.pipe_harmonic_sustain_level_get(
             rank_number, pipe_number, harmonic_number
         )
-        self.editor.release_time_harmonic_pipe = self.config.pipe_harmonic_release_time_get(
+        self.editor.release_time_pipe_harmonic = self.config.pipe_harmonic_release_time_get(
             rank_number, pipe_number, harmonic_number
         )
         self.editor.attack_time_pipe = self.config.pipe_attack_time_get(
@@ -210,18 +210,40 @@ class StopEditorUI:
     def __update_rank_number_general(self) -> None:
         ic("Updating Rank Settings...")
         rank_number: int = self.editor.rank_number
+        self.editor.rank_size_changed_signal_blocking()
         self.editor.rank_size = self.config.rank_size_get(rank_number)
+        self.editor.rank_size_changed_signal_unblocking()
+        self.editor.number_pipes_changed_signal_blocking()
         self.editor.number_pipes = self.config.number_pipes_get(rank_number)
+        self.editor.number_pipes_changed_signal_unblocking()
+        self.editor.pipe_type_changed_signal_blocking()
         self.editor.pipe_type = self.config.pipe_type_get(rank_number)
+        self.editor.pipe_type_changed_signal_unblocking()
+        self.editor.starting_note_changed_signal_blocking()
         self.editor.starting_note = self.config.starting_note_get(rank_number)
+        self.editor.starting_note_changed_signal_unblocking()
+        self.editor.frequency_offset_changed_signal_blocking()
         self.editor.frequency_offset = self.config.frequency_offset_get(rank_number)
+        self.editor.frequency_offset_changed_signal_unblocking()
+        self.editor.number_harmonics_changed_signal_blocking()
         self.editor.number_harmonics = self.config.number_harmonics_get(rank_number)
+        self.editor.number_harmonics_changed_signal_unblocking()
+        self.editor.harmonic_number_rank_changed_signal_blocking()
         self.editor.harmonic_number_rank = 1
+        self.editor.harmonic_number_rank_changed_signal_unblocking()
         self.__update_harmonic_number()
+        self.editor.attack_time_rank_changed_signal_blocking()
         self.editor.attack_time_rank = self.config.rank_attack_time_get(rank_number)
+        self.editor.attack_time_rank_changed_signal_unblocking()
+        self.editor.decay_time_rank_changed_signal_blocking()
         self.editor.decay_time_rank = self.config.rank_decay_time_get(rank_number)
+        self.editor.decay_time_rank_changed_signal_unblocking()
+        self.editor.sustain_level_rank_changed_signal_blocking()
         self.editor.sustain_level_rank = self.config.rank_sustain_level_get(rank_number)
+        self.editor.sustain_level_rank_changed_signal_unblocking()
+        self.editor.release_time_rank_changed_signal_blocking()
         self.editor.release_time_rank = self.config.rank_release_time_get(rank_number)
+        self.editor.release_time_rank_changed_signal_unblocking()
         self.editor.pipe_number = 1
         self.__update_pipe_number()
         ic("Rank Settings Updated.")
@@ -236,7 +258,6 @@ class StopEditorUI:
     #-------------------------------------------------------------------------------------------------------------------
     def __update_rank_size(self) -> None:
         ic("Updating Rank Size...")
-
         self.config.rank_size_set(
             self.editor.rank_number, self.editor.rank_size
         )
@@ -287,43 +308,62 @@ class StopEditorUI:
     #-------------------------------------------------------------------------------------------------------------------
     def __update_harmonic_number(self) -> None:
         ic("Updating Harmonic Settings...")
+        self.editor.amplitude_rank_changed_signal_blocking()
         self.editor.amplitude_rank = self.config.rank_harmonic_amplitude_get(
             self.editor.rank_number, self.editor.harmonic_number_rank
         )
-        self.editor.attack_time_harmonic_rank = self.config.rank_harmonic_attack_time_get(
+        self.editor.amplitude_rank_changed_signal_unblocking()
+        
+        self.editor.attack_time_rank_harmonic_changed_signal_blocking()
+        self.editor.attack_time_rank_harmonic = self.config.rank_harmonic_attack_time_get(
             self.editor.rank_number, self.editor.harmonic_number_rank
         )
-        self.editor.decay_time_harmonic_rank = self.config.rank_harmonic_decay_time_get(
+        self.editor.attack_time_rank_harmonic_changed_signal_unblocking()
+        
+        self.editor.decay_time_rank_harmonic_changed_signal_blocking()
+        self.editor.decay_time_rank_harmonic = self.config.rank_harmonic_decay_time_get(
             self.editor.rank_number, self.editor.harmonic_number_rank
         )
-        self.editor.sustain_level_harmonic_rank = self.config.rank_harmonic_sustain_level_get(
+        self.editor.decay_time_rank_harmonic_changed_signal_unblocking()
+
+
+        self.editor.sustain_level_rank_harmonic = self.config.rank_harmonic_sustain_level_get(
             self.editor.rank_number, self.editor.harmonic_number_rank
         )
-        self.editor.release_time_harmonic_rank = self.config.rank_harmonic_release_time_get(
+
+        self.editor.release_time_rank_harmonic = self.config.rank_harmonic_release_time_get(
             self.editor.rank_number, self.editor.harmonic_number_rank
         )
+
         self.editor.amplitude_pipe = self.config.pipe_harmonic_amplitude_get(
             self.editor.rank_number, self.editor.pipe_number, self.editor.harmonic_number_pipe
         )
-        self.editor.attack_time_harmonic_pipe = self.config.pipe_harmonic_attack_time_get(
+
+        self.editor.attack_time_pipe_harmonic = self.config.pipe_harmonic_attack_time_get(
             self.editor.rank_number, self.editor.pipe_number, self.editor.harmonic_number_pipe
         )
-        self.editor.decay_time_harmonic_pipe = self.config.pipe_harmonic_decay_time_get(
+
+        self.editor.decay_time_pipe_harmonic = self.config.pipe_harmonic_decay_time_get(
             self.editor.rank_number, self.editor.pipe_number, self.editor.harmonic_number_pipe
         )
-        self.editor.sustain_level_harmonic_pipe = self.config.pipe_harmonic_sustain_level_get(
+
+        self.editor.sustain_level_pipe_harmonic = self.config.pipe_harmonic_sustain_level_get(
             self.editor.rank_number, self.editor.pipe_number, self.editor.harmonic_number_pipe
         )
-        self.editor.release_time_harmonic_pipe = self.config.pipe_harmonic_release_time_get(
+
+        self.editor.release_time_pipe_harmonic = self.config.pipe_harmonic_release_time_get(
             self.editor.rank_number, self.editor.pipe_number, self.editor.harmonic_number_pipe
         )
+
         ic("Harmonic Settings Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_harmonic_number_rank(self) -> None:
         ic("Updating Harmonic Number Rank...")
+        self.editor.harmonic_number_rank_changed_signal_blocking()
         self.editor.update_harmonic_number_rank()
         self.__update_harmonic_number()
+        self.editor.harmonic_number_rank_changed_signal_unblocking()
         ic("Harmonic Number Rank Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -338,7 +378,7 @@ class StopEditorUI:
     def __update_rank_harmonic_attack(self) -> None:
         ic("Updating Attack Harmonic Rank...")
         self.config.rank_harmonic_attack_time_set(
-            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.attack_time_harmonic_rank
+            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.attack_time_rank_harmonic
         )
         ic("Attack Harmonic Rank Updated.")
 
@@ -346,7 +386,7 @@ class StopEditorUI:
     def __update_rank_harmonic_decay(self) -> None:
         ic("Updating Decay Harmonic Rank...")
         self.config.rank_harmonic_decay_time_set(
-            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.decay_time_harmonic_rank
+            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.decay_time_rank_harmonic
         )
         ic("Decay Harmonic Rank Updated.")
 
@@ -354,7 +394,7 @@ class StopEditorUI:
     def __update_rank_harmonic_sustain(self) -> None:
         ic("Updating Sustain Harmonic Rank...")
         self.config.rank_harmonic_sustain_level_set(
-            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.sustain_level_harmonic_rank
+            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.sustain_level_rank_harmonic
         )
         ic("Sustain Harmonic Rank Updated.")
 
@@ -362,7 +402,7 @@ class StopEditorUI:
     def __update_rank_harmonic_release(self) -> None:
         ic("Updating Release Harmonic Rank...")
         self.config.rank_harmonic_release_time_set(
-            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.release_time_harmonic_rank
+            self.editor.rank_number, self.editor.harmonic_number_rank, self.editor.release_time_rank_harmonic
         )
         ic("Release Harmonic Rank Updated.")
 
@@ -408,6 +448,8 @@ class StopEditorUI:
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_number(self) -> None:
         ic("Updating Pipe Settings...")
+        self.editor.note_changed_signal_blocking()
+        self.editor.relative_note_changed_signal_blocking()
         self.editor.note = self.config.note_get(self.editor.rank_number, self.editor.pipe_number)
         self.editor.relative_note = self.config.relative_note_get(
             self.editor.rank_number, self.editor.pipe_number
@@ -426,6 +468,8 @@ class StopEditorUI:
         self.editor.release_time_pipe = self.config.pipe_release_time_get(
             self.editor.rank_number, self.editor.pipe_number
         )
+        self.editor.note_changed_signal_unblocking()
+        self.editor.relative_note_changed_signal_unblocking()
         ic("Pipe Settings Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -439,7 +483,7 @@ class StopEditorUI:
     #-------------------------------------------------------------------------------------------------------------------
     def __update_relative_note(self) -> None:
         ic("Updating Relative Note...")
-        note_index = organlib.NOTES.index(self.editor.note)
+        note_index = organlib.NOTES.index(self.editor.relative_note)
         ic(note_index)
         notes: tuple[str, ...] = organlib.NOTES[note_index:]
         ic(notes)
@@ -481,43 +525,82 @@ class StopEditorUI:
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_decay(self) -> None:
         ic("Updating Decay Pipe...")
-        self.decay_pipe_config = self.decay_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        decay_time: float = self.editor.decay_time_pipe
+        self.config.pipe_decay_time_set(
+            rank_number, pipe_number, decay_time
+        )
         ic("Decay Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_sustain(self) -> None:
         ic("Updating Sustain Pipe...")
-        self.sustain_pipe_config = self.sustain_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        sustain_level: float = self.editor.sustain_level_pipe
+        self.config.pipe_sustain_level_set(
+            rank_number, pipe_number, sustain_level
+        )
         ic("Sustain Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_release(self) -> None:
         ic("Updating Release Pipe...")
-        self.release_pipe_config = self.release_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        release_time: float = self.editor.release_time_pipe
+        self.config.pipe_release_time_set(
+            rank_number, pipe_number, release_time
+        )
         ic("Release Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_harmonic_attack(self) -> None:
         ic("Updating Attack Harmonic Pipe...")
-        self.attack_harmonic_pipe_config = self.attack_harmonic_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        harmonic_number: int = self.editor.harmonic_number_pipe
+        attack_time: float = self.editor.attack_time_pipe_harmonic
+        self.config.pipe_harmonic_attack_time_set(
+            rank_number, pipe_number, harmonic_number, attack_time
+        )
         ic("Attack Harmonic Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_harmonic_decay(self) -> None:
         ic("Updating Decay Harmonic Pipe...")
-        self.decay_harmonic_pipe_config = self.decay_harmonic_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        harmonic_number: int = self.editor.harmonic_number_pipe
+        decay_time: float = self.editor.decay_time_pipe_harmonic
+        self.config.pipe_harmonic_decay_time_set(
+            rank_number, pipe_number, harmonic_number, decay_time
+        )
         ic("Decay Harmonic Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_harmonic_sustain(self) -> None:
         ic("Updating Sustain Harmonic Pipe...")
-        self.sustain_harmonic_pipe_config = self.sustain_harmonic_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        harmonic_number: int = self.editor.harmonic_number_pipe
+        sustain_level: float = self.editor.sustain_level_pipe_harmonic
+        self.config.pipe_harmonic_sustain_level_set(
+            rank_number, pipe_number, harmonic_number, sustain_level
+        )
         ic("Sustain Harmonic Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
     def __update_pipe_harmonic_release(self) -> None:
         ic("Updating Release Harmonic Pipe...")
-        self.release_harmonic_pipe_config = self.release_harmonic_pipe_editor
+        rank_number: int = self.editor.rank_number
+        pipe_number: int = self.editor.pipe_number
+        harmonic_number: int = self.editor.harmonic_number_pipe
+        release_time: float = self.editor.release_time_pipe_harmonic
+        self.config.pipe_harmonic_release_time_set(
+            rank_number, pipe_number, harmonic_number, release_time
+        )
         ic("Release Harmonic Pipe Updated.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -567,12 +650,6 @@ class StopEditorUI:
             ic("Stop Header is empty. Cannot save stop.")
         ic("Finished Saving Stop.")
 
-        ic("Setting Release Pipe Config...")
-        ic(value)
-        rank_number: int = self.rank_number_editor
-        pipe_number: int = self.pipe_number_editor
-        self.config.pipe_release_time_set(rank_number, pipe_number, value)
-        ic("Release Pipe Config Set.")
 
 #=======================================================================================================================
 # Executable

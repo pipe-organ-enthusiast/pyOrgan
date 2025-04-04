@@ -385,25 +385,25 @@ class StopEditor(QFrame):
         self.__rank_harmonics_adsr_group: QGroupBox = QGroupBox("Harmonic ADSR Settings - Rank")
         ic(self.__rank_harmonics_adsr_group)
         # Attack
-        self.__rank_harmonics_attack_label: QLabel = QLabel("Attack Time (ms):")
-        ic(self.__rank_harmonics_attack_label)
-        self.__rank_harmonics_attack_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_harmonics_attack_spin)
+        self.__attack_time_rank_harmonics_label: QLabel = QLabel("Attack Time (ms):")
+        ic(self.__attack_time_rank_harmonics_label)
+        self.__attack_time_rank_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__attack_time_rank_harmonics_spin)
         # Decay
-        self.__rank_harmonics_decay_label: QLabel = QLabel("Decay Time (ms):")
-        ic(self.__rank_harmonics_decay_label)
-        self.__rank_harmonics_decay_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_harmonics_decay_spin)
+        self.__decay_time_rank_harmonics_label: QLabel = QLabel("Decay Time (ms):")
+        ic(self.__decay_time_rank_harmonics_label)
+        self.__decay_time_rank_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__decay_time_rank_harmonics_spin)
         # Sustain
-        self.__rank_harmonics_sustain_label: QLabel = QLabel("Sustain Level (%):")
-        ic(self.__rank_harmonics_sustain_label)
-        self.__rank_harmonics_sustain_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_harmonics_sustain_spin)
+        self.__sustain_level_rank_harmonics_label: QLabel = QLabel("Sustain Level (%):")
+        ic(self.__sustain_level_rank_harmonics_label)
+        self.__sustain_level_rank_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__sustain_level_rank_harmonics_spin)
         # Release
-        self.__rank_harmonics_release_label: QLabel = QLabel("Release Time (ms):")
-        ic(self.__rank_harmonics_release_label)
-        self.__rank_harmonics_release_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_harmonics_release_spin)
+        self.release_time_rank_harmonics_label: QLabel = QLabel("Release Time (ms):")
+        ic(self.release_time_rank_harmonics_label)
+        self.__release_time_rank_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__release_time_rank_harmonics_spin)
         ic("Widgets Created.")
         #---------------------------------------------------------------------------------------------------------------
         # Layout
@@ -412,10 +412,10 @@ class StopEditor(QFrame):
         layout: QFormLayout = QFormLayout()
         ic(layout)
         widgets: tuple[tuple[QLabel, QWidget], ...] = (
-            (self.__rank_harmonics_attack_label, self.__rank_harmonics_attack_spin),
-            (self.__rank_harmonics_decay_label, self.__rank_harmonics_decay_spin),
-            (self.__rank_harmonics_sustain_label, self.__rank_harmonics_sustain_spin),
-            (self.__rank_harmonics_release_label, self.__rank_harmonics_release_spin)
+            (self.__attack_time_rank_harmonics_label, self.__attack_time_rank_harmonics_spin),
+            (self.__decay_time_rank_harmonics_label, self.__decay_time_rank_harmonics_spin),
+            (self.__sustain_level_rank_harmonics_label, self.__sustain_level_rank_harmonics_spin),
+            (self.release_time_rank_harmonics_label, self.__release_time_rank_harmonics_spin)
         )
         ic(widgets)
         for label, widget in widgets:
@@ -439,23 +439,23 @@ class StopEditor(QFrame):
         # Attack
         self.__rank_attack_label: QLabel = QLabel("Attack Time (ms):")
         ic(self.__rank_attack_label)
-        self.__rank_attack_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_attack_spin)
+        self.__attack_time_rank_spin: QSpinBox = QSpinBox()
+        ic(self.__attack_time_rank_spin)
         # Decay
         self.__rank_decay_label: QLabel = QLabel("Decay Time (ms):")
         ic(self.__rank_decay_label)
-        self.__rank_decay_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_decay_spin)
+        self.__decay_time_rank_spin: QSpinBox = QSpinBox()
+        ic(self.__decay_time_rank_spin)
         # Sustain
         self.__rank_sustain_label: QLabel = QLabel("Sustain Level (%):")
         ic(self.__rank_sustain_label)
-        self.__rank_sustain_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_sustain_spin)
+        self.__sustain_level_rank_spin: QSpinBox = QSpinBox()
+        ic(self.__sustain_level_rank_spin)
         # Release
         self.__rank_release_label: QLabel = QLabel("Release Time (ms):")
         ic(self.__rank_release_label)
-        self.__rank_release_spin: QSpinBox = QSpinBox()
-        ic(self.__rank_release_spin)
+        self.__release_time_rank_spin: QSpinBox = QSpinBox()
+        ic(self.__release_time_rank_spin)
         ic("Widgets Created.")
         #---------------------------------------------------------------------------------------------------------------
         # Layout
@@ -464,10 +464,10 @@ class StopEditor(QFrame):
         layout: QFormLayout = QFormLayout()
         ic(layout)
         widgets: tuple[tuple[QLabel, QWidget], ...] = (
-            (self.__rank_attack_label, self.__rank_attack_spin),
-            (self.__rank_decay_label, self.__rank_decay_spin),
-            (self.__rank_sustain_label, self.__rank_sustain_spin),
-            (self.__rank_release_label, self.__rank_release_spin)
+            (self.__rank_attack_label, self.__attack_time_rank_spin),
+            (self.__rank_decay_label, self.__decay_time_rank_spin),
+            (self.__rank_sustain_label, self.__sustain_level_rank_spin),
+            (self.__rank_release_label, self.__release_time_rank_spin)
         )
         ic(widgets)
         for label, widget in widgets:
@@ -628,25 +628,25 @@ class StopEditor(QFrame):
         self.__pipe_harmonics_adsr_group: QGroupBox = QGroupBox("Harmonic ADSR Settings - Pipe")
         ic(self.__pipe_harmonics_adsr_group)
         # Attack
-        self.__pipe_harmonics_attack_label: QLabel = QLabel("Attack Time (ms):")
-        ic(self.__pipe_harmonics_attack_label)
-        self.__pipe_harmonics_attack_spin: QSpinBox = QSpinBox()
-        ic(self.__pipe_harmonics_attack_spin)
+        self.__attack_time_pipe_harmonics_label: QLabel = QLabel("Attack Time (ms):")
+        ic(self.__attack_time_pipe_harmonics_label)
+        self.__attack_time_pipe_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__attack_time_pipe_harmonics_spin)
         # Decay
-        self.__pipe_harmonics_decay_label: QLabel = QLabel("Decay Time (ms):")
-        ic(self.__pipe_harmonics_decay_label)
-        self.__pipe_harmonics_decay_spin: QSpinBox = QSpinBox()
-        ic(self.__pipe_harmonics_decay_spin)
+        self.__decay_time_pipe_harmonics_label: QLabel = QLabel("Decay Time (ms):")
+        ic(self.__decay_time_pipe_harmonics_label)
+        self.__decay_time_pipe_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__decay_time_pipe_harmonics_spin)
         # Sustain
-        self.__pipe_harmonics_sustain_label: QLabel = QLabel("Sustain Level (%):")
-        ic(self.__pipe_harmonics_sustain_label)
-        self.__pipe_harmonics_sustain_spin: QSpinBox = QSpinBox()
-        ic(self.__pipe_harmonics_sustain_spin)
+        self.__sustain_level_pipe_harmonics_label: QLabel = QLabel("Sustain Level (%):")
+        ic(self.__sustain_level_pipe_harmonics_label)
+        self.__sustain_level_pipe_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__sustain_level_pipe_harmonics_spin)
         # Release
-        self.__pipe_harmonics_release_label: QLabel = QLabel("Release Time (ms):")
-        ic(self.__pipe_harmonics_release_label)
-        self.__pipe_harmonics_release_spin: QSpinBox = QSpinBox()
-        ic(self.__pipe_harmonics_release_spin)
+        self.__release_time_pipe_harmonics_label: QLabel = QLabel("Release Time (ms):")
+        ic(self.__release_time_pipe_harmonics_label)
+        self.__release_time_pipe_harmonics_spin: QSpinBox = QSpinBox()
+        ic(self.__release_time_pipe_harmonics_spin)
         ic("Widgets Created.")
         #---------------------------------------------------------------------------------------------------------------
         # Layout
@@ -655,10 +655,10 @@ class StopEditor(QFrame):
         layout: QFormLayout = QFormLayout()
         ic(layout)
         widgets: tuple[tuple[QLabel, QWidget], ...] = (
-            (self.__pipe_harmonics_attack_label, self.__pipe_harmonics_attack_spin),
-            (self.__pipe_harmonics_decay_label, self.__pipe_harmonics_decay_spin),
-            (self.__pipe_harmonics_sustain_label, self.__pipe_harmonics_sustain_spin),
-            (self.__pipe_harmonics_release_label, self.__pipe_harmonics_release_spin)
+            (self.__attack_time_pipe_harmonics_label, self.__attack_time_pipe_harmonics_spin),
+            (self.__decay_time_pipe_harmonics_label, self.__decay_time_pipe_harmonics_spin),
+            (self.__sustain_level_pipe_harmonics_label, self.__sustain_level_pipe_harmonics_spin),
+            (self.__release_time_pipe_harmonics_label, self.__release_time_pipe_harmonics_spin)
         )
         ic(widgets)
         for label, widget in widgets:
@@ -845,10 +845,10 @@ class StopEditor(QFrame):
             self.__number_harmonics_label,
             self.__rank_harmonic_number_label,
             self.__rank_amplitude_label,
-            self.__rank_harmonics_attack_label,
-            self.__rank_harmonics_decay_label,
-            self.__rank_harmonics_sustain_label,
-            self.__rank_harmonics_release_label,
+            self.__attack_time_rank_harmonics_label,
+            self.__decay_time_rank_harmonics_label,
+            self.__sustain_level_rank_harmonics_label,
+            self.release_time_rank_harmonics_label,
             self.__rank_attack_label,
             self.__rank_decay_label,
             self.__rank_sustain_label,
@@ -859,10 +859,10 @@ class StopEditor(QFrame):
             self.__relative_note_label,
             self.__pipe_harmonic_number_label,
             self.__pipe_amplitude_label,
-            self.__pipe_harmonics_attack_label,
-            self.__pipe_harmonics_decay_label,
-            self.__pipe_harmonics_sustain_label,
-            self.__pipe_harmonics_release_label,
+            self.__attack_time_pipe_harmonics_label,
+            self.__decay_time_pipe_harmonics_label,
+            self.__sustain_level_pipe_harmonics_label,
+            self.__release_time_pipe_harmonics_label,
             self.__pipe_attack_label,
             self.__pipe_decay_label,
             self.__pipe_sustain_label,
@@ -998,22 +998,22 @@ class StopEditor(QFrame):
             self.__number_harmonics_spin,
             self.__rank_harmonic_number_spin,
             self.__rank_amplitude_spin,
-            self.__rank_harmonics_attack_spin,
-            self.__rank_harmonics_decay_spin,
-            self.__rank_harmonics_sustain_spin,
-            self.__rank_harmonics_release_spin,
-            self.__rank_attack_spin,
-            self.__rank_decay_spin,
-            self.__rank_sustain_spin,
-            self.__rank_release_spin,
+            self.__attack_time_rank_harmonics_spin,
+            self.__decay_time_rank_harmonics_spin,
+            self.__sustain_level_rank_harmonics_spin,
+            self.__release_time_rank_harmonics_spin,
+            self.__attack_time_rank_spin,
+            self.__decay_time_rank_spin,
+            self.__sustain_level_rank_spin,
+            self.__release_time_rank_spin,
             self.__rank_number_pipe_spin,
             self.__pipe_number_spin,
             self.__pipe_harmonic_number_spin,
             self.__pipe_amplitude_spin,
-            self.__pipe_harmonics_attack_spin,
-            self.__pipe_harmonics_decay_spin,
-            self.__pipe_harmonics_sustain_spin,
-            self.__pipe_harmonics_release_spin,
+            self.__attack_time_pipe_harmonics_spin,
+            self.__decay_time_pipe_harmonics_spin,
+            self.__sustain_level_pipe_harmonics_spin,
+            self.__release_time_pipe_harmonics_spin,
             self.__pipe_attack_spin,
             self.__pipe_decay_spin,
             self.__pipe_sustain_spin,
@@ -1076,9 +1076,9 @@ class StopEditor(QFrame):
         amplitude_spins: tuple[QSpinBox, ...] = (
             self.__rank_amplitude_spin,
             self.__pipe_amplitude_spin,
-            self.__rank_harmonics_sustain_spin,
-            self.__pipe_harmonics_sustain_spin,
-            self.__rank_sustain_spin,
+            self.__sustain_level_rank_harmonics_spin,
+            self.__sustain_level_pipe_harmonics_spin,
+            self.__sustain_level_rank_spin,
             self.__pipe_sustain_spin
         )
         ic(amplitude_spins)
@@ -1092,15 +1092,15 @@ class StopEditor(QFrame):
         #---------------------------------------------------------------------------------------------------------------
         ic("Setting Up Attack, Decay, Release SpinBoxes...")
         attack_decay_release_spins: tuple[QSpinBox, ...] = (
-            self.__rank_harmonics_attack_spin,
-            self.__rank_harmonics_decay_spin,
-            self.__rank_harmonics_release_spin,
-            self.__rank_attack_spin,
-            self.__rank_decay_spin,
-            self.__rank_release_spin,
-            self.__pipe_harmonics_attack_spin,
-            self.__pipe_harmonics_decay_spin,
-            self.__pipe_harmonics_release_spin,
+            self.__attack_time_rank_harmonics_spin,
+            self.__decay_time_rank_harmonics_spin,
+            self.__release_time_rank_harmonics_spin,
+            self.__attack_time_rank_spin,
+            self.__decay_time_rank_spin,
+            self.__release_time_rank_spin,
+            self.__attack_time_pipe_harmonics_spin,
+            self.__decay_time_pipe_harmonics_spin,
+            self.__release_time_pipe_harmonics_spin,
             self.__pipe_attack_spin,
             self.__pipe_decay_spin,
             self.__pipe_release_spin
@@ -1169,14 +1169,14 @@ class StopEditor(QFrame):
         ic("Initiating Rank Harmonic ADSR CheckBox Clicked...")
         widgets: tuple[QWidget, ...] = (
             self.__rank_harmonics_adsr_group,
-            self.__rank_harmonics_attack_label,
-            self.__rank_harmonics_attack_spin,
-            self.__rank_harmonics_decay_label,
-            self.__rank_harmonics_decay_spin,
-            self.__rank_harmonics_sustain_label,
-            self.__rank_harmonics_sustain_spin,
-            self.__rank_harmonics_release_label,
-            self.__rank_harmonics_release_spin
+            self.__attack_time_rank_harmonics_label,
+            self.__attack_time_rank_harmonics_spin,
+            self.__decay_time_rank_harmonics_label,
+            self.__decay_time_rank_harmonics_spin,
+            self.__sustain_level_rank_harmonics_label,
+            self.__sustain_level_rank_harmonics_spin,
+            self.release_time_rank_harmonics_label,
+            self.__release_time_rank_harmonics_spin
         )
         ic(widgets)
         rank_harmonics_adsr_checked: bool = self.__rank_harmonics_adsr_button.isChecked()
@@ -1200,13 +1200,13 @@ class StopEditor(QFrame):
         widgets: tuple[QWidget, ...] = (
             self.__rank_adsr_group,
             self.__rank_attack_label,
-            self.__rank_attack_spin,
+            self.__attack_time_rank_spin,
             self.__rank_decay_label,
-            self.__rank_decay_spin,
+            self.__decay_time_rank_spin,
             self.__rank_sustain_label,
-            self.__rank_sustain_spin,
+            self.__sustain_level_rank_spin,
             self.__rank_release_label,
-            self.__rank_release_spin
+            self.__release_time_rank_spin
         )
         ic(widgets)
         rank_adsr_checked: bool = self.__rank_adsr_button.isChecked()
@@ -1259,14 +1259,14 @@ class StopEditor(QFrame):
         ic("Initiating Pipe Harmonic ADSR CheckBox Clicked...")
         spins: tuple[QWidget, ...] = (
             self.__pipe_harmonics_adsr_group,
-            self.__pipe_harmonics_attack_label,
-            self.__pipe_harmonics_attack_spin,
-            self.__pipe_harmonics_decay_label,
-            self.__pipe_harmonics_decay_spin,
-            self.__pipe_harmonics_sustain_label,
-            self.__pipe_harmonics_sustain_spin,
-            self.__pipe_harmonics_release_label,
-            self.__pipe_harmonics_release_spin
+            self.__attack_time_pipe_harmonics_label,
+            self.__attack_time_pipe_harmonics_spin,
+            self.__decay_time_pipe_harmonics_label,
+            self.__decay_time_pipe_harmonics_spin,
+            self.__sustain_level_pipe_harmonics_label,
+            self.__sustain_level_pipe_harmonics_spin,
+            self.__release_time_pipe_harmonics_label,
+            self.__release_time_pipe_harmonics_spin
         )
         ic(spins)
         pipe_harmonics_adsr_checked: bool = self.__pipe_harmonics_adsr_button.isChecked()
@@ -1313,6 +1313,398 @@ class StopEditor(QFrame):
                     spin.setEnabled(False)
                     ic(spin.isEnabled())
         ic("Pipe ADSR CheckBox Clicked Complete.")
+
+    #********************************************************************************************************************
+    # Signal Manipulation
+    #********************************************************************************************************************
+    def stop_name_combo_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__stop_name_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def stop_name_combo_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__stop_name_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def stop_family_combo_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__stop_family_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def stop_family_combo_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__stop_family_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def organ_division_combo_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__organ_division_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def organ_division_combo_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__organ_division_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_ranks_spin_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__number_ranks_spin.blockSignals(True)
+        ic("Signals Blocked.")
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_ranks_spin_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__number_ranks_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_number_spin_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__rank_number_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_number_spin_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__rank_number_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_series_combo_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__rank_series_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_series_combo_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__rank_series_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_size_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__rank_size_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def rank_size_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__rank_size_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_pipes_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__number_pipes_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_pipes_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__number_pipes_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_type_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_type_combo.blockSignals(True)
+        ic("Signals Blocked.")
+    
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_type_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_type_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def starting_note_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__starting_note_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def starting_note_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__starting_note_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def frequency_offset_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__frequency_offset_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def frequency_offset_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__frequency_offset_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_harmonics_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__number_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def number_harmonics_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__number_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def harmonic_number_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__rank_harmonic_number_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def harmonic_number_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__rank_harmonic_number_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def amplitude_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__rank_amplitude_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def amplitude_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__rank_amplitude_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def attack_time_rank_harmonic_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__attack_time_rank_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def attack_time_rank_harmonic_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__attack_time_rank_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def decay_time_rank_harmonic_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__decay_time_rank_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def attack_time_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__attack_time_rank_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def attack_time_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__attack_time_rank_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def decay_time_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__decay_time_rank_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def decay_time_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__decay_time_rank_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def sustain_level_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__sustain_level_rank_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def sustain_level_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__sustain_level_rank_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def release_time_rank_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__release_time_rank_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def release_time_rank_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__release_time_rank_spin.blockSignals(False)
+        ic(self.__release_time_rank_spin.signalsBlocked())
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_number_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_number_spin.blockSignals(True)
+        ic(self.__pipe_number_spin.signalsBlocked())
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_number_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_number_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def note_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__note_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def note_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__note_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def relative_note_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__relative_note_combo.blockSignals(True)
+        ic("Signals Blocked.")
+
+    def relative_note_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__relative_note_combo.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonic_number_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_harmonic_number_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonic_number_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_harmonic_number_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_amplitude_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_amplitude_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_amplitude_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_amplitude_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_attack_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__attack_time_pipe_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_attack_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__attack_time_pipe_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_decay_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__decay_time_pipe_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_decay_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__decay_time_pipe_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_sustain_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__sustain_level_pipe_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_sustain_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__sustain_level_pipe_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_release_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__release_time_pipe_harmonics_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_harmonics_release_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__release_time_pipe_harmonics_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_attack_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_attack_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_attack_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_attack_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_decay_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_decay_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_decay_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_decay_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_sustain_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_sustain_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_sustain_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_sustain_spin.blockSignals(False)
+        ic("Signals Unblocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_release_changed_signal_blocking(self) -> None:
+        ic("Blocking Signals...")
+        self.__pipe_release_spin.blockSignals(True)
+        ic("Signals Blocked.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def pipe_release_changed_signal_unblocking(self) -> None:
+        ic("Unblocking Signals...")
+        self.__pipe_release_spin.blockSignals(False)
+        ic("Signals Unblocked.")
 
     #*******************************************************************************************************************
     # Data Manipulation
@@ -1593,8 +1985,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Harmonic Attack Time Change Connection...")
         ic(action)
-        self.__rank_harmonics_attack_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_harmonics_attack_spin} connected to {action}")
+        self.__attack_time_rank_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__attack_time_rank_harmonics_spin} connected to {action}")
         ic("Rank Harmonic Attack Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1604,8 +1996,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Harmonic Decay Time Change Connection...")
         ic(action)
-        self.__rank_harmonics_decay_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_harmonics_decay_spin} connected to {action}")
+        self.__decay_time_rank_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__decay_time_rank_harmonics_spin} connected to {action}")
         ic("Rank Harmonic Decay Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1615,8 +2007,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Harmonic Sustain Level Change Connection...")
         ic(action)
-        self.__rank_harmonics_sustain_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_harmonics_sustain_spin} connected to {action}")
+        self.__sustain_level_rank_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__sustain_level_rank_harmonics_spin} connected to {action}")
         ic("Rank Harmonic Sustain Level Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1626,8 +2018,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Harmonic Release Time Change Connection...")
         ic(action)
-        self.__rank_harmonics_release_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_harmonics_release_spin} connected to {action}")
+        self.__release_time_rank_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__release_time_rank_harmonics_spin} connected to {action}")
         ic("Rank Harmonic Release Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1637,8 +2029,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Attack Time Change Connection...")
         ic(action)
-        self.__rank_attack_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_attack_spin} connected to {action}")
+        self.__attack_time_rank_spin.valueChanged.connect(action)
+        ic(f"{self.__attack_time_rank_spin} connected to {action}")
         ic("Rank Attack Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1648,8 +2040,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Decay Time Change Connection...")
         ic(action)
-        self.__rank_decay_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_decay_spin} connected to {action}")
+        self.__decay_time_rank_spin.valueChanged.connect(action)
+        ic(f"{self.__decay_time_rank_spin} connected to {action}")
         ic("Rank Decay Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1659,8 +2051,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Sustain Level Change Connection...")
         ic(action)
-        self.__rank_sustain_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_sustain_spin} connected to {action}")
+        self.__sustain_level_rank_spin.valueChanged.connect(action)
+        ic(f"{self.__sustain_level_rank_spin} connected to {action}")
         ic("Rank Sustain Level Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1670,8 +2062,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Rank Release Time Change Connection...")
         ic(action)
-        self.__rank_release_spin.valueChanged.connect(action)
-        ic(f"{self.__rank_release_spin} connected to {action}")
+        self.__release_time_rank_spin.valueChanged.connect(action)
+        ic(f"{self.__release_time_rank_spin} connected to {action}")
         ic("Rank Release Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1765,8 +2157,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Pipe Harmonic Attack Time Change Connection...")
         ic(action)
-        self.__pipe_harmonics_attack_spin.valueChanged.connect(action)
-        ic(f"{self.__pipe_harmonics_attack_spin} connected to {action}")
+        self.__attack_time_pipe_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__attack_time_pipe_harmonics_spin} connected to {action}")
         ic("Pipe Harmonic Attack Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1776,8 +2168,8 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Pipe Harmonic Decay Time Change Connection...")
         ic(action)
-        self.__pipe_harmonics_decay_spin.valueChanged.connect(action)
-        ic(f"{self.__pipe_harmonics_decay_spin} connected to {action}")
+        self.__decay_time_pipe_harmonics_spin.valueChanged.connect(action)
+        ic(f"{self.__decay_time_pipe_harmonics_spin} connected to {action}")
         ic("Pipe Harmonic Decay Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1787,7 +2179,7 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Pipe Harmonic Sustain Level Change Connection...")
         ic(action)
-        self.__pipe_harmonics_sustain_spin.valueChanged.connect(action)
+        self.__sustain_level_pipe_harmonics_spin.valueChanged.connect(action)
         ic("Pipe Harmonic Sustain Level Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -1797,7 +2189,7 @@ class StopEditor(QFrame):
     ) -> None:
         ic("Initiating Pipe Harmonic Release Time Change Connection...")
         ic(action)
-        self.__pipe_harmonics_release_spin.valueChanged.connect(action)
+        self.__release_time_pipe_harmonics_spin.valueChanged.connect(action)
         ic("Pipe Harmonic Release Time Change Connection Complete.")
 
     #-------------------------------------------------------------------------------------------------------------------
@@ -2158,76 +2550,76 @@ class StopEditor(QFrame):
     # Attack Time - Harmonic - Rank
     #*******************************************************************************************************************
     @property
-    def attack_time_harmonic_rank(self) -> int:
+    def attack_time_rank_harmonic(self) -> int:
         ic("Getting Rank Harmonic Attack Time...")
-        value: int = self.__rank_harmonics_attack_spin.value()
+        value: int = self.__attack_time_rank_harmonics_spin.value()
         ic(value)
         ic("Rank Harmonic Attack Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @attack_time_harmonic_rank.setter
-    def attack_time_harmonic_rank(self, value: int) -> None:
+    @attack_time_rank_harmonic.setter
+    def attack_time_rank_harmonic(self, value: int) -> None:
         ic("Setting Rank Harmonic Attack Time...")
         ic(value)
-        self.__rank_harmonics_attack_spin.setValue(value)
+        self.__attack_time_rank_harmonics_spin.setValue(value)
         ic("Rank Harmonic Attack Time Set.")
 
     #*******************************************************************************************************************
     # Decay Time - Harmonic - Rank
     #*******************************************************************************************************************
     @property
-    def decay_time_harmonic_rank(self) -> int:
+    def decay_time_rank_harmonic(self) -> int:
         ic("Getting Rank Harmonic Decay Time...")
-        value: int = self.__rank_harmonics_decay_spin.value()
+        value: int = self.__decay_time_rank_harmonics_spin.value()
         ic(value)
         ic("Rank Harmonic Decay Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @decay_time_harmonic_rank.setter
-    def decay_time_harmonic_rank(self, value: int) -> None:
+    @decay_time_rank_harmonic.setter
+    def decay_time_rank_harmonic(self, value: int) -> None:
         ic("Setting Rank Harmonic Decay Time...")
         ic(value)
-        self.__rank_harmonics_decay_spin.setValue(value)
+        self.__decay_time_rank_harmonics_spin.setValue(value)
         ic("Rank Harmonic Decay Time Set.")
 
     #*******************************************************************************************************************
     # Sustain Level - Harmonic - Rank
     #*******************************************************************************************************************
     @property
-    def sustain_level_harmonic_rank(self) -> int:
+    def sustain_level_rank_harmonic(self) -> int:
         ic("Getting Rank Harmonic Sustain Level...")
-        value: int = self.__rank_harmonics_sustain_spin.value()
+        value: int = self.__sustain_level_rank_harmonics_spin.value()
         ic(value)
         ic("Rank Harmonic Sustain Level Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @sustain_level_harmonic_rank.setter
-    def sustain_level_harmonic_rank(self, value: int) -> None:
+    @sustain_level_rank_harmonic.setter
+    def sustain_level_rank_harmonic(self, value: int) -> None:
         ic("Setting Rank Harmonic Sustain Level...")
         ic(value)
-        self.__rank_harmonics_sustain_spin.setValue(value)
+        self.__sustain_level_rank_harmonics_spin.setValue(value)
         ic("Rank Harmonic Sustain Level Set.")
 
     #*******************************************************************************************************************
     # Release Time - Harmonic - Rank
     #*******************************************************************************************************************
     @property
-    def release_time_harmonic_rank(self) -> int:
+    def release_time_rank_harmonic(self) -> int:
         ic("Getting Rank Harmonic Release Time...")
-        value: int = self.__rank_harmonics_release_spin.value()
+        value: int = self.__release_time_rank_harmonics_spin.value()
         ic(value)
         ic("Rank Harmonic Release Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @release_time_harmonic_rank.setter
-    def release_time_harmonic_rank(self, value: int) -> None:
+    @release_time_rank_harmonic.setter
+    def release_time_rank_harmonic(self, value: int) -> None:
         ic("Setting Rank Harmonic Release Time...")
         ic(value)
-        self.__rank_harmonics_release_spin.setValue(value)
+        self.__release_time_rank_harmonics_spin.setValue(value)
         ic("Rank Harmonic Release Time Set.")
 
     #*******************************************************************************************************************
@@ -2236,7 +2628,7 @@ class StopEditor(QFrame):
     @property
     def attack_time_rank(self) -> int:
         ic("Getting Rank Attack Time...")
-        value: int = int(self.__rank_attack_spin.value())
+        value: int = int(self.__attack_time_rank_spin.value())
         ic(value)
         ic("Rank Attack Time Retrieved.")
         return value
@@ -2246,7 +2638,7 @@ class StopEditor(QFrame):
     def attack_time_rank(self, value: int) -> None:
         ic("Setting Rank Attack Time...")
         ic(value)
-        self.__rank_attack_spin.setValue(value)
+        self.__attack_time_rank_spin.setValue(value)
         ic("Rank Attack Time Set.")
 
     #*******************************************************************************************************************
@@ -2255,7 +2647,7 @@ class StopEditor(QFrame):
     @property
     def decay_time_rank(self) -> int:
         ic("Getting Rank Decay Time...")
-        value: int = self.__rank_decay_spin.value()
+        value: int = self.__decay_time_rank_spin.value()
         ic(value)
         ic("Rank Decay Time Retrieved.")
         return value
@@ -2265,7 +2657,7 @@ class StopEditor(QFrame):
     def decay_time_rank(self, value: int) -> None:
         ic("Setting Rank Decay Time...")
         ic(value)
-        self.__rank_decay_spin.setValue(value)
+        self.__decay_time_rank_spin.setValue(value)
         ic("Rank Decay Time Set.")
 
     #*******************************************************************************************************************
@@ -2274,7 +2666,7 @@ class StopEditor(QFrame):
     @property
     def sustain_level_rank(self) -> int:
         ic("Getting Rank Sustain Level...")
-        value: int = self.__rank_sustain_spin.value()
+        value: int = self.__sustain_level_rank_spin.value()
         ic(value)
         ic("Rank Sustain Level Retrieved.")
         return value
@@ -2284,7 +2676,7 @@ class StopEditor(QFrame):
     def sustain_level_rank(self, value: int) -> None:
         ic("Setting Rank Sustain Level...")
         ic(value)
-        self.__rank_sustain_spin.setValue(value)
+        self.__sustain_level_rank_spin.setValue(value)
         ic("Rank Sustain Level Set.")
 
     #*******************************************************************************************************************
@@ -2293,7 +2685,7 @@ class StopEditor(QFrame):
     @property
     def release_time_rank(self) -> int:
         ic("Getting Rank Release Time...")
-        value: int = self.__rank_release_spin.value()
+        value: int = self.__release_time_rank_spin.value()
         ic(value)
         ic("Rank Release Time Retrieved.")
         return value
@@ -2303,7 +2695,7 @@ class StopEditor(QFrame):
     def release_time_rank(self, value: int) -> None:
         ic("Setting Rank Release Time...")
         ic(value)
-        self.__rank_release_spin.setValue(value)
+        self.__release_time_rank_spin.setValue(value)
         ic("Rank Release Time Set.")
 
     #*******************************************************************************************************************
@@ -2424,76 +2816,76 @@ class StopEditor(QFrame):
     # Attack Time - Harmonic - Pipe
     #*******************************************************************************************************************
     @property
-    def attack_time_harmonic_pipe(self) -> int:
+    def attack_time_pipe_harmonic(self) -> int:
         ic("Getting Pipe Harmonic Attack Time...")
-        value: int = self.__pipe_harmonics_attack_spin.value()
+        value: int = self.__attack_time_pipe_harmonics_spin.value()
         ic(value)
         ic("Pipe Harmonic Attack Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @attack_time_harmonic_pipe.setter
-    def attack_time_harmonic_pipe(self, value: int) -> None:
+    @attack_time_pipe_harmonic.setter
+    def attack_time_pipe_harmonic(self, value: int) -> None:
         ic("Setting Pipe Harmonic Attack Time...")
         ic(value)
-        self.__pipe_harmonics_attack_spin.setValue(value)
+        self.__attack_time_pipe_harmonics_spin.setValue(value)
         ic("Pipe Harmonic Attack Time Set.")
 
     #*******************************************************************************************************************
     # Decay Time - Harmonic - Pipe
     #*******************************************************************************************************************
     @property
-    def decay_time_harmonic_pipe(self) -> int:
+    def decay_time_pipe_harmonic(self) -> int:
         ic("Getting Pipe Harmonic Decay Time...")
-        value: int = self.__pipe_harmonics_decay_spin.value()
+        value: int = self.__decay_time_pipe_harmonics_spin.value()
         ic(value)
         ic("Pipe Harmonic Decay Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @decay_time_harmonic_pipe.setter
-    def decay_time_harmonic_pipe(self, value: int) -> None:
+    @decay_time_pipe_harmonic.setter
+    def decay_time_pipe_harmonic(self, value: int) -> None:
         ic("Setting Pipe Harmonic Decay Time...")
         ic(value)
-        self.__pipe_harmonics_decay_spin.setValue(value)
+        self.__decay_time_pipe_harmonics_spin.setValue(value)
         ic("Pipe Harmonic Decay Time Set.")
 
     #*******************************************************************************************************************
     # Sustain Level - Harmonic - Pipe
     #*******************************************************************************************************************
     @property
-    def sustain_level_harmonic_pipe(self) -> int:
+    def sustain_level_pipe_harmonic(self) -> int:
         ic("Getting Pipe Harmonic Sustain Level...")
-        value: int = self.__pipe_harmonics_sustain_spin.value()
+        value: int = self.__sustain_level_pipe_harmonics_spin.value()
         ic(value)
         ic("Pipe Harmonic Sustain Level Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @sustain_level_harmonic_pipe.setter
-    def sustain_level_harmonic_pipe(self, value: int) -> None:
+    @sustain_level_pipe_harmonic.setter
+    def sustain_level_pipe_harmonic(self, value: int) -> None:
         ic("Setting Pipe Harmonic Sustain Level...")
         ic(value)
-        self.__pipe_harmonics_sustain_spin.setValue(value)
+        self.__sustain_level_pipe_harmonics_spin.setValue(value)
         ic("Pipe Harmonic Sustain Level Set.")
 
     #*******************************************************************************************************************
     # Release Time - Harmonic - Pipe
     #*******************************************************************************************************************
     @property
-    def release_time_harmonic_pipe(self) -> int:
+    def release_time_pipe_harmonic(self) -> int:
         ic("Getting Pipe Harmonic Release Time...")
-        value: int = self.__pipe_harmonics_release_spin.value()
+        value: int = self.__release_time_pipe_harmonics_spin.value()
         ic(value)
         ic("Pipe Harmonic Release Time Retrieved.")
         return value
 
     #-------------------------------------------------------------------------------------------------------------------
-    @release_time_harmonic_pipe.setter
-    def release_time_harmonic_pipe(self, value: int) -> None:
+    @release_time_pipe_harmonic.setter
+    def release_time_pipe_harmonic(self, value: int) -> None:
         ic("Setting Pipe Harmonic Release Time...")
         ic(value)
-        self.__pipe_harmonics_release_spin.setValue(value)
+        self.__release_time_pipe_harmonics_spin.setValue(value)
         ic("Pipe Harmonic Release Time Set.")
 
     #*******************************************************************************************************************
