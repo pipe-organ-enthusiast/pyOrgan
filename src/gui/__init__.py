@@ -1,2 +1,2 @@
-from .mainwindow import MainWindow  # type: ignore
-from .stopeditor import StopEditor  # type: ignore
+from .main_window import MainWindow  # type: ignore
+from .stop_editor import StopEditor  # type: ignore

@@ -385,6 +385,70 @@ class StopConfig:
             self.relative_note_set(rank_number, pipe, note)
         ic("Relative Notes Updated.")
 
+    #-------------------------------------------------------------------------------------------------------------------
+    def update_amplitudes(
+            self,
+            rank_number: int,
+            harmonic_number: int,
+            amplitude: int
+    ) -> None:
+        ic("Updating Amplitudes...")
+        self.rank_harmonic_amplitude_set(rank_number, harmonic_number, amplitude)
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.pipe_harmonic_amplitude_set(rank_number, pipe, harmonic_number, amplitude)
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def update_attack_times(
+            self,
+            rank_number: int,
+            harmonic_number: int,
+            attack_time: int
+    ) -> None:
+        ic("Updating Attack Times...")
+        self.rank_harmonic_attack_time_set(rank_number, harmonic_number, attack_time)
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.pipe_harmonic_attack_time_set(rank_number, pipe, harmonic_number, attack_time)
+        ic("Attack Times Updated.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def update_decay_times(
+            self,
+            rank_number: int,
+            harmonic_number: int,
+            decay_time: int
+    ) -> None:
+        ic("Updating Decay Times...")
+        self.rank_harmonic_decay_time_set(rank_number, harmonic_number, decay_time)
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.pipe_harmonic_decay_time_set(rank_number, pipe, harmonic_number, decay_time)
+        ic("Decay Times Updated.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def update_sustain_levels(
+            self,
+            rank_number: int,
+            harmonic_number: int,
+            sustain_level: int
+    ) -> None:
+        ic("Updating Sustain Levels...")
+        self.rank_harmonic_sustain_level_set(rank_number, harmonic_number, sustain_level)
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.pipe_harmonic_sustain_level_set(rank_number, pipe, harmonic_number, sustain_level)
+        ic("Sustain Levels Updated.")
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def update_release_times(
+            self,
+            rank_number: int,
+            harmonic_number: int,
+            release_time: int
+    ) -> None:
+        ic("Updating Release Times...")
+        self.rank_harmonic_release_time_set(rank_number, harmonic_number, release_time)
+        for pipe in range(1, self.number_pipes_get(rank_number)+1):
+            self.pipe_harmonic_release_time_set(rank_number, pipe, harmonic_number, release_time)
+        ic("Release Times Updated.")
+
     #===================================================================================================================
     # Getter and Setter Methods
     #===================================================================================================================
