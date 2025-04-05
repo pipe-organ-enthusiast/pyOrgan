@@ -17,7 +17,7 @@ class StopEditorUI:
         self.editor: StopEditor = StopEditor()
         self.config: StopConfig = StopConfig()
         self.config_file: str = ""
-        ic(self.config_file)
+        #ic(self.config_file)
         self.__default_ui_editor_data()
         self.__init_ui()
         ic("Stop Editor UI Initialized.")
@@ -718,17 +718,11 @@ class StopEditorUI:
     def __load_stop(self) -> None:
         ic("Loading Stop...")
         file_dialog: QFileDialog = QFileDialog()
-        ic(file_dialog)
         file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
-        ic(file_dialog.fileMode())
         file_dialog.setNameFilter("JSON Files (*.json)")
-        ic(file_dialog.nameFilters)
         file_dialog.setViewMode(QFileDialog.ViewMode.Detail)
-        ic(file_dialog.viewMode())
         file_dialog.setDirectory("src/config/stops")
-        ic(file_dialog.directory())
         self.config_file = file_dialog.getOpenFileName()[0]
-        ic(self.config_file)
         self.__load_config()
         ic("Stop Loaded.")
 
@@ -758,9 +752,8 @@ class StopEditorUI:
 # Executable
 #=======================================================================================================================
 if __name__ == "__main__":
-    log_file.start_logging()
+    log_file.start_logging_to_file()
     app = QApplication([])
-    ic(app)
     stop_editor_ui = StopEditorUI()
     stop_editor_ui.editor.show()
     app.exec()
