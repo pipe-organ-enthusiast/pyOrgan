@@ -13,7 +13,7 @@ class PipeGenerator:
     def __init__(
             self,
             adsr: ADSR,
-            *harmonic: HarmonicGenerator
+            harmonic: list[HarmonicGenerator]
     ) -> None:
         self.__harmonics = harmonic
         self.__adsr: ADSR = adsr
