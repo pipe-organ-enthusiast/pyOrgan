@@ -1,37 +1,22 @@
-"""HarmonicADSR Generator"""
+"""Harmonic Generator"""
 #=======================================================================================================================
 # Dependencies
 #=======================================================================================================================
-from harmonic import Harmonic
-from adsr import ADSR
+from sinewave_generator import SinewaveGenerator
+from adsr_envelope import ADSR
 #-----------------------------------------------------------------------------------------------------------------------
 from typing import Self
 
 
 #=======================================================================================================================
-class HarmonicADSR:
+class HarmonicGenerator:
     def __init__(
             self,
-            frequency: float,
-            amplitude: float,
-            attack_time: float,
-            decay_time: float,
-            sustain_level: float,
-            release_time: float,
-            samplerate: int,
+            sinewave: SinewaveGenerator,
+            adsr: ADSR
     ) -> None:
-        self.__harmonic: Harmonic = Harmonic(
-            frequency=frequency,
-            amplitude=amplitude,
-            samplerate=samplerate,
-        )
-        self.__adsr: ADSR = ADSR(
-            attack_time=attack_time,
-            decay_time=decay_time,
-            sustain_level=sustain_level,
-            release_time=release_time,
-            samplerate=samplerate,
-        )
+        self.__harmonic: SinewaveGenerator = sinewave
+        self.__adsr: ADSR = adsr
 
     #===================================================================================================================
     # Generator Methods
@@ -58,7 +43,10 @@ class HarmonicADSR:
 
     #-------------------------------------------------------------------------------------------------------------------
     @frequency.setter
-    def frequency(self, value: float) -> None:
+    def frequency(
+            self,
+            value: float
+    ) -> None:
         self.__harmonic.frequency = value
 
     #-------------------------------------------------------------------------------------------------------------------

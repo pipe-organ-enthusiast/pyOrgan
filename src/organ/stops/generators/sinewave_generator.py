@@ -1,4 +1,4 @@
-"""Harmonic Generator
+"""Sine Wave Generator
 Harmonic: Sine Wave
 
 Sine Wave Equation:
@@ -13,7 +13,7 @@ from typing import Self
 from icecream import ic  # type: ignore
 
 
-class Harmonic:
+class SinewaveGenerator:
     def __init__(
             self,
             frequency: float,

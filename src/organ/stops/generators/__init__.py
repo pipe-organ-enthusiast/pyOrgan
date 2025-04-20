@@ -1,1 +1,1 @@
-from .pipe import Pipe  # type: ignore
+from .pipe_generator import PipeGenerator  # type: ignore

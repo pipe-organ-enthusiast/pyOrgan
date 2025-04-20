@@ -2,47 +2,21 @@
 #=======================================================================================================================
 # Dependencies
 #=======================================================================================================================
-from harmonic_adsr import HarmonicADSR
-from adsr import ADSR
+from harmonic_generator import HarmonicGenerator
+from adsr_envelope import ADSR
 #-----------------------------------------------------------------------------------------------------------------------
 from typing import Self
 
 
 #=======================================================================================================================
-class Pipe:
+class PipeGenerator:
     def __init__(
             self,
-            frequency: float,
-            amplitudes: list[float],
-            harmonic_attack_times: list[float],
-            harmonic_decay_times: list[float],
-            harmonic_sustain_levels: list[float],
-            harmonic_release_times: list[float],
-            attack_time: float,
-            decay_time: float,
-            sustain_level: float,
-            release_time: float,
-            samplerate: int,
+            adsr: ADSR,
+            *harmonic: HarmonicGenerator
     ) -> None:
-        self.__harmonics = [
-            HarmonicADSR(
-                frequency=frequency * i,
-                amplitude=amplitudes[i],
-                attack_time=harmonic_attack_times[i],
-                decay_time=harmonic_decay_times[i],
-                sustain_level=harmonic_sustain_levels[i],
-                release_time=harmonic_release_times[i],
-                samplerate=samplerate
-            )
-            for i in range(len(amplitudes))
-        ]
-        self.__adsr: ADSR = ADSR(
-            attack_time=attack_time,
-            decay_time=decay_time,
-            sustain_level=sustain_level,
-            release_time=release_time,
-            samplerate=samplerate
-        )
+        self.__harmonics = harmonic
+        self.__adsr: ADSR = adsr
 
     #===================================================================================================================
     # Generator Methods
@@ -58,7 +32,7 @@ class Pipe:
         modifier: float = next(self.__adsr)
         harmonics: float = sum(
             [next(harmonic) for harmonic in self.__harmonics]
-        )
+        ) / len(self.__harmonics)
         sample: float = modifier * harmonics
         return sample
 
@@ -68,168 +42,171 @@ class Pipe:
     #-------------------------------------------------------------------------------------------------------------------
     # Frequency
     #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def frequency(self) -> float:
-        return self.__harmonics[0].frequency
-    
+    def frequency_get(
+            self,
+            harmonic: int
+    ) -> float:
+        return self.__harmonics[harmonic].frequency
+
     #-------------------------------------------------------------------------------------------------------------------
-    @frequency.setter
-    def frequency(self, value: float) -> None:
-        for harmonic in self.__harmonics:
-            harmonic.frequency = value * self.__harmonics.index(harmonic) + 1
+    def frequency_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
+        self.__harmonics[harmonic].frequency = value
 
     #-------------------------------------------------------------------------------------------------------------------
     # Amplitude
     #-------------------------------------------------------------------------------------------------------------------
-    def amplitude_get(self, harmonic: int) -> float:
+    def amplitude_get(
+            self,
+            harmonic: int
+    ) -> float:
         return self.__harmonics[harmonic].amplitude
 
     #-------------------------------------------------------------------------------------------------------------------
-    def amplitude_set(self, harmonic: int, value: float) -> None:
+    def amplitude_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
         self.__harmonics[harmonic].amplitude = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    def amplitude_get_all(self) -> list[float]:
-        return [harmonic.amplitude for harmonic in self.__harmonics]
-
+    # Harmonic ADSR Attack Time
     #-------------------------------------------------------------------------------------------------------------------
-    def amplitude_set_all(self, values: list[float]) -> None:
-        for i in range(len(self.__harmonics)):
-            self.__harmonics[i].amplitude = values[i]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    # Attack Time - Harmonics
-    #-------------------------------------------------------------------------------------------------------------------
-    def attack_time_harmonic_get(self, harmonic: int) -> float:
+    def harmonic_attack_time_get(
+            self,
+            harmonic: int
+    ) -> float:
         return self.__harmonics[harmonic].attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    def attack_time_harmonic_set(self, harmonic: int, value: float) -> None:
+    def harmonic_attack_time_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
         self.__harmonics[harmonic].attack_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    def attack_time_harmonic_get_all(self) -> list[float]:
-        return [harmonic.attack_time for harmonic in self.__harmonics]
-
+    # Harmonic ADSR Decay Time
     #-------------------------------------------------------------------------------------------------------------------
-    def attack_time_harmonic_set_all(self, values: list[float]) -> None:
-        for i in range(len(self.__harmonics)):
-            self.__harmonics[i].attack_time = values[i]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    # Decay Time - Harmonics
-    #-------------------------------------------------------------------------------------------------------------------
-    def decay_time_harmonic_get(self, harmonic: int) -> float:
+    def harmonic_decay_time_get(
+            self,
+            harmonic: int
+    ) -> float:
         return self.__harmonics[harmonic].decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    def decay_time_harmonic_set(self, harmonic: int, value: float) -> None:
+    def harmonic_decay_time_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
         self.__harmonics[harmonic].decay_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    def decay_time_harmonic_get_all(self) -> list[float]:
-        return [harmonic.decay_time for harmonic in self.__harmonics]
-
+    # Harmonic ADSR Sustain Level
     #-------------------------------------------------------------------------------------------------------------------
-    def decay_time_harmonic_set_all(self, values: list[float]) -> None:
-        for i in range(len(self.__harmonics)):
-            self.__harmonics[i].decay_time = values[i]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    # Sustain Level - Harmonics
-    #-------------------------------------------------------------------------------------------------------------------
-    def sustain_level_harmonic_get(self, harmonic: int) -> float:
+    def harmonic_sustain_level_get(
+            self,
+            harmonic: int
+    ) -> float:
         return self.__harmonics[harmonic].sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
-    def sustain_level_harmonic_set(self, harmonic: int, value: float) -> None:
+    def harmonic_sustain_level_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
         self.__harmonics[harmonic].sustain_level = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    def sustain_level_harmonic_get_all(self) -> list[float]:
-        return [harmonic.sustain_level for harmonic in self.__harmonics]
-
+    # Harmonic ADSR Release Time
     #-------------------------------------------------------------------------------------------------------------------
-    def sustain_level_harmonic_set_all(self, values: list[float]) -> None:
-        for i in range(len(self.__harmonics)):
-            self.__harmonics[i].sustain_level = values[i]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    # Release Time - Harmonics
-    #-------------------------------------------------------------------------------------------------------------------
-    def release_time_harmonic_get(self, harmonic: int) -> float:
+    def harmonic_release_time_get(
+            self,
+            harmonic: int
+    ) -> float:
         return self.__harmonics[harmonic].release_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    def release_time_harmonic_set(self, harmonic: int, value: float) -> None:
+    def harmonic_release_time_set(
+            self,
+            harmonic: int,
+            value: float
+    ) -> None:
         self.__harmonics[harmonic].release_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    def release_time_harmonic_get_all(self) -> list[float]:
-        return [harmonic.release_time for harmonic in self.__harmonics]
-
+    # Attack Time
     #-------------------------------------------------------------------------------------------------------------------
-    def release_time_harmonic_set_all(self, values: list[float]) -> None:
-        for i in range(len(self.__harmonics)):
-            self.__harmonics[i].release_time = values[i]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    # Attack Time - ADSR
-    #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def attack_time(self) -> float:
+    def attack_time_get(self) -> float:
         return self.__adsr.attack_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    @attack_time.setter
-    def attack_time(self, value: float) -> None:
+    def attack_time_set(
+            self,
+            value: float
+    ) -> None:
         self.__adsr.attack_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    # Decay Time - ADSR
+    # Decay Time
     #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def decay_time(self) -> float:
+    def decay_time_get(self) -> float:
         return self.__adsr.decay_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    @decay_time.setter
-    def decay_time(self, value: float) -> None:
+    def decay_time_set(
+            self,
+            value: float
+    ) -> None:
         self.__adsr.decay_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    # Sustain Level - ADSR
+    # Sustain Level
     #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def sustain_level(self) -> float:
+    def sustain_level_get(self) -> float:
         return self.__adsr.sustain_level
 
     #-------------------------------------------------------------------------------------------------------------------
-    @sustain_level.setter
-    def sustain_level(self, value: float) -> None:
+    def sustain_level_set(
+            self,
+            value: float
+    ) -> None:
         self.__adsr.sustain_level = value
 
     #-------------------------------------------------------------------------------------------------------------------
-    # Release Time - ADSR
+    # Release Time
     #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def release_time(self) -> float:
+    def release_time_get(self) -> float:
         return self.__adsr.release_time
 
     #-------------------------------------------------------------------------------------------------------------------
-    @release_time.setter
-    def release_time(self, value: float) -> None:
+    def release_time_set(
+            self,
+            value: float
+    ) -> None:
         self.__adsr.release_time = value
 
     #-------------------------------------------------------------------------------------------------------------------
     # Samplerate
     #-------------------------------------------------------------------------------------------------------------------
-    @property
-    def samplerate(self) -> int:
-        return self.__adsr.samplerate
+    def samplerate_get(self) -> int:
+        samplerate = self.__adsr.samplerate
+        for harmonic in self.__harmonics:
+            if harmonic.samplerate != samplerate:
+                harmonic.samplerate = samplerate
+        return samplerate
 
-    @samplerate.setter
-    def samplerate(self, value: int) -> None:
+    def samplerate_set(
+            self,
+            value: int
+    ) -> None:
+        self.__adsr.samplerate = value
         for harmonic in self.__harmonics:
             harmonic.samplerate = value
-        self.__adsr.samplerate = value
