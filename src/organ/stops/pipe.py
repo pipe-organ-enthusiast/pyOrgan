@@ -2,8 +2,8 @@
 #=======================================================================================================================
 # DEPENDENCIES
 #=======================================================================================================================
-from generators import PipeGenerator, HarmonicGenerator, SinewaveGenerator, ADSR  # type: ignore
-from organlib import calc_frequency_equal_temperment, NOTE_TO_MIDI
+from .generators import PipeGenerator, HarmonicGenerator, SinewaveGenerator, ADSR
+from ..organlib import calc_frequency_equal_temperment, NOTE_TO_MIDI
 #-----------------------------------------------------------------------------------------------------------------------
 from typing import Literal
 
@@ -52,6 +52,17 @@ class Pipe:
     #===================================================================================================================
     # PIPE LOGIC
     #===================================================================================================================
+    def start(self) -> None:
+        iter(self.__pipe_generator)
+
+    def play(
+            self,
+            number_samples: int
+    ) -> list[float]:
+        return [next(self.__pipe_generator) for _ in range(number_samples)]
+
+    def stop(self) -> None:
+        self.__pipe_generator.stop()
 
     #===================================================================================================================
     # CREATE GENERATORS
