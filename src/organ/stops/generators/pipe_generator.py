@@ -13,9 +13,9 @@ class PipeGenerator:
     def __init__(
             self,
             adsr: ADSR,
-            harmonic: list[HarmonicGenerator]
+            harmonics: list[HarmonicGenerator]
     ) -> None:
-        self.__harmonics = harmonic
+        self.__harmonics = harmonics
         self.__adsr: ADSR = adsr
 
     #===================================================================================================================
@@ -216,3 +216,10 @@ class PipeGenerator:
         self.__adsr.samplerate = value
         for harmonic in self.__harmonics:
             harmonic.samplerate = value
+
+    #-------------------------------------------------------------------------------------------------------------------
+    # Number of Harmonics
+    #-------------------------------------------------------------------------------------------------------------------
+    @property
+    def number_harmonics(self) -> int:
+        return len(self.__harmonics)

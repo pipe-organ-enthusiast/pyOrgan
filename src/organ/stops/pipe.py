@@ -68,43 +68,19 @@ class Pipe:
     # CREATE GENERATORS
     #===================================================================================================================
     def __init_pipe_generator(self) -> None:
-        adsr = self.__init_adsr()
-        match self.__pipe_type:
-            case "OPEN":
-                harmonic: list[HarmonicGenerator] = self.__init_harmonics_open()
-            case "CLOSED":
-                harmonic: list[HarmonicGenerator] = self.__init_harmonics_closed()
-            case _: harmonic: list[HarmonicGenerator] = self.__init_harmonics_open()
+        adsr: ADSR = self.__init_adsr()
+        harmonics: list[HarmonicGenerator] = self.__init_harmonics()
         self.__pipe_generator: PipeGenerator = PipeGenerator(
             adsr=adsr,
-            harmonic=harmonic
+            harmonics=harmonics
         )
 
     #-------------------------------------------------------------------------------------------------------------------
-    def __init_harmonics_open(self) -> list[HarmonicGenerator]:
+    def __init_harmonics(self) -> list[HarmonicGenerator]:
         return [
             HarmonicGenerator(
                 sinewave=SinewaveGenerator(
-                    frequency=self.frequency * (harmonic + 1),
-                    amplitude=self.__amplitudes[harmonic],
-                    samplerate=self.__samplerate
-                ),
-                adsr=ADSR(
-                    attack_time=self.__attack_times[harmonic],
-                    decay_time=self.__decay_times[harmonic],
-                    sustain_level=self.__sustain_levels[harmonic],
-                    release_time=self.__release_times[harmonic],
-                    samplerate=self.__samplerate
-                )
-            ) for harmonic in range(self.__number_harmonics)
-        ]
-
-    #-------------------------------------------------------------------------------------------------------------------
-    def __init_harmonics_closed(self) -> list[HarmonicGenerator]:
-        return [
-            HarmonicGenerator(
-                sinewave=SinewaveGenerator(
-                    frequency=self.frequency * (2 * harmonic + 1),
+                    frequency=self.__calculate_harmonic_frequency(harmonic),
                     amplitude=self.__amplitudes[harmonic],
                     samplerate=self.__samplerate
                 ),
@@ -133,6 +109,43 @@ class Pipe:
         del self.__pipe_generator
         self.__init_pipe_generator()
 
+
+    #===================================================================================================================
+    # Frequency Calculators
+    #===================================================================================================================
+    def __calculate_frequency_open_pipe(
+            self, 
+            harmonic: int
+    ) -> float:
+        return self.frequency * (harmonic + 1)
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def __calculate_frequency_closed_pipe(
+            self,
+            harmonic: int
+    ) -> float:
+        return self.frequency * (2 * harmonic + 1)
+
+    #-------------------------------------------------------------------------------------------------------------------
+    def __calculate_harmonic_frequency(
+            self,
+            harmonic: int
+    ) -> float:
+        match self.__pipe_type:
+            case "OPEN":
+                return self.__calculate_frequency_open_pipe(harmonic)
+            case "CLOSED":
+                return self.__calculate_frequency_closed_pipe(harmonic)
+            case _:
+                return 0.0
+
+    def __update_harmonic_frequencies(self) -> None:
+        for harmonic in range(self.__pipe_generator.number_harmonics):
+            self.__pipe_generator.frequency_set(
+                harmonic=harmonic, 
+                value=self.__calculate_harmonic_frequency(harmonic)
+            )
+
     #===================================================================================================================
     # UPDATE PARAMETERS
     #===================================================================================================================
@@ -148,7 +161,7 @@ class Pipe:
             note: str
     ) -> None:
         self.__relative_note = note
-        self.__update_pipe_generator()
+        self.__update_harmonic_frequencies()
 
     #-------------------------------------------------------------------------------------------------------------------
     def update_rank_size(
@@ -156,7 +169,7 @@ class Pipe:
             rank_size: str
     ) -> None:
         self.__rank_size = rank_size
-        self.__update_pipe_generator()
+        self.__update_harmonic_frequencies()
 
     #-------------------------------------------------------------------------------------------------------------------
     def update_pipe_type(
@@ -164,7 +177,7 @@ class Pipe:
             pipe_type: str
     ) -> None:
         self.__pipe_type = pipe_type
-        self.__update_pipe_generator()
+        self.__update_harmonic_frequencies()
 
     #-------------------------------------------------------------------------------------------------------------------
     def update_frequency_offset(
@@ -172,7 +185,7 @@ class Pipe:
             frequency: int
     ) -> None:
         self.__frequency_offset = frequency
-        self.__update_pipe_generator()
+        self.__update_harmonic_frequencies()
 
     #-------------------------------------------------------------------------------------------------------------------
     def update_number_harmonics(
