@@ -1,21 +1,49 @@
 from PySide6.QtWidgets import (
         QMainWindow,
         QWidget,
+        QToolBar,
+        #QDockWidget,
         QFrame,
         QGroupBox,
         QLabel,
         QSpinBox,
         QComboBox,
         QCheckBox,
+        #QPushButton,
         QFormLayout,
         QVBoxLayout
 )
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtCore import Qt, QSize
+import os
 
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
+        self.init_ui()
+        self.settings_ui()
+        self.layout_ui()
+
+    def init_ui(self) -> None:
+        self.sidebar: QToolBar = QToolBar()
+
+    def settings_ui(self) -> None:
+        path = os.path.dirname(__file__)
+        os.chdir(path)
+        self.sidebar.setIconSize(QSize(30, 30))
+        self.sidebar.setMovable(False)
+        sidebar_actions: dict[str, QAction] = {
+            "Organ Settings": QAction(QIcon("icons/organ.png"), "", self),
+            "Audio Settings": QAction(QIcon("icons/audio.png"), "", self),
+            "MIDI Settings": QAction(QIcon("icons/midi.png"), "", self)
+        }
+        for action in sidebar_actions.values():
+            self.sidebar.addAction(action)
+            self.sidebar.addSeparator()
+
+    def layout_ui(self) -> None:
+        self.addToolBar(Qt.ToolBarArea.LeftToolBarArea, self.sidebar)
 
 
 class OrganSettings(QFrame):
@@ -33,10 +61,6 @@ class OrganSettings(QFrame):
         self.organ_settings: QGroupBox = QGroupBox("Organ")
         self.num_divisions_label: QLabel = QLabel("Number of Divisions:")
         self.num_divisions_spin: QSpinBox = QSpinBox()
-        #self.num_enclosures_label: QLabel = QLabel("Number of Enclosures:")
-        #self.num_enclosures_spin: QSpinBox = QSpinBox()
-        #self.num_tremulants_label: QLabel = QLabel("Number of Tremulants:")
-        #self.num_tremulants_spin: QSpinBox = QSpinBox()
         self.num_generals_label: QLabel = QLabel("Number of Generals:")
         self.num_generals_spin: QSpinBox = QSpinBox()
         # ---------------------------------------------------------------------
@@ -141,6 +165,6 @@ if __name__ == "__main__":
     from PySide6.QtWidgets import QApplication
 
     app: QApplication = QApplication()
-    win: OrganSettings = OrganSettings()
+    win: QWidget = MainWindow()
     win.show()
     app.exec()
