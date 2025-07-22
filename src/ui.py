@@ -2,7 +2,7 @@ from PySide6.QtWidgets import (
         QMainWindow,
         QWidget,
         QToolBar,
-        #QDockWidget,
+        QDockWidget,
         QFrame,
         QGroupBox,
         QLabel,
@@ -21,29 +21,59 @@ import os
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
+        path = os.path.dirname(__file__)
+        os.chdir(path)
         self.init_ui()
         self.settings_ui()
         self.layout_ui()
 
     def init_ui(self) -> None:
         self.sidebar: QToolBar = QToolBar()
+        self.organ_settings_action: QAction = QAction(QIcon("icons/organ.png"), "")
+        self.audio_settings_action: QAction = QAction(QIcon("icons/audio.png"), "")
+        self.midi_settings_action: QAction = QAction(QIcon("icons/midi.png"), "")
+        
+        self.settings_dock = QDockWidget()
 
     def settings_ui(self) -> None:
-        path = os.path.dirname(__file__)
-        os.chdir(path)
+        self.settings_ui_sidebar()
+
+    def settings_ui_sidebar(self) -> None:
         self.sidebar.setIconSize(QSize(30, 30))
         self.sidebar.setMovable(False)
-        sidebar_actions: dict[str, QAction] = {
-            "Organ Settings": QAction(QIcon("icons/organ.png"), "", self),
-            "Audio Settings": QAction(QIcon("icons/audio.png"), "", self),
-            "MIDI Settings": QAction(QIcon("icons/midi.png"), "", self)
-        }
-        for action in sidebar_actions.values():
+        self.organ_settings_action.triggered.connect(self.organ_settings_selected)
+        self.audio_settings_action.triggered.connect(self.audio_settings_selected)
+        self.midi_settings_action.triggered.connect(self.midi_settings_selected)
+        sidebar_actions: tuple[QAction, ...] = (
+            self.organ_settings_action,
+            self.audio_settings_action,
+            self.midi_settings_action
+        )
+        for action in sidebar_actions:
             self.sidebar.addAction(action)
             self.sidebar.addSeparator()
+            action.setCheckable(True)
 
     def layout_ui(self) -> None:
         self.addToolBar(Qt.ToolBarArea.LeftToolBarArea, self.sidebar)
+
+    def organ_settings_selected(self) -> None:
+        if not self.organ_settings_action.isChecked():
+            self.organ_settings_action.setChecked(False)
+        self.audio_settings_action.setChecked(False)
+        self.midi_settings_action.setChecked(False)
+
+    def audio_settings_selected(self) -> None:
+        if not self.audio_settings_action.isChecked():
+            self.audio_settings_action.setChecked(False)
+        self.organ_settings_action.setChecked(False)
+        self.midi_settings_action.setChecked(False)
+
+    def midi_settings_selected(self) -> None:
+        if not self.midi_settings_action.isChecked():
+            self.midi_settings_action.setChecked(False)
+        self.organ_settings_action.setChecked(False)
+        self.audio_settings_action.setChecked(False)
 
 
 class OrganSettings(QFrame):
