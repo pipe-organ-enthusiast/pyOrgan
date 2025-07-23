@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (
         QComboBox,
         QCheckBox,
         #QPushButton,
+        #QSizePolicy,
         QFormLayout,
         QVBoxLayout
 )
@@ -34,9 +35,13 @@ class MainWindow(QMainWindow):
         self.midi_settings_action: QAction = QAction(QIcon("icons/midi.png"), "")
         
         self.settings_dock = QDockWidget()
+        self.organ_settings: OrganSettings = OrganSettings()
+        self.audio_settings: AudioSettings = AudioSettings()
+        self.midi_settings: MIDISettings = MIDISettings()
 
     def settings_ui(self) -> None:
         self.settings_ui_sidebar()
+        self.settings_ui_settings_dock()
 
     def settings_ui_sidebar(self) -> None:
         self.sidebar.setIconSize(QSize(30, 30))
@@ -54,26 +59,38 @@ class MainWindow(QMainWindow):
             self.sidebar.addSeparator()
             action.setCheckable(True)
 
+    def settings_ui_settings_dock(self) -> None:
+        self.settings_dock.setMaximumWidth(410)
+        self.settings_dock.setFeatures(QDockWidget.DockWidgetFeature.NoDockWidgetFeatures)
+
     def layout_ui(self) -> None:
         self.addToolBar(Qt.ToolBarArea.LeftToolBarArea, self.sidebar)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.settings_dock)
 
     def organ_settings_selected(self) -> None:
         if not self.organ_settings_action.isChecked():
             self.organ_settings_action.setChecked(False)
+            self.settings_dock.hide()
+        else:
+            if self.settings_dock.isHidden():
+                self.settings_dock.show()
         self.audio_settings_action.setChecked(False)
         self.midi_settings_action.setChecked(False)
+        self.settings_dock.setWidget(self.organ_settings)
 
     def audio_settings_selected(self) -> None:
         if not self.audio_settings_action.isChecked():
             self.audio_settings_action.setChecked(False)
         self.organ_settings_action.setChecked(False)
         self.midi_settings_action.setChecked(False)
+        self.settings_dock.setWidget(self.audio_settings)
 
     def midi_settings_selected(self) -> None:
         if not self.midi_settings_action.isChecked():
             self.midi_settings_action.setChecked(False)
         self.organ_settings_action.setChecked(False)
         self.audio_settings_action.setChecked(False)
+        self.settings_dock.setWidget(self.midi_settings)
 
 
 class OrganSettings(QFrame):
@@ -189,6 +206,16 @@ class OrganSettings(QFrame):
         for widget in widgets:
             layout.addRow(widget[0], widget[1])
         form.setLayout(layout)
+
+
+class AudioSettings(QFrame):
+    def __init__(self) -> None:
+        super().__init__()
+
+
+class MIDISettings(QFrame):
+    def __init__(self) -> None:
+        super().__init__()
 
 
 if __name__ == "__main__":
