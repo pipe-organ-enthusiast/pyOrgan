@@ -9,14 +9,14 @@ from PySide6.QtWidgets import (
         QSpinBox,
         QComboBox,
         QCheckBox,
-        #QPushButton,
-        #QSizePolicy,
         QFormLayout,
-        QVBoxLayout
+        QVBoxLayout,
+        QHBoxLayout,
 )
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtCore import Qt, QSize
 import os
+from functools import partial
 
 
 class MainWindow(QMainWindow):
@@ -30,14 +30,12 @@ class MainWindow(QMainWindow):
 
     def init_ui(self) -> None:
         self.sidebar: QToolBar = QToolBar()
-        self.organ_settings_action: QAction = QAction(QIcon("icons/organ.png"), "")
-        self.audio_settings_action: QAction = QAction(QIcon("icons/audio.png"), "")
-        self.midi_settings_action: QAction = QAction(QIcon("icons/midi.png"), "")
-        
+        self.sidebar_items: tuple[tuple[QAction, QWidget], ...] = (
+            (QAction(QIcon("icons/organ.png"), ""), OrganSettings()),
+            (QAction(QIcon("icons/audio.png"), ""), AudioSettings()),
+            (QAction(QIcon("icons/midi.png"), ""), MIDISettings())
+        )
         self.settings_dock = QDockWidget()
-        self.organ_settings: OrganSettings = OrganSettings()
-        self.audio_settings: AudioSettings = AudioSettings()
-        self.midi_settings: MIDISettings = MIDISettings()
 
     def settings_ui(self) -> None:
         self.settings_ui_sidebar()
@@ -46,18 +44,12 @@ class MainWindow(QMainWindow):
     def settings_ui_sidebar(self) -> None:
         self.sidebar.setIconSize(QSize(30, 30))
         self.sidebar.setMovable(False)
-        self.organ_settings_action.triggered.connect(self.organ_settings_selected)
-        self.audio_settings_action.triggered.connect(self.audio_settings_selected)
-        self.midi_settings_action.triggered.connect(self.midi_settings_selected)
-        sidebar_actions: tuple[QAction, ...] = (
-            self.organ_settings_action,
-            self.audio_settings_action,
-            self.midi_settings_action
-        )
-        for action in sidebar_actions:
-            self.sidebar.addAction(action)
+        for item in self.sidebar_items:
+            item[0].triggered.connect(partial(self.action_selected, item[0], item[1]))
+
+            item[0].setCheckable(True)
+            self.sidebar.addAction(item[0])
             self.sidebar.addSeparator()
-            action.setCheckable(True)
 
     def settings_ui_settings_dock(self) -> None:
         self.settings_dock.setMaximumWidth(410)
@@ -67,30 +59,20 @@ class MainWindow(QMainWindow):
         self.addToolBar(Qt.ToolBarArea.LeftToolBarArea, self.sidebar)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.settings_dock)
 
-    def organ_settings_selected(self) -> None:
-        if not self.organ_settings_action.isChecked():
-            self.organ_settings_action.setChecked(False)
+    def action_selected(
+        self,
+        selected_action: QAction,
+        form: QWidget
+    ) -> None:
+        if not selected_action.isChecked():
+            selected_action.setChecked(False)
             self.settings_dock.hide()
         else:
-            if self.settings_dock.isHidden():
-                self.settings_dock.show()
-        self.audio_settings_action.setChecked(False)
-        self.midi_settings_action.setChecked(False)
-        self.settings_dock.setWidget(self.organ_settings)
-
-    def audio_settings_selected(self) -> None:
-        if not self.audio_settings_action.isChecked():
-            self.audio_settings_action.setChecked(False)
-        self.organ_settings_action.setChecked(False)
-        self.midi_settings_action.setChecked(False)
-        self.settings_dock.setWidget(self.audio_settings)
-
-    def midi_settings_selected(self) -> None:
-        if not self.midi_settings_action.isChecked():
-            self.midi_settings_action.setChecked(False)
-        self.organ_settings_action.setChecked(False)
-        self.audio_settings_action.setChecked(False)
-        self.settings_dock.setWidget(self.midi_settings)
+            self.settings_dock.show()
+        for action in self.sidebar_items:
+            if not action[0] == selected_action:
+                action[0].setChecked(False)
+        self.settings_dock.setWidget(form)
 
 
 class OrganSettings(QFrame):
@@ -211,11 +193,93 @@ class OrganSettings(QFrame):
 class AudioSettings(QFrame):
     def __init__(self) -> None:
         super().__init__()
+        self.init_ui()
+        self.settings_ui()
+        self.layout_ui()
+
+    def init_ui(self) -> None:
+        self.header_label: QLabel = QLabel("Audio Device Settings")
+        self.device_label: QLabel = QLabel("Audio Device:")
+        self.device_combo: QComboBox = QComboBox()
+        self.samplerate_label: QLabel = QLabel("Samplerate (Hz):")
+        self.samplerate_combo: QComboBox = QComboBox()
+        self.blocksize_label: QLabel = QLabel("Block Size:")
+        self.blocksize_combo: QComboBox = QComboBox()
+        self.bitrate_label: QLabel = QLabel("Bitrate:")
+        self.bitrate_combo: QComboBox = QComboBox()
+
+    def settings_ui(self) -> None:
+        self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    def layout_ui(self) -> None:
+        form_widgets: tuple[tuple[QLabel, QComboBox], ...] = (
+            (self.device_label, self.device_combo),
+            (self.samplerate_label, self.samplerate_combo),
+            (self.blocksize_label, self.blocksize_combo),
+            (self.bitrate_label, self.bitrate_combo)
+        )
+        form_layout: QFormLayout = QFormLayout()
+        for widget in form_widgets:
+            form_layout.addRow(widget[0], widget[1])
+        main_layout: QVBoxLayout = QVBoxLayout()
+        main_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        main_layout.setSpacing(10)
+        main_layout.addWidget(self.header_label)
+        main_layout.addSpacing(10)
+        main_layout.addLayout(form_layout)
+        self.setLayout(main_layout)
 
 
 class MIDISettings(QFrame):
     def __init__(self) -> None:
         super().__init__()
+        self.init_ui()
+        self.settings_ui()
+        self.layout_ui()
+
+    def init_ui(self) -> None:
+        self.header_label: QLabel = QLabel("General MIDI Settings")
+        self.num_midi_Slots_label: QLabel = QLabel("Number of MIDI Slots:")
+        self.num_midi_Slots_spin: QSpinBox = QSpinBox()
+        self.midi_slots: QGroupBox = QGroupBox("MIDI Slots")
+        self.slot_num_label: QLabel = QLabel("MIDI Slot #:")
+        self.slot_num_spin: QSpinBox = QSpinBox()
+        self.midi_in_label: QLabel = QLabel("MIDI In Device:")
+        self.midi_in_combo: QComboBox = QComboBox()
+        self.midi_out_label: QLabel = QLabel("MIDI Out Device:")
+        self.midi_out_combo: QComboBox = QComboBox()
+
+    def settings_ui(self) -> None:
+        self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    def layout_ui(self) -> None:
+        num_midi_layout: QHBoxLayout = QHBoxLayout()
+        num_midi_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        num_midi_widgets: tuple[QLabel, QSpinBox] = (
+            self.num_midi_Slots_label, self.num_midi_Slots_spin
+        )
+        for widget in num_midi_widgets:
+            num_midi_layout.addWidget(widget)
+        slot_layout: QFormLayout = QFormLayout()
+        slot_widgets: tuple[tuple[QLabel, QWidget], ...] = (
+            (self.slot_num_label, self.slot_num_spin),
+            (self.midi_in_label, self.midi_in_combo),
+            (self.midi_out_label, self.midi_out_combo)
+        )
+        for widget in slot_widgets:
+            slot_layout.addRow(widget[0], widget[1])
+        self.midi_slots.setLayout(slot_layout)
+        main_layout: QVBoxLayout = QVBoxLayout()
+        main_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        main_layout.setSpacing(10)
+        main_layout.addWidget(self.header_label)
+        main_layout.addSpacing(10)
+        main_layout.addLayout(num_midi_layout)
+        main_layout.addSpacing(10)
+        main_layout.addWidget(self.midi_slots)
+        self.setLayout(main_layout)
+
+
 
 
 if __name__ == "__main__":
