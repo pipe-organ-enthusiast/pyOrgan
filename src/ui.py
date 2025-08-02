@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
         QSpinBox,
         QComboBox,
         QCheckBox,
+        QPushButton,
         QFormLayout,
         QVBoxLayout,
         QHBoxLayout,
@@ -108,8 +109,16 @@ class OrganSettings(QFrame):
         self.tremulant_check: QCheckBox = QCheckBox()
         self.enclosed_label: QLabel = QLabel("Enclosed:")
         self.enclosed_check: QCheckBox = QCheckBox()
+        # ---------------------------------------------------------------------
+        # Commands
+        # ---------------------------------------------------------------------
+        self.config_commands: ConfigFormCommands = ConfigFormCommands()
 
     def settings_ui(self) -> None:
+        self.settings_ui_appearance()
+        self.settings_ui_commands()
+
+    def settings_ui_appearance(self) -> None:
         self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.organ_settings.setFixedSize(400, 100)
         self.division_settings.setFixedSize(400, 210)
@@ -121,7 +130,6 @@ class OrganSettings(QFrame):
             groupbox.setAlignment(
                 Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
             )
-
         spinboxes: list[QSpinBox] = [
             self.num_divisions_spin,
             self.num_generals_spin,
@@ -132,6 +140,18 @@ class OrganSettings(QFrame):
         for spinbox in spinboxes:
             spinbox.setFixedWidth(50)
             spinbox.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    def settings_ui_commands(self) -> None:
+        self.num_divisions_spin.valueChanged.connect(self.num_divisions_changed)
+        self.num_generals_spin.valueChanged.connect(self.num_generals_changed)
+        self.division_num_spin.valueChanged.connect(self.division_num_changed)
+        self.division_name_combo.currentTextChanged.connect(self.division_name_changed)
+        self.num_stops_spin.valueChanged.connect(self.num_stops_changed)
+        self.num_divisionals_spin.valueChanged.connect(self.num_divisionals_changed)
+        self.tremulant_check.checkStateChanged.connect(self.tremulant_changed)
+        self.enclosed_check.checkStateChanged.connect(self.enclosed_changed)
+        self.config_commands.apply_button.clicked.connect(self.apply_changes)
+        self.config_commands.reset_button.clicked.connect(self.reset_form)
 
     def layout_ui(self) -> None:
         # ---------------------------------------------------------------------
@@ -173,6 +193,7 @@ class OrganSettings(QFrame):
             self.header_label,
             self.organ_settings,
             self.division_settings,
+            self.config_commands
         ]
         for widget in widgets:
             layout.addWidget(widget)
@@ -188,6 +209,36 @@ class OrganSettings(QFrame):
         for widget in widgets:
             layout.addRow(widget[0], widget[1])
         form.setLayout(layout)
+
+    def num_divisions_changed(self) -> None:
+        ...
+
+    def num_generals_changed(self) -> None:
+        ...
+
+    def division_num_changed(self) -> None:
+        ...
+
+    def division_name_changed(self) -> None:
+        ...
+
+    def num_stops_changed(self) -> None:
+        ...
+
+    def num_divisionals_changed(self) -> None:
+        ...
+
+    def tremulant_changed(self) -> None:
+        ...
+
+    def enclosed_changed(self) -> None:
+        ...
+
+    def apply_changes(self) -> None:
+        ...
+
+    def reset_form(self) -> None:
+        ...
 
 
 class AudioSettings(QFrame):
@@ -207,6 +258,7 @@ class AudioSettings(QFrame):
         self.blocksize_combo: QComboBox = QComboBox()
         self.bitrate_label: QLabel = QLabel("Bitrate:")
         self.bitrate_combo: QComboBox = QComboBox()
+        self.commands: ConfigFormCommands = ConfigFormCommands()
 
     def settings_ui(self) -> None:
         self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -227,6 +279,7 @@ class AudioSettings(QFrame):
         main_layout.addWidget(self.header_label)
         main_layout.addSpacing(10)
         main_layout.addLayout(form_layout)
+        main_layout.addWidget(self.commands)
         self.setLayout(main_layout)
 
 
@@ -248,6 +301,7 @@ class MIDISettings(QFrame):
         self.midi_in_combo: QComboBox = QComboBox()
         self.midi_out_label: QLabel = QLabel("MIDI Out Device:")
         self.midi_out_combo: QComboBox = QComboBox()
+        self.commands: ConfigFormCommands = ConfigFormCommands()
 
     def settings_ui(self) -> None:
         self.header_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -277,9 +331,30 @@ class MIDISettings(QFrame):
         main_layout.addLayout(num_midi_layout)
         main_layout.addSpacing(10)
         main_layout.addWidget(self.midi_slots)
+        main_layout.addWidget(self.commands)
         self.setLayout(main_layout)
 
 
+class ConfigFormCommands(QFrame):
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
+        self.layout_ui()
+
+    def init_ui(self) -> None:
+        self.reset_button: QPushButton = QPushButton("Reset")
+        self.apply_button: QPushButton = QPushButton("Apply")
+
+    def layout_ui(self) -> None:
+        layout: QHBoxLayout = QHBoxLayout()
+        layout.setAlignment(Qt.AlignmentFlag.AlignRight)
+        widgets: tuple[QPushButton, ...] = (
+            self.reset_button, 
+            self.apply_button
+        )
+        for widget in widgets:
+            layout.addWidget(widget)
+        self.setLayout(layout)
 
 
 if __name__ == "__main__":
